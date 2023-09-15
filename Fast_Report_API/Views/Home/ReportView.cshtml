@@ -1,0 +1,14 @@
+﻿@model Fast_Report_API.Models.ReportModel;
+@{
+    ViewData["Title"] = "Report View";
+}
+
+<div>
+    <a href="~/Home/saveFile" target="_blank">Download</a>
+</div>
+
+<div class="text-center">
+    @await ViewBag.WebReport.Render();
+</div>
+
+
