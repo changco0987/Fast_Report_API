@@ -18,6 +18,7 @@ namespace Fast_Report_API.Controllers
         private readonly ILogger<HomeController> _logger;
         private  IWebHostEnvironment _env;
         private List<Noa> noa_list;
+        private List<LeaveAppPrint> leave_list;
         private List<Noa_details> noa_detail_list;
 
         private string fileName;
@@ -42,7 +43,7 @@ namespace Fast_Report_API.Controllers
 
 
         [HttpGet("[action]")]
-        public async Task<IActionResult> Generate(string response) 
+        public async Task<IActionResult> Generate(string title,string response) 
         {
 
             FastReport.Utils.Config.WebMode = true;
@@ -59,12 +60,14 @@ namespace Fast_Report_API.Controllers
 
 
             noa_list = new List<Noa>();
+            leave_list = new List<LeaveAppPrint>();
             string decode = Base64Decode(response);//base64 to string
-            var noa_data = System.Text.Json.JsonSerializer.Deserialize<Noa>(decode);
 
             //Add another condition statement if there's new file/report to print
-            if (noa_data.title.ToLower().Equals("noa")) 
+            if (title.ToLower().Equals("noa")) 
             {
+
+                var noa_data = System.Text.Json.JsonSerializer.Deserialize<Noa>(decode);
                 fileName = "/" + noa_data.title + "_report.frx";
                 string path = Path.Combine(_env.WebRootPath + fileName);
                 //string path = mapPath.MapVirtualPathToPhysical("~/noa_report.frx");
@@ -96,8 +99,40 @@ namespace Fast_Report_API.Controllers
                 rep.Report.RegisterData(noa_list, "NoaRef");//pass the data to fast report
                 rep.Report.RegisterData(noa_detail_list, "NoaDetailsRef");//pass the data to fast report
             }
+            else if (title.ToLower().Equals("leaveapplication")){
 
-           
+                var leave = System.Text.Json.JsonSerializer.Deserialize<LeaveAppPrint>(decode);
+                fileName = "/" + title + "_report.frx";
+                string path = Path.Combine(_env.WebRootPath + fileName);
+                //string path = mapPath.MapVirtualPathToPhysical("~/noa_report.frx");
+                rep.Report.Load(path);
+
+                leave_list.Add(new LeaveAppPrint()
+                {
+                   first_name = leave.first_name,
+                   middle_name = leave.middle_name,
+                   last_name = leave.last_name,
+                    department_name = leave.department_name,
+                    date_of_filing = leave.date_of_filing,
+                    position_name = leave.position_name,
+                    leave_type_name = leave.leave_type_name,
+                    other_remarks = leave.other_remarks,
+                    imageUrl = leave.imageUrl,
+                    imageUrlDept = leave.imageUrlDept,
+
+                });
+              
+                //This will assign list of noa_details separately
+                noa_detail_list = new List<Noa_details>();
+
+                //foreach (var data in leave.noa_details)
+                //{
+                //    noa_detail_list.Add(data);
+                //}
+                rep.Report.RegisterData(leave_list, "leaveRequest");
+            }
+
+
             ViewBag.WebReport = rep;
             //ViewBag.Message = decode;
             //ViewBag.base64 = Base64Decode("aGVsbG8=");

@@ -30,10 +30,9 @@ namespace Fast_Report_API.Models
 
         public List<Noa_details>? noa_details { get; set; }
 
-
-
-
     }
+
+ 
 
     public class ReportModel
     {
