@@ -50,8 +50,6 @@ namespace Fast_Report_API.Controllers
             WebReport rep = new WebReport();
             //MapPath mapPath = new MapPath(_env);
 
-            
-
             //rep.Report.SetParameterValue("param1", noa_list[0].noa_title);
             //rep.Report.SetParameterValue("param2","2nd parameter");
             //rep.Report.SetParameterValue("param3","3rd parameter");
