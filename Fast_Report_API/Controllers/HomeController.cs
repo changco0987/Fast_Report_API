@@ -75,14 +75,9 @@ namespace Fast_Report_API.Controllers
             
             //rep.Toolba
 
-<<<<<<< HEAD
-            noa_list = new List<Noa>();
-=======
-
 
 
                 noa_list = new List<Noa>();
->>>>>>> b3f179ab6a3c8d15c9e444978ea15ed1f69be0c8
             leave_list = new List<LeaveAppPrint>();
             string decode = Base64Decode(response);//base64 to string
             //string decode = "";
