@@ -1,10 +1,14 @@
 ﻿@model Fast_Report_API.Models.ReportModel;
 @{
     ViewData["Title"] = "Report View";
+    var resp1 = ViewBag.Resp;
+    var resp2 = ViewBag.Resp2;
+    var resp3 = ViewBag.Resp3;
 }
 
 <div>
-    <a href="~/Home/saveFile" target="_blank">Download</a>
+    @*<a href="~/Home/saveFile" target="_blank">Download</a>*@
+    <button type="button" id="dlBtn">Download PDF </button>
 </div>
 
 <div class="text-center">
@@ -12,3 +16,21 @@
 </div>
 
 
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $(document).ready(function() {
+   
+        var title = "@ViewBag.ReportName";
+      
+        var resp1 = "@resp1";
+        var resp2 = "@resp2";
+        var resp3 = "@resp3";
+        $('#dlBtn').click(function() {
+            console.log("@resp1");
+            window.location.href = '@Url.Action("saveFile", "Home")?title='+title +'&response=' + resp1 +'&response2=' + resp2 +'&response3=' + resp3;
+        });
+
+
+    });
+</script>
