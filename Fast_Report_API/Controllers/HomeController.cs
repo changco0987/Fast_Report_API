@@ -55,8 +55,6 @@ namespace Fast_Report_API.Controllers
             //rep.Report.SetParameterValue("param3","3rd parameter");
             rep.Toolbar.Show = false;
 
-
-
             noa_list = new List<Noa>();
             leave_list = new List<LeaveAppPrint>();
             string decode = Base64Decode(response);//base64 to string
