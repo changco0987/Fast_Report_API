@@ -1,11 +1,46 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="11/09/2023 10:20:01" ReportInfo.Modified="11/10/2023 09:24:01" ReportInfo.CreatorVersion="2023.2.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/09/2023 10:20:01" ReportInfo.Modified="11/10/2023 11:09:31" ReportInfo.CreatorVersion="2023.2.0.0">
   <Dictionary>
     <BusinessObjectDataSource Name="appForm" ReferenceName="appForm_ref" DataType="System.Int32" Enabled="true">
-      <Column Name="first_name" DataType="System.String"/>
-      <Column Name="middle_name" DataType="System.String"/>
-      <Column Name="imageUrl" DataType="System.String"/>
-      <Column Name="imageUrlDept" DataType="System.String"/>
+      <Column Name="name" DataType="System.String"/>
+      <Column Name="age" DataType="System.String"/>
+      <Column Name="sex" DataType="System.String"/>
+      <Column Name="civil_status" DataType="System.String"/>
+      <Column Name="maiden_name" DataType="System.String"/>
+      <Column Name="spouse_name" DataType="System.String"/>
+      <Column Name="birth_date" DataType="System.String"/>
+      <Column Name="birth_place" DataType="System.String"/>
+      <Column Name="citizenship" DataType="System.String"/>
+      <Column Name="country_if_not_filipino" DataType="System.String"/>
+      <Column Name="address_city" DataType="System.String"/>
+      <Column Name="address_province" DataType="System.String"/>
+      <Column Name="telephone_no" DataType="System.String"/>
+      <Column Name="cellphone_no" DataType="System.String"/>
+      <Column Name="father_name" DataType="System.String"/>
+      <Column Name="mother_name" DataType="System.String"/>
+      <Column Name="position_applied" DataType="System.String"/>
+      <Column Name="specialty" DataType="System.String"/>
+      <Column Name="sub_specialty" DataType="System.String"/>
+      <Column Name="specialty_name" DataType="System.String"/>
+    </BusinessObjectDataSource>
+    <BusinessObjectDataSource Name="education" ReferenceName="education_ref" DataType="System.Int32" Enabled="true">
+      <Column Name="level" DataType="System.String"/>
+      <Column Name="degree" DataType="System.String"/>
+      <Column Name="school_name" DataType="System.String"/>
+      <Column Name="year_graduated" DataType="System.String"/>
+    </BusinessObjectDataSource>
+    <BusinessObjectDataSource Name="work_exp" ReferenceName="work_exp_ref" DataType="System.Int32" Enabled="true">
+      <Column Name="type" DataType="System.String"/>
+      <Column Name="organization" DataType="System.String"/>
+      <Column Name="year_completed" DataType="System.String"/>
+    </BusinessObjectDataSource>
+    <BusinessObjectDataSource Name="recognitions" ReferenceName="recognitions_ref" DataType="System.Int32" Enabled="true">
+      <Column Name="recognition_details" DataType="System.String"/>
+    </BusinessObjectDataSource>
+    <BusinessObjectDataSource Name="references" ReferenceName="references_ref" DataType="System.Int32" Enabled="true">
+      <Column Name="name" DataType="System.String"/>
+      <Column Name="address" DataType="System.String"/>
+      <Column Name="contact_no" DataType="System.String"/>
     </BusinessObjectDataSource>
   </Dictionary>
   <ReportPage Name="Page1" PaperWidth="215.9" PaperHeight="355.6" RawPaperSize="5" Watermark.Font="Arial, 60pt">
@@ -17,7 +52,7 @@
       <TextObject Name="Text3" Left="236.25" Top="103.95" Width="302.4" Height="37.8" Text="PHIC-Accredited Health Care Provider &#13;&#10;ISO 900:2008 Certified" HorzAlign="Center" Font="Arial, 11.25pt"/>
       <TextObject Name="Text4" Left="47.25" Top="179.55" Width="633.15" Height="28.35" Text="APPLICATION FORM FOR RESIDENCY/POST-RESIDENCY FELLOWSHIP" HorzAlign="Center" Font="Arial, 12pt, style=Bold"/>
     </PageHeaderBand>
-    <DataBand Name="Data1" Top="244.25" Width="740.5" Height="916.65">
+    <DataBand Name="Data1" Top="244.25" Width="740.5" Height="661.5">
       <TextObject Name="Text5" Left="37.8" Top="18.9" Width="56.7" Height="18.9" Text="NAME" Font="Arial, 9.75pt"/>
       <TextObject Name="Text6" Left="359.1" Top="18.9" Width="47.25" Height="18.9" Text="AGE" Font="Arial, 9.75pt"/>
       <TextObject Name="Text7" Left="444.15" Top="18.9" Width="47.25" Height="18.9" Text="SEX" Font="Arial, 9.75pt"/>
@@ -95,6 +130,7 @@
       <LineObject Name="Line3" Left="189" Top="595.35" Width="264.6"/>
       <TextObject Name="Text52" Left="37.8" Top="623.7" Width="207.9" Height="18.9" Text="EDUCATIONAL BACKGROUND" Font="Arial, 9.75pt, style=Bold"/>
     </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="1164.9" Width="740.5" Height="245.7"/>
+    <DataBand Name="Data2" Top="909.75" Width="740.5" Height="37.8" DataSource="education"/>
+    <PageFooterBand Name="PageFooter1" Top="951.55" Width="740.5" Height="245.7"/>
   </ReportPage>
 </Report>

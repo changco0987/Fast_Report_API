@@ -25,6 +25,7 @@ namespace Fast_Report_API.Controllers
         private List<Noa_terms> noa_terms_list;
         private List<LeaveAppPrint> leave_list;
         private List<Noa_details> noa_detail_list;
+        private List<ApplicationForm_model> application_form_list;
 
 
         private string fileName;
@@ -190,6 +191,44 @@ namespace Fast_Report_API.Controllers
                     other_remarks = leave.other_remarks,
                     imageUrl = leave.imageUrl,
                     imageUrlDept = leave.imageUrlDept,
+
+                });
+
+                //This will assign list of noa_details separately
+                //noa_detail_list = new List<Noa_details>();
+
+                //foreach (var data in leave.noa_details)
+                //{
+                //    noa_detail_list.Add(data);
+                //}
+                UserWebReport.Report.RegisterData(leave_list, "leaveRequest");
+
+                ViewData["ReportName"] = "leaveapplication";
+                ViewData["Resp"] = response;
+                ViewData["Resp2"] = response2;
+                ViewData["Resp3"] = response3;
+            }
+            else if (title.ToLower().Equals("appform"))
+            {
+
+                ApplicationForm_model application_details = Newtonsoft.Json.JsonConvert.DeserializeObject<ApplicationForm_model>(decode);
+                +fileName = "/" + title + "_report.frx";
+                string path = Path.Combine(_env.WebRootPath + fileName);
+                //string path = mapPath.MapVirtualPathToPhysical("~/noa_report.frx");
+                UserWebReport.Report.Load(path);
+
+                application_form_list.Add(new ApplicationForm_model()
+                {
+                    //first_name = leave.first_name,
+                    //middle_name = leave.middle_name,
+                    //last_name = leave.last_name,
+                    //department_name = leave.department_name,
+                    //date_of_filing = leave.date_of_filing,
+                    //position_name = leave.position_name,
+                    //leave_type_name = leave.leave_type_name,
+                    //other_remarks = leave.other_remarks,
+                    //imageUrl = leave.imageUrl,
+                    //imageUrlDept = leave.imageUrlDept,
 
                 });
 

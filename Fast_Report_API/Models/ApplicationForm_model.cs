@@ -2,13 +2,14 @@
 {
     public class ApplicationForm_model
     {
-        public string? name { get; set; }
+        public string? first_name { get; set; }
+        public string? last_name { get; set; }
         public string? age { get; set; }
         public string? sex { get; set; }
         public string? civil_status { get; set; }
         public string? maiden_name { get; set; }
         public string? spouse_name { get; set; }
-        public string? birth_date { get; set; }
+        public string? birthdate { get; set; }
         public string? birth_place { get; set; }
         public string? citizenship { get; set; }
         public string? country_if_not_filipino { get; set; }
@@ -18,12 +19,12 @@
         public string? cellphone_no { get; set; }
         public string? father_name { get; set; }
         public string? mother_name { get; set; }
-        public string? position_applied { get; set; }
-        public string? specialty { get; set; }
         public string? sub_specialty { get; set; }
-        public string? specialty_name { get; set; }
-        public List<Educational_background>? education { get; set; }
-        public List<Work_experience>? work_exp { get; set; }
+        public string? specialty { get; set; }
+        public string? position_applied { get; set; }
+        public string? email { get; set; }
+        public List<Educational_background>? educational_background { get; set; }
+        public List<Work_experience>? work_experiences { get; set; }
         public List<Recognitions>? recognitions { get; set; }
         public List<References>? references { get; set; }
 
