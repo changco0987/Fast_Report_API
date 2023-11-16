@@ -169,7 +169,7 @@ namespace Fast_Report_API.Controllers
                 UserWebReport.Report.RegisterData(noa_terms_list, "NoaRefTerm");//pass the data to fast report
                 UserWebReport.Report.RegisterData(noa_detail_list, "NoaDetailsRef");//pass the data to fast report
             }
-            else if (title.ToLower().Equals("leaveapplication"))
+            else if (title.ToLower().Contains("leaveapplication"))
             {
 
                 var leave = System.Text.Json.JsonSerializer.Deserialize<LeaveAppPrint>(decode);
@@ -187,9 +187,15 @@ namespace Fast_Report_API.Controllers
                     date_of_filing = leave.date_of_filing,
                     position_name = leave.position_name,
                     leave_type_name = leave.leave_type_name,
+                    from_needed_date = leave.from_needed_date,
+                    to_needed_date = leave.to_needed_date,
+                    no_days = leave.no_days,
                     other_remarks = leave.other_remarks,
                     imageUrl = leave.imageUrl,
                     imageUrlDept = leave.imageUrlDept,
+                    UPimageUrlPNG = leave.UPimageUrlPNG,
+                    PGHimageUrl = leave.PGHimageUrl,
+                    leaveDetails = leave.leaveDetails,
 
                 });
 
@@ -338,6 +344,9 @@ namespace Fast_Report_API.Controllers
                     other_remarks = leave.other_remarks,
                     imageUrl = leave.imageUrl,
                     imageUrlDept = leave.imageUrlDept,
+                    UPimageUrlPNG = leave.UPimageUrlPNG,
+                    PGHimageUrl = leave.PGHimageUrl,
+
 
                 });
 

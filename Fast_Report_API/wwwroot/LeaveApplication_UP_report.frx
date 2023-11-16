@@ -1,0 +1,157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="09/15/2023 09:44:29" ReportInfo.Modified="10/12/2023 14:33:35" ReportInfo.CreatorVersion="2023.2.0.0">
+  <Dictionary>
+    <BusinessObjectDataSource Name="Noa" ReferenceName="leaveRequest" DataType="System.Int32" Enabled="true">
+      <Column Name="first_name" DataType="System.String"/>
+      <Column Name="middle_name" DataType="System.String"/>
+      <Column Name="last_name" DataType="System.String"/>
+      <Column Name="from_needed_date" DataType="System.String"/>
+      <Column Name="to_needed_date" DataType="System.String"/>
+      <Column Name="no_days" DataType="System.String"/>
+      <Column Name="department_name" DataType="System.String"/>
+      <Column Name="position_name" DataType="System.String"/>
+      <Column Name="leave_type_name" DataType="System.String"/>
+      <Column Name="leaveDetails" DataType="System.String"/>
+      <Column Name="date_of_filing" DataType="System.String"/>
+      <Column Name="imageUrl" DataType="System.String"/>
+      <Column Name="imageUrlDept" DataType="System.String"/>
+      <Column Name="UPimageUrlPNG" DataType="System.String"/>
+      <Column Name="PGHimageUrl" DataType="System.String"/>
+    </BusinessObjectDataSource>
+  </Dictionary>
+  <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="5" TopMargin="5" RightMargin="5" BottomMargin="5" Watermark.Font="Arial, 60pt">
+    <PageHeaderBand Name="PageHeader1" Width="756" Height="179.55">
+      <TableObject Name="Table2" Left="9.45" Top="9.45" Width="736.8" Height="103.95" Border.Lines="Left, Right, Top">
+        <TableColumn Name="Column5" Width="248.75"/>
+        <TableColumn Name="Column6" Width="248.75"/>
+        <TableColumn Name="Column7" Width="239.3"/>
+        <TableRow Name="Row2" Height="103.95">
+          <TableCell Name="Cell5" Font="Arial, 10pt">
+            <PictureObject Name="Picture2" Left="37.8" Top="18.9" Width="113.4" Height="75.6" DataColumn="Noa.UPimageUrlPNG"/>
+          </TableCell>
+          <TableCell Name="Cell6" Font="Arial, 10pt, style=Bold">
+            <TextObject Name="Text3" Left="9.45" Top="18.9" Width="207.9" Height="75.6" Text="Republic of the Philippines&#13;&#10;UNIVERSITY OF THE PHILIPPINES&#13;&#10;PHILIPPINE GENERAL HOSPITAL" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          </TableCell>
+          <TableCell Name="Cell7" Font="Arial, 10pt">
+            <PictureObject Name="Picture3" Left="47.25" Top="18.9" Width="113.4" Height="75.6" DataColumn="Noa.PGHimageUrl"/>
+          </TableCell>
+        </TableRow>
+      </TableObject>
+      <TableObject Name="Table3" Left="9.45" Top="113.4" Width="736.72" Height="56.7" Border.Lines="Left, Right, Bottom" PrintOnParent="true">
+        <TableColumn Name="Column8" Width="736.72"/>
+        <TableRow Name="Row3" Height="56.7">
+          <TableCell Name="Cell8" Text="APPLICATION FOR U.P-APPROVED LEAVE&#13;&#10;(RA 9500 SEC.13(K))" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        </TableRow>
+      </TableObject>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="183.55" Width="756" Height="689.85">
+      <TableObject Name="Table1" Left="9.45" Width="736.71" Height="47.25" Border.Lines="All">
+        <TableColumn Name="Column1" Width="205.44"/>
+        <TableColumn Name="Column2" Width="186.54"/>
+        <TableColumn Name="Column3" Width="177.09"/>
+        <TableColumn Name="Column4" Width="167.64"/>
+        <TableRow Name="Row1" Height="47.25">
+          <TableCell Name="Cell1" Text="1. OFFICE/DEPARTMENT&#13;&#10;[Noa.department_name]" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell2" Text="2. NAME: (Last)&#13;&#10;[Noa.last_name]" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell3" Text="(First)&#13;&#10;[Noa.first_name]" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell4" Text="(Middle)&#13;&#10;[Noa.middle_name]" Font="Arial, 10pt, style=Bold"/>
+        </TableRow>
+      </TableObject>
+      <TableObject Name="Table4" Left="9.45" Top="85.05" Width="736.72" Height="18.9" Border.Lines="Left, Right, Bottom" PrintOnParent="true">
+        <TableColumn Name="Column9" Width="736.72"/>
+        <TableRow Name="Row5">
+          <TableCell Name="Cell13" Border.Lines="Top, Bottom" Text="6.DETAILS OF APPLICATION" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        </TableRow>
+      </TableObject>
+      <TableObject Name="Table5" Left="9.45" Top="103.95" Width="736.71" Height="134.6" Border.Lines="Left, Right, Bottom">
+        <TableColumn Name="Column10" Width="495.92"/>
+        <TableColumn Name="Column11" Width="240.79"/>
+        <TableRow Name="Row6" Height="25.96">
+          <TableCell Name="Cell14" Border.Lines="Right, Top" Text="6.A  TYPE OF LEAVE (NON-CUMULATIVE) TO BE AVAILED OF :&#13;&#10;&#13;&#10;" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell15" Border.Lines="Left, Top" Text="6.B  DETAILS OF LEAVE:&#13;&#10;&#13;&#10;" Font="Arial, 10pt, style=Bold"/>
+        </TableRow>
+        <TableRow Name="Row7" Height="25.96">
+          <TableCell Name="Cell19" Text="[Noa.leave_type_name]" Font="Arial, 10pt"/>
+          <TableCell Name="Cell20" Border.Lines="Left" Text="[Noa.leaveDetails]" VertAlign="Bottom" Font="Arial, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row10" Height="82.68">
+          <TableCell Name="Cell24" Border.Lines="Right, Top" Text="5.C  NUMBERS OF WORKING DAYS APPLIED FOR:  [Noa.no_days]&#13;&#10;&#13;&#10;INCLUSIVE DATES :[Noa.from_needed_date] - [Noa.to_needed_date]" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell25" Border.Lines="Top" Text="(Signature of Applicant)" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 10pt">
+            <PictureObject Name="Picture4" Left="37.8" Top="9.45" Width="122.85" Height="56.7" DataColumn="Noa.imageUrl"/>
+          </TableCell>
+        </TableRow>
+      </TableObject>
+      <TableObject Name="Table7" Left="9.45" Top="47.25" Width="736.71" Height="37.8" Border.Lines="All">
+        <TableColumn Name="Column13" Width="311.63"/>
+        <TableColumn Name="Column14" Width="425.08"/>
+        <TableRow Name="Row9" Height="37.8">
+          <TableCell Name="Cell22" Text="3. DATE OF FILING&#13;&#10;[Noa.date_of_filing]" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell23" Text="4. POSITION&#13;&#10;[Noa.position_name]" Font="Arial, 10pt, style=Bold"/>
+        </TableRow>
+      </TableObject>
+      <TableObject Name="Table8" Left="9.45" Top="264.6" Width="736.72" Height="406.35" Border.Lines="All">
+        <TableColumn Name="Column15" Width="495.92"/>
+        <TableColumn Name="Column16" Width="240.8"/>
+        <TableRow Name="Row11" Height="37.8">
+          <TableCell Name="Cell26" Border.Lines="Right" Text="7.A  CERTIFICATATION OF LEAVE BALANCE (Non-Comulative)&#13;&#10;as of :" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell27" Text="7.B RECOMMENDATION" Font="Arial, 10pt, style=Bold"/>
+        </TableRow>
+        <TableRow Name="Row12" Height="94.5">
+          <TableCell Name="Cell31" Border.Lines="Right" Font="Arial, 10pt">
+            <TableObject Name="Table9" Left="47.25" Top="18.9" Width="349.52" Height="56.72" Border.Lines="All" PrintOnParent="true">
+              <TableColumn Name="Column17" Width="87.38"/>
+              <TableColumn Name="Column18" Width="87.38"/>
+              <TableColumn Name="Column19" Width="87.38"/>
+              <TableColumn Name="Column20" Width="87.38"/>
+              <TableRow Name="Row13" Height="28.36">
+                <TableCell Name="Cell33" Text="Type&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+                <TableCell Name="Cell34" Border.Lines="Left" Text="Total" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+                <TableCell Name="Cell35" Border.Lines="Left" Text="Less:This Application" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+                <TableCell Name="Cell36" Border.Lines="Left" Text="Balance" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+              </TableRow>
+              <TableRow Name="Row14" Height="28.36">
+                <TableCell Name="Cell38" Border.Lines="Right, Top" Text="[Noa.leave_type_name]" Font="Arial, 7pt"/>
+                <TableCell Name="Cell39" Border.Lines="Right, Top" Font="Arial, 10pt"/>
+                <TableCell Name="Cell40" Border.Lines="Top" Font="Arial, 10pt"/>
+                <TableCell Name="Cell41" Border.Lines="Left, Top" Font="Arial, 10pt"/>
+              </TableRow>
+            </TableObject>
+          </TableCell>
+          <TableCell Name="Cell32" Font="Arial, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row15" Height="122.85">
+          <TableCell Name="Cell42" Font="Arial, 10pt">
+            <PictureObject Name="Picture5" Left="141.75" Top="37.8" Width="141.75" Height="75.6" DataColumn="Noa.imageUrlDept"/>
+          </TableCell>
+          <TableCell Name="Cell43" Border.Lines="Left, Top" Font="Arial, 10pt">
+            <TextObject Name="Text5" Left="9.45" Top="9.45" Width="170.1" Height="18.9" Text="Institute Director/Department/Division Chair/Unit Head" HorzAlign="Center" VertAlign="Center" Font="Arial, 5pt"/>
+            <PictureObject Name="Picture6" Left="28.35" Top="37.8" Width="141.75" Height="75.6" DataColumn="Noa.imageUrlDept"/>
+          </TableCell>
+        </TableRow>
+        <TableRow Name="Row16" Height="28.35">
+          <TableCell Name="Cell44" Border.Lines="Top" Font="Arial, 10pt">
+            <TextObject Name="Text4" Left="132.3" Top="9.45" Width="160.65" Height="18.9" Text="HRDO Chief" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          </TableCell>
+          <TableCell Name="Cell45" Border.Lines="Left, Top" Font="Arial, 10pt">
+            <TextObject Name="Text6" Left="18.9" Top="9.45" Width="160.65" Height="18.9" Text="Dean" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          </TableCell>
+        </TableRow>
+        <TableRow Name="Row17" Height="47.25">
+          <TableCell Name="Cell46" Border.Lines="Top, Bottom" Text="7.C APPROVED FOR:" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell47" Border.Lines="Left, Top" Text="7.D DISAPPROVED DUE TO " Font="Arial, 10pt, style=Bold"/>
+        </TableRow>
+        <TableRow Name="Row18" Height="75.6">
+          <TableCell Name="Cell48" Border.Lines="Right" Font="Arial, 10pt"/>
+          <TableCell Name="Cell49" Border.Lines="Top" Text="Authorized Official&#13;&#10;Date:" VertAlign="Bottom" Font="Arial, 10pt"/>
+        </TableRow>
+      </TableObject>
+      <TableObject Name="Table6" Left="9.45" Top="243.81" Width="736.72" Height="18.9" Border.Lines="Left, Right, Bottom" PrintOnParent="true">
+        <TableColumn Name="Column12" Width="736.72"/>
+        <TableRow Name="Row8">
+          <TableCell Name="Cell21" Border.Lines="Top" Text="7.  DETAILS OF ACTION ON APPLICATION" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        </TableRow>
+      </TableObject>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="877.4" Width="756" Height="37.8"/>
+  </ReportPage>
+</Report>
