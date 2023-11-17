@@ -25,7 +25,13 @@ namespace Fast_Report_API.Controllers
         private List<Noa_terms> noa_terms_list;
         private List<LeaveAppPrint> leave_list;
         private List<Noa_details> noa_detail_list;
+
+
         private List<ApplicationForm_model> application_form_list;
+        private List<Educational_background> educational_Backgrounds_list;
+        private List<Work_experience> work_experience_list;
+        private List<Recognitions> recognition_list;
+        private List<References> references_list;
 
 
         private string fileName;
@@ -212,39 +218,28 @@ namespace Fast_Report_API.Controllers
             {
 
                 ApplicationForm_model application_details = Newtonsoft.Json.JsonConvert.DeserializeObject<ApplicationForm_model>(decode);
-                +fileName = "/" + title + "_report.frx";
+                fileName = "/" + title + "_report.frx";
                 string path = Path.Combine(_env.WebRootPath + fileName);
                 //string path = mapPath.MapVirtualPathToPhysical("~/noa_report.frx");
                 UserWebReport.Report.Load(path);
 
-                application_form_list.Add(new ApplicationForm_model()
-                {
-                    //first_name = leave.first_name,
-                    //middle_name = leave.middle_name,
-                    //last_name = leave.last_name,
-                    //department_name = leave.department_name,
-                    //date_of_filing = leave.date_of_filing,
-                    //position_name = leave.position_name,
-                    //leave_type_name = leave.leave_type_name,
-                    //other_remarks = leave.other_remarks,
-                    //imageUrl = leave.imageUrl,
-                    //imageUrlDept = leave.imageUrlDept,
+                application_form_list = new List<ApplicationForm_model>();
+                educational_Backgrounds_list = new List<Educational_background>();
+                work_experience_list = new List<Work_experience>();
+                recognition_list = new List<Recognitions>();
+                references_list = new List<References>();
 
-                });
+                application_form_list.Add(application_details);
+                educational_Backgrounds_list = application_details.educational_background;
+                work_experience_list = application_details.work_experiences;
+                recognition_list = application_details.recognitions;
+                references_list = application_details.references;
 
-                //This will assign list of noa_details separately
-                //noa_detail_list = new List<Noa_details>();
-
-                //foreach (var data in leave.noa_details)
-                //{
-                //    noa_detail_list.Add(data);
-                //}
-                UserWebReport.Report.RegisterData(leave_list, "leaveRequest");
-
-                ViewData["ReportName"] = "leaveapplication";
-                ViewData["Resp"] = response;
-                ViewData["Resp2"] = response2;
-                ViewData["Resp3"] = response3;
+                UserWebReport.Report.RegisterData(application_form_list, "appForm_ref");
+                UserWebReport.Report.RegisterData(educational_Backgrounds_list, "education_ref");
+                UserWebReport.Report.RegisterData(work_experience_list, "work_exp_ref");
+                UserWebReport.Report.RegisterData(recognition_list, "recognitions_ref");
+                UserWebReport.Report.RegisterData(references_list, "references_ref");
             }
 
 

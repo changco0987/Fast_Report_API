@@ -53,7 +53,7 @@
     public class References
     {
         public string? name { get; set; }
-        public string? addres { get; set; }
+        public string? address { get; set; }
         public string? contact_no { get; set; }
     }
 }
