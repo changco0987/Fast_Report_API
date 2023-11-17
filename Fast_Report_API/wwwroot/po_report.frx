@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/10/2023 09:28:23" ReportInfo.Modified="11/14/2023 14:02:50" ReportInfo.CreatorVersion="2023.2.0.0">
+  <Dictionary>
+    <BusinessObjectDataSource Name="Po" ReferenceName="PoRef" DataType="System.Int32" Enabled="true">
+      <Column Name="noa_contract_ID" DataType="System.String"/>
+      <Column Name="noa_title" DataType="System.String"/>
+      <Column Name="grand_total" DataType="System.String"/>
+      <Column Name="grand_total_amount_in_words" DataType="System.String"/>
+      <Column Name="date_needed" DataType="System.String"/>
+      <Column Name="supplier_name" DataType="System.String"/>
+      <Column Name="TIN" DataType="System.String"/>
+      <Column Name="contact" DataType="System.String"/>
+      <Column Name="contact_person" DataType="System.String"/>
+      <Column Name="delivery_address" DataType="System.String"/>
+      <Column Name="position" DataType="System.String"/>
+      <Column Name="position_name" DataType="System.String"/>
+      <Column Name="pur_tbl" DataType="System.String"/>
+      <Column Name="fax_number" DataType="System.String"/>
+      <Column Name="attention_title" DataType="System.String"/>
+      <Column Name="department_name" DataType="System.String"/>
+      <Column Name="mode_name" DataType="System.String"/>
+      <Column Name="mode_description" DataType="System.String"/>
+      <Column Name="perf_sec_30" DataType="System.String"/>
+      <Column Name="perf_sec_5" DataType="System.String"/>
+      <Column Name="purchase_order_ID" DataType="System.String"/>
+      <Column Name="purchase_order_number" DataType="System.String"/>
+      <Column Name="place_of_delivery" DataType="System.String"/>
+      <Column Name="payment_term" DataType="System.String"/>
+      <Column Name="commodities_ID" DataType="System.String"/>
+      <Column Name="commodities" DataType="System.String"/>
+      <Column Name="prefix" DataType="System.String"/>
+      <Column Name="delivery_term" DataType="System.String"/>
+      <Column Name="supplier_date" DataType="System.String"/>
+      <Column Name="fund_cluster" DataType="System.String"/>
+      <Column Name="funds_available" DataType="System.String"/>
+      <Column Name="ors_burs_number" DataType="System.String"/>
+      <Column Name="ors_burs_date" DataType="System.String"/>
+      <Column Name="amount" DataType="System.String"/>
+      <Column Name="auth_first_name" DataType="System.String"/>
+      <Column Name="auth_last_name" DataType="System.String"/>
+      <Column Name="chief_first_name" DataType="System.String"/>
+      <Column Name="chief_last_name" DataType="System.String"/>
+      <Column Name="date_needed_po" DataType="System.String"/>
+      <Column Name="auth_user_position" DataType="System.String"/>
+      <Column Name="chief_accountant_user_position" DataType="System.String"/>
+      <Column Name="noa_details" DataType="System.Int32"/>
+      <Column Name="noa_terms" DataType="System.Int32"/>
+    </BusinessObjectDataSource>
+    <BusinessObjectDataSource Name="Noa_details" ReferenceName="NoaDetailsRef" DataType="System.Int32" Enabled="true">
+      <Column Name="stock_property_number" DataType="System.String"/>
+      <Column Name="quantity" DataType="System.String"/>
+      <Column Name="item_number" DataType="System.String"/>
+      <Column Name="uom_name" DataType="System.String"/>
+      <Column Name="unit_cost" DataType="System.String"/>
+      <Column Name="total_cost" DataType="System.String"/>
+      <Column Name="description" DataType="System.String"/>
+    </BusinessObjectDataSource>
+    <BusinessObjectDataSource Name="Noa_terms" ReferenceName="NoaRefTerm" DataType="System.Int32" Enabled="true">
+      <Column Name="number" DataType="System.String"/>
+      <Column Name="description" DataType="System.String"/>
+    </BusinessObjectDataSource>
+    <Parameter Name="param1" DataType="System.String" AsString=""/>
+    <Parameter Name="param2" DataType="System.String" AsString=""/>
+    <Parameter Name="param3" DataType="System.String" AsString=""/>
+  </Dictionary>
+  <ReportPage Name="Page1" RawPaperSize="9" Watermark.Font="Arial, 60pt" LastPageSource="15" FirstPageSource="15">
+    <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="18.9"/>
+    <PageHeaderBand Name="PageHeader1" Top="22.9" Width="718.2" Height="66.15">
+      <TextObject Name="Text1" Left="245.7" Top="9.45" Width="245.7" Height="18.9" Text="PURCHASE ORDER" HorzAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
+      <TextObject Name="Text2" Left="207.9" Top="28.35" Width="311.85" Height="18.9" Text="UPM - PHILIPPINE GENERAL HOSPITAL" HorzAlign="Center" Font="Times New Roman, 10pt, style=Bold, Underline"/>
+      <TextObject Name="Text3" Left="576.45" Width="151.2" Height="18.9" Text="Based on GAM Appendix 61" HorzAlign="Center" Font="Times New Roman, 9pt, style=Italic"/>
+      <TextObject Name="Text4" Left="321.3" Top="47.25" Width="85.05" Height="18.9" Text="(Entity Name)" HorzAlign="Center" Font="Times New Roman, 9pt, style=Italic"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="93.05" Width="718.2" Height="179.55" DataSource="Po">
+      <TableObject Name="Table1" Left="9.45" Top="18.9" Width="699.3" Height="160.65" Border.Lines="All" Border.Width="3">
+        <TableColumn Name="Column1" Width="137.97"/>
+        <TableColumn Name="Column2" Width="137.97"/>
+        <TableColumn Name="Column3" Width="137.97"/>
+        <TableColumn Name="Column4" Width="52.92"/>
+        <TableColumn Name="Column5" Width="147.42"/>
+        <TableColumn Name="Column6" Width="85.05"/>
+        <TableRow Name="Row1" Height="75.6">
+          <TableCell Name="Cell1" Border.Lines="Bottom" Border.Width="2" Font="Arial, 10pt">
+            <TextObject Name="Text6" Left="3.78" Top="30.24" Width="56.7" Height="18.9" Text="Address:&#13;&#10;" Font="Times New Roman, 9pt"/>
+            <TextObject Name="Text7" Left="3.78" Top="52.16" Width="56.7" Height="18.9" Text="Tel. No.:" Font="Times New Roman, 9pt"/>
+            <TextObject Name="Text5" Left="3.78" Top="7.56" Width="56.7" Height="18.9" Text="Supplier:" Font="Times New Roman, 9pt"/>
+            <TextObject Name="Text8" Left="56.7" Top="26.84" Width="349.65" Height="18.9" Border.Lines="Bottom" CanGrow="true" GrowToBottom="true" Text="[Po.delivery_address]" VertAlign="Center" Font="Times New Roman, 7pt"/>
+            <TextObject Name="Text10" Left="56.7" Top="51.79" Width="113.4" Height="18.9" Border.Lines="Bottom" Text="[Po.contact]" HorzAlign="Center" Font="Times New Roman, 9pt"/>
+            <TextObject Name="Text9" Left="56.7" Top="3.78" Width="349.65" Height="18.9" Border.Lines="Bottom" Text="[Po.supplier_name]" Font="Times New Roman, 9pt, style=Bold"/>
+          </TableCell>
+          <TableCell Name="Cell2" Border.Lines="Bottom" Border.Width="2" Font="Arial, 10pt">
+            <TextObject Name="Text11" Left="35.91" Top="52.16" Width="37.8" Height="18.9" Text="TIN:" Font="Times New Roman, 9pt"/>
+            <TextObject Name="Text12" Left="66.15" Top="51.79" Width="135.7" Height="18.9" Border.Lines="Bottom" Text="[Po.TIN]" HorzAlign="Center" Font="Times New Roman, 9pt"/>
+          </TableCell>
+          <TableCell Name="Cell3" Border.Lines="Bottom" Border.Width="2" Font="Arial, 10pt">
+            <TextObject Name="Text15" Left="66.15" Top="52.16" Width="122.85" Height="18.9" Text="Mode of Procurement:" Font="Times New Roman, 9pt"/>
+            <TextObject Name="Text13" Left="136.08" Top="7.56" Width="56.7" Height="18.9" Text="P.O No.:" Font="Times New Roman, 9pt"/>
+            <TextObject Name="Text14" Left="136.08" Top="30.24" Width="37.8" Height="18.9" Text="Date:" Font="Times New Roman, 9pt"/>
+          </TableCell>
+          <TableCell Name="Cell4" Border.Lines="Bottom" Border.Width="2" Font="Arial, 10pt">
+            <TextObject Name="Text16" Left="47.25" Top="3.78" Width="228.69" Height="18.9" Border.Lines="Bottom" Text="[Po.purchase_order_number]([Po.prefix])" HorzAlign="Center" Font="Times New Roman, 11pt, style=Bold"/>
+            <TextObject Name="Text17" Left="47.25" Top="26.84" Width="228.69" Height="18.9" Border.Lines="Bottom" Text="[Po.date_needed_po]" HorzAlign="Center" Font="Times New Roman, 9pt"/>
+            <TextObject Name="Text18" Left="47.25" Top="43.47" Width="228.69" Height="28.35" Border.Lines="Bottom" Text="[Po.mode_name][Po.mode_description]" VertAlign="Center" Font="Times New Roman, 7pt"/>
+          </TableCell>
+          <TableCell Name="Cell5" Border.Lines="Bottom" Border.Width="2" Font="Arial, 10pt"/>
+          <TableCell Name="Cell26" Font="Arial, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row2" Height="37.8">
+          <TableCell Name="Cell6" Border.Lines="Top, Bottom" Border.Width="2" Text="Gentlemen:&#13;&#10;	 " Font="Times New Roman, 9pt" ColSpan="6">
+            <TextObject Name="Text19" Left="94.5" Top="11.34" Width="595.35" Height="18.9" Text="Please furnish this Office the following articles subject to the terms and conditions contained herein" Font="Times New Roman, 9pt"/>
+          </TableCell>
+          <TableCell Name="Cell7" Border.Lines="Bottom" Border.Width="2" Font="Arial, 10pt"/>
+          <TableCell Name="Cell8" Border.Lines="Bottom" Border.Width="2" Font="Arial, 10pt"/>
+          <TableCell Name="Cell9" Border.Lines="Bottom" Border.Width="2" Font="Arial, 10pt"/>
+          <TableCell Name="Cell10" Border.Lines="Bottom" Border.Width="2" Font="Arial, 10pt"/>
+          <TableCell Name="Cell27" Border.Lines="Top, Bottom" Border.Width="2" Font="Arial, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row3" Height="47.25">
+          <TableCell Name="Cell11" Border.Lines="Bottom" Border.Width="2" Font="Arial, 10pt">
+            <TextObject Name="Text20" Top="3.78" Width="94.5" Height="18.9" Text="Place of Delivery:" AutoWidth="true" VertAlign="Bottom" Font="Times New Roman, 9pt"/>
+            <TextObject Name="Text21" Top="26.46" Width="94.5" Height="18.9" Text="Date of Delivery:" AutoWidth="true" VertAlign="Bottom" Font="Times New Roman, 9pt"/>
+            <TextObject Name="Text23" Left="94.5" Top="22.68" Width="368.55" Height="18.9" Border.Lines="Bottom" Text="Please see below" HorzAlign="Center" VertAlign="Bottom" Font="Times New Roman, 9pt"/>
+            <TextObject Name="Text22" Left="94.5" Top="3.78" Width="368.55" Height="18.9" Border.Lines="Bottom" Text="[Po.place_of_delivery]&#13;&#10;" VertAlign="Bottom" Font="Times New Roman, 9pt, style=Bold"/>
+          </TableCell>
+          <TableCell Name="Cell12" Border.Lines="Bottom" Border.Width="2" Font="Arial, 10pt"/>
+          <TableCell Name="Cell13" Border.Lines="Bottom" Border.Width="2" Font="Arial, 10pt"/>
+          <TableCell Name="Cell14" Border.Lines="Right, Bottom" Border.Width="2" Font="Arial, 10pt"/>
+          <TableCell Name="Cell15" Border.Lines="Bottom" Border.Width="2" Font="Arial, 10pt">
+            <TextObject Name="Text24" Top="4.16" Width="94.5" Height="18.9" Text="Delivery Term:" AutoWidth="true" VertAlign="Bottom" Font="Times New Roman, 9pt"/>
+            <TextObject Name="Text25" Top="25.33" Width="94.5" Height="18.9" Text="Payment Term:" AutoWidth="true" VertAlign="Bottom" Font="Times New Roman, 9pt"/>
+            <TextObject Name="Text26" Left="83.16" Top="3.78" Width="141.75" Height="18.9" Border.Lines="Bottom" Text="[Po.delivery_term]" Font="Times New Roman, 9pt"/>
+            <TextObject Name="Text27" Left="83.16" Top="22.68" Width="141.75" Height="18.9" Border.Lines="Bottom" Text="[Po.payment_term]" Font="Times New Roman, 9pt"/>
+          </TableCell>
+          <TableCell Name="Cell28" Border.Lines="Bottom" Border.Width="2" Font="Arial, 10pt"/>
+        </TableRow>
+      </TableObject>
+    </DataBand>
+    <DataBand Name="Data2" Top="276.6" Width="718.2" Height="37.8">
+      <TableObject Name="Table2" Left="9.45" Width="699.45" Height="37.8" Border.Lines="Left, Right" Border.Width="3">
+        <TableColumn Name="Column7" Width="36.26"/>
+        <TableColumn Name="Column8" Width="64.6"/>
+        <TableColumn Name="Column9" Width="64.6"/>
+        <TableColumn Name="Column10" Width="366.99"/>
+        <TableColumn Name="Column11" Width="83.5"/>
+        <TableColumn Name="Column12" Width="83.5"/>
+        <TableRow Name="Row6" Height="37.8">
+          <TableCell Name="Cell31" Border.Lines="Bottom" Text="Item&#13;&#10;No." HorzAlign="Center" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell32" Border.Lines="Left, Right, Bottom" Text="&#13;&#10;Qty." HorzAlign="Center" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell33" Border.Lines="Bottom" Text="&#13;&#10;Unit" HorzAlign="Center" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell34" Border.Lines="Left, Right, Bottom" Text="&#13;&#10;Item Description" Padding="2, 0, 2, 1" HorzAlign="Center" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell35" Border.Lines="Bottom" Text="&#13;&#10;Offer" HorzAlign="Center" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell36" Border.Lines="Left, Bottom" Text="Total Amount &#13;&#10;of Award" HorzAlign="Center" Font="Times New Roman, 9pt"/>
+        </TableRow>
+      </TableObject>
+    </DataBand>
+    <DataBand Name="Data6" Top="318.4" Width="718.2" Height="47.25">
+      <TextObject Name="Text38" Left="181.44" Width="359.1" Height="37.8" Text="PUR[Po.pur_tbl] - [Po.department_name]&#13;&#10;" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold, Italic"/>
+      <LineObject Name="Line25" Left="624.83" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
+      <LineObject Name="Line26" Left="541.67" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
+      <LineObject Name="Line27" Left="110" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
+      <LineObject Name="Line28" Left="45.36" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
+      <LineObject Name="Line29" Left="7.56" Height="37.8" Border.Width="5" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
+      <LineObject Name="Line30" Left="707.62" Height="37.8" Border.Width="5" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
+      <LineObject Name="Line31" Left="174.64" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
+    </DataBand>
+    <DataBand Name="Data3" Top="369.65" Width="718.2" Height="37.8" Guides="37.8">
+      <TextObject Name="Text31" Left="175.01" Width="367.04" Height="37.8" Border.Lines="Left, Right" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[Noa_details.description]" Padding="10, 0, 10, 150" HorzAlign="Justify" Font="Times New Roman, 8pt" TextRenderType="HtmlTags"/>
+      <TextObject Name="Text32" Left="18.9" Top="9.45" Width="18.9" Height="18.9" Text="[Noa_details.stock_property_number]" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+      <TextObject Name="Text33" Left="56.7" Top="9.45" Width="47.25" Height="18.9" Text="[Noa_details.quantity]" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+      <TextObject Name="Text34" Left="113.4" Top="9.45" Width="56.7" Height="18.9" Text="[Noa_details.uom_name]" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+      <TextObject Name="Text35" Left="548.1" Top="9.45" Width="66.15" Height="18.9" Text="[Noa_details.unit_cost]" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+      <TextObject Name="Text36" Left="633.15" Top="9.45" Width="66.15" Height="18.9" Text="[Noa_details.total_cost]" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+      <TextObject Name="Text61" Left="45.74" Width="64.64" Height="37.8" Border.Lines="Left, Right" CanGrow="true" CanShrink="true" GrowToBottom="true" Padding="10, 0, 10, 150" HorzAlign="Justify" Font="Times New Roman, 8pt" TextRenderType="HtmlTags"/>
+      <TextObject Name="Text62" Left="9.45" Width="36.29" Height="37.8" Border.Lines="Left" Border.Width="3" CanGrow="true" CanShrink="true" GrowToBottom="true" Padding="10, 0, 10, 150" HorzAlign="Justify" Font="Times New Roman, 8pt" TextRenderType="HtmlTags"/>
+      <TextObject Name="Text63" Left="646.38" Width="62.37" Height="37.8" Border.Lines="Right" Border.Width="3" CanGrow="true" CanShrink="true" GrowToBottom="true" Padding="10, 0, 10, 150" HorzAlign="Justify" Font="Times New Roman, 8pt" TextRenderType="HtmlTags"/>
+      <TextObject Name="Text64" Left="625.59" Width="62.37" Height="37.8" Border.Lines="Left" CanGrow="true" CanShrink="true" GrowToBottom="true" Padding="10, 0, 10, 150" HorzAlign="Justify" Font="Times New Roman, 8pt" TextRenderType="HtmlTags"/>
+    </DataBand>
+    <DataBand Name="Data5" Top="411.45" Width="718.2" Height="37.8">
+      <TextObject Name="Text37" Left="179.55" Width="359.1" Height="37.8" Text="Basis: [Po.mode_name]-[Po.mode_description]" HorzAlign="Center" VertAlign="Bottom" Font="Times New Roman, 9pt, style=Bold"/>
+      <LineObject Name="Line18" Left="624.83" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
+      <LineObject Name="Line19" Left="541.67" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
+      <LineObject Name="Line20" Left="110" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
+      <LineObject Name="Line21" Left="45.36" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
+      <LineObject Name="Line24" Left="174.64" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
+      <TextObject Name="Text65" Left="9.45" Width="36.29" Height="37.8" Border.Lines="Left" Border.Width="3" CanGrow="true" CanShrink="true" GrowToBottom="true" Padding="10, 0, 10, 150" HorzAlign="Justify" Font="Times New Roman, 8pt" TextRenderType="HtmlTags"/>
+      <TextObject Name="Text66" Left="646.38" Width="62.37" Height="37.8" Border.Lines="Right" Border.Width="3" CanGrow="true" CanShrink="true" GrowToBottom="true" Padding="10, 0, 10, 150" HorzAlign="Justify" Font="Times New Roman, 8pt" TextRenderType="HtmlTags"/>
+    </DataBand>
+    <DataBand Name="Data4" Top="453.25" Width="718.2" Height="37.8">
+      <TextObject Name="Text30" Left="633.15" Top="8" Width="66.15" Height="18.9" Text="[Po.grand_total]" HorzAlign="Center" Font="Times New Roman, 8pt"/>
+      <TextObject Name="Text28" Left="9.45" Top="3.78" Width="75.6" Height="18.9" Text="(Amount in Words)" AutoWidth="true" Font="Times New Roman, 8pt, style=Bold"/>
+      <LineObject Name="Line11" Left="624.83" Top="-1.45" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
+      <TableObject Name="Table6" Left="9.45" Width="699.3" Height="37.8" Border.Lines="Left, Right" Border.Width="3">
+        <TableColumn Name="Column17" Width="699.3"/>
+        <TableRow Name="Row11" Height="37.8">
+          <TableCell Name="Cell46" Border.Lines="Top, Bottom" Border.Width="3" Font="Arial, 10pt">
+            <TextObject Name="Text29" Top="17.45" Width="614.25" Height="18.9" CanBreak="false" Text="[Po.grand_total_amount_in_words]" AutoWidth="true" HorzAlign="Center" Font="Times New Roman, 10pt, style=Italic"/>
+          </TableCell>
+        </TableRow>
+      </TableObject>
+    </DataBand>
+    <DataBand Name="Data8" Top="495.05" Width="718.2" Height="28.35" Guides="37.8">
+      <TableObject Name="Table4" Left="9.45" Width="699.68" Height="28.35" Border.Lines="Left, Right" Border.Width="3">
+        <TableColumn Name="Column15" Width="699.68"/>
+        <TableRow Name="Row9" Height="28.35">
+          <TableCell Name="Cell44" Font="Arial, 10pt">
+            <TextObject Name="Text60" Left="3.78" Top="3.78" Width="90.72" Height="18.9" Text="Additional Terms and Condition" AutoWidth="true" Font="Times New Roman, 8pt"/>
+          </TableCell>
+        </TableRow>
+      </TableObject>
+    </DataBand>
+    <DataBand Name="Data9" Top="527.4" Width="718.2" Height="37.8">
+      <TableObject Name="Table5" Left="9.45" Width="699.68" Height="37.8" Border.Lines="Left, Right, Bottom" Border.Width="3" PrintOnParent="true">
+        <TableColumn Name="Column16" Width="699.68"/>
+        <TableRow Name="Row10" Height="37.8">
+          <TableCell Name="Cell45" Font="Arial, 10pt">
+            <TextObject Name="Text59" Width="698.17" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[Noa_terms.description]" Padding="10, 0, 10, 150" HorzAlign="Justify" Font="Times New Roman, 8pt" TextRenderType="HtmlTags"/>
+          </TableCell>
+        </TableRow>
+      </TableObject>
+    </DataBand>
+    <DataBand Name="Data7" Top="569.2" Width="718.2" Height="340.24">
+      <TableObject Name="Table3" Left="9.45" Width="699.68" Height="340.24" Border.Lines="Left, Right, Bottom" Border.Width="3">
+        <TableColumn Name="Column13" Width="406.54"/>
+        <TableColumn Name="Column14" Width="293.14"/>
+        <TableRow Name="Row7" Height="222.1">
+          <TableCell Name="Cell37" Font="Arial, 10pt" ColSpan="2">
+            <TextObject Name="Text40" Left="3.78" Width="689.85" Height="113.4" Text="     It is understood that notice/s transmitted through telephone/fax numbers and/or email address/ews are deemed received as of its transmittal and the reckoning period for the reglementary periods stated in the bidding documents and 2016 Revised Implementing Rules and Regulations of Republic Act No. 9184 shall commence from the receipt thereof.&#13;&#10;&#13;&#10;      In case of failure to make the full delivery within the time specified above, a penalty of one-tenth(1/10) of one percent (1%) for every day of delay shall be imposed on the underlivered item/s collectible from any money due or which may become due us, at the option of UPM-PGH. The computation of liquidated damages shall be reconed on the date stated in the Purchase Order (P.O.), Notice to Proceed (NTP) or deliver schedule, whichever is applicable.&#13;&#10;" HorzAlign="Justify" Font="Times New Roman, 8pt"/>
+            <TextObject Name="Text42" Left="28.35" Top="151.2" Width="274.05" Height="66.15" CanGrow="true" Text="Signiture over Printed Name of Supplier / Position&#13;&#10;&#13;&#10;&#13;&#10;Date&#13;&#10;" Font="Times New Roman, 9pt, style=Italic"/>
+            <TextObject Name="Text43" Left="3.78" Top="113.4" Width="217.35" Height="18.9" CanGrow="true" Text="Conforme:" Font="Times New Roman, 9pt"/>
+            <LineObject Name="Line13" Left="28.35" Top="150.07" Width="245.7"/>
+            <LineObject Name="Line33" Left="28.35" Top="193.54" Width="245.7"/>
+            <TextObject Name="Text44" Left="415.8" Top="151.2" Width="274.05" Height="66.15" CanGrow="true" Text="Signiture over Printed Name of Authorized Official&#13;&#10;&#13;&#10;&#13;&#10;Designation&#13;&#10;" AutoWidth="true" Font="Times New Roman, 9pt, style=Italic"/>
+            <LineObject Name="Line34" Left="415.8" Top="150.07" Width="245.7"/>
+            <LineObject Name="Line35" Left="415.8" Top="193.54" Width="245.7"/>
+            <TextObject Name="Text45" Left="406.35" Top="113.4" Width="217.35" Height="18.9" CanGrow="true" Text="Very truly yours," Font="Times New Roman, 9pt"/>
+            <TextObject Name="Text46" Left="415.8" Top="132.3" Width="245.7" Height="18.9" CanBreak="false" Text="[Po.auth_first_name] [Po.auth_last_name]" AutoWidth="true" HorzAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
+            <TextObject Name="Text68" Left="415.8" Top="177.66" Width="245.7" Height="18.9" CanBreak="false" Text="[Po.auth_user_position]" AutoWidth="true" HorzAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
+          </TableCell>
+          <TableCell Name="Cell38" Font="Arial, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row8" Height="118.14">
+          <TableCell Name="Cell42" Border.Lines="Top" Border.Width="3" Font="Arial, 10pt">
+            <TextObject Name="Text48" Left="3.78" Top="22.68" Width="103.95" Height="18.9" CanGrow="true" Text="FundsAvailable:" Font="Times New Roman, 8pt, style=Bold"/>
+            <TextObject Name="Text47" Left="3.78" Top="3.78" Width="103.95" Height="18.9" CanGrow="true" Text="Fund Cluster:" Font="Times New Roman, 8pt, style=Bold"/>
+            <LineObject Name="Line36" Left="94.5" Top="18.9" Width="245.7"/>
+            <LineObject Name="Line37" Left="94.5" Top="37.8" Width="245.7"/>
+            <TextObject Name="Text49" Left="66.15" Top="60.48" Width="274.05" Height="47.25" CanGrow="true" Text="Signiture over Printed Name of &#13;&#10;Chief Accountant/Head of Accounting Division/Unit&#13;&#10;&#13;&#10;" HorzAlign="Center" VertAlign="Bottom" Font="Times New Roman, 9pt, style=Italic"/>
+            <LineObject Name="Line38" Left="66.15" Top="75.6" Width="274.05"/>
+            <TextObject Name="Text50" Left="66.15" Top="41.58" Width="274.05" Height="18.9" CanBreak="false" Text="[Po.chief_first_name] [Po.chief_last_name]" AutoWidth="true" HorzAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
+            <TextObject Name="Text54" Left="94.5" Top="3.78" Width="245.7" Height="18.9" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[Po.fund_cluster]" Font="Times New Roman, 9pt"/>
+            <TextObject Name="Text55" Left="94.5" Top="22.68" Width="245.7" Height="18.9" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="₱[Po.funds_available]" Font="Times New Roman, 9pt"/>
+            <TextObject Name="Text67" Left="66.15" Top="56.7" Width="274.05" Height="18.9" CanBreak="false" Text="[Po.chief_accountant_user_position]" AutoWidth="true" HorzAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
+          </TableCell>
+          <TableCell Name="Cell43" Border.Lines="Left, Top" Border.Width="3" Font="Arial, 10pt">
+            <TextObject Name="Text51" Left="3.78" Top="3.78" Width="103.95" Height="18.9" CanGrow="true" Text="ORS/BURS No.:" Font="Times New Roman, 8pt, style=Bold"/>
+            <TextObject Name="Text52" Left="3.78" Top="22.68" Width="103.95" Height="18.9" GrowToBottom="true" Text="Date of the ORS/BURS:" AutoWidth="true" Font="Times New Roman, 8pt, style=Bold"/>
+            <LineObject Name="Line39" Left="94.5" Top="18.9" Width="179.55"/>
+            <LineObject Name="Line40" Left="122.85" Top="37.8" Width="151.2"/>
+            <TextObject Name="Text53" Left="9.45" Top="75.6" Width="66.15" Height="18.9" GrowToBottom="true" Text="Amount:" AutoWidth="true" Font="Times New Roman, 9pt, style=Bold"/>
+            <LineObject Name="Line41" Left="66.15" Top="90.72" Width="207.9"/>
+            <TextObject Name="Text56" Left="94.5" Top="3.78" Width="179.55" Height="18.9" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[Po.ors_burs_number]" Font="Times New Roman, 9pt"/>
+            <TextObject Name="Text57" Left="66.15" Top="60.48" Width="207.9" Height="28.35" CanBreak="false" Text="₱[Po.amount]" AutoWidth="true" HorzAlign="Center" Font="Arial, 14pt"/>
+            <TextObject Name="Text58" Left="122.85" Top="22.68" Width="151.2" Height="18.9" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[Po.ors_burs_date]" HorzAlign="Center" Font="Times New Roman, 9pt"/>
+          </TableCell>
+        </TableRow>
+      </TableObject>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="913.44" Width="718.2" Height="151.2"/>
+  </ReportPage>
+</Report>

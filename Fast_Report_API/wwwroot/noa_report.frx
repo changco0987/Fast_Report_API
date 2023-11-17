@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="08/11/2023 08:41:06" ReportInfo.Modified="10/06/2023 08:20:50" ReportInfo.CreatorVersion="2023.2.0.0">
+<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="08/11/2023 08:41:06" ReportInfo.Modified="10/24/2023 09:24:53" ReportInfo.CreatorVersion="2023.2.0.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -68,6 +68,7 @@ namespace FastReport
       <Column Name="delivery_address" DataType="System.String"/>
       <Column Name="contact" DataType="System.String"/>
       <Column Name="position" DataType="System.String"/>
+      <Column Name="position_name" DataType="System.String"/>
       <Column Name="pur_tbl" DataType="System.String"/>
       <Column Name="fax_number" DataType="System.String"/>
       <Column Name="attention_title" DataType="System.String"/>
@@ -131,7 +132,7 @@ namespace FastReport
       <TextObject Name="directContracting" Left="85.05" Top="37.8" Width="94.5" Height="18.9" CanBreak="false" AutoWidth="true" Font="Arial, 9pt" TextRenderType="HtmlTags"/>
       <TextObject Name="shoppingModes" Left="85.05" Top="66.15" Width="94.5" Height="18.9" CanBreak="false" AutoWidth="true" Font="Arial, 9pt" TextRenderType="HtmlTags"/>
       <TextObject Name="negotiatedP" Left="85.05" Top="94.5" Width="94.5" Height="18.9" CanBreak="false" AutoWidth="true" Font="Arial, 9pt" TextRenderType="HtmlTags"/>
-      <TextObject Name="Text19" Width="718.2" Height="37.8" CanGrow="true" Text="&lt;p style=&quot;font-family: 'Times New Roman', Times, serif; font-size: 9pt; font-weight: bold; text-decoration: underline;&quot;&gt;&#13;&#10;Dear Sir/Ma'am,&#13;&#10;&lt;/p&gt;&#13;&#10;&lt;p&gt;&#13;&#10;We are happy to notify you that your proposal/quotation for the &lt;span style=&quot;font-family: 'Times New Roman', Times, serif; font-size: 9pt; font-weight: bold; text-decoration: underline;&quot;&gt;[Noa.noa_title]&lt;/span&gt; printout under the Purchase Request No. PUR[Noa.pur_tbl] was facilitated through: specification&#13;&#10;&lt;/p&gt;" Padding="2, 0, 2, 2" Font="Times New Roman, 9pt" TextRenderType="HtmlTags"/>
+      <TextObject Name="Text19" Width="718.2" Height="37.8" CanGrow="true" Text="&lt;p style=&quot;font-family: 'Times New Roman', Times, serif; font-size: 9pt; font-weight: bold; text-decoration: underline;&quot;&gt;&#13;&#10;Dear Sir/Ma'am,&#13;&#10;&lt;/p&gt;&#13;&#10;&lt;p&gt;&#13;&#10;We are happy to notify you that your proposal/quotation for the &lt;span style=&quot;font-family: 'Times New Roman', Times, serif; font-size: 9pt; font-weight: bold; text-decoration: underline;&quot;&gt;[Noa.noa_title]&lt;/span&gt; printout under the Purchase Request No. PUR[Noa.pur_tbl] ([Noa.department_name]), was facilitated through: specification&#13;&#10;&lt;/p&gt;" Padding="2, 0, 2, 2" Font="Times New Roman, 9pt" TextRenderType="HtmlTags"/>
       <ShapeObject Name="Shape3" Left="28.73" Top="94.5" Width="37.8" Height="22.68"/>
       <ShapeObject Name="Shape4" Left="28.35" Top="66.15" Width="37.8" Height="22.68"/>
       <ShapeObject Name="Shape5" Left="28.35" Top="37.8" Width="37.8" Height="22.68"/>
@@ -214,7 +215,7 @@ namespace FastReport
       <TextObject Name="Text38" Top="236.25" Width="217.35" Height="18.9" CanGrow="true" Text="Please be guided accordingly." Font="Times New Roman, 9pt"/>
       <TextObject Name="Text39" Top="274.05" Width="217.35" Height="18.9" CanGrow="true" Text="Very truly yours," Font="Times New Roman, 9pt"/>
       <TextObject Name="Text40" Top="330.75" Width="217.35" Height="18.9" CanGrow="true" Text="[Noa.first_name] [Noa.last_name]" Font="Times New Roman, 9pt, style=Bold"/>
-      <TextObject Name="Text41" Top="349.65" Width="217.35" Height="18.9" CanGrow="true" Text="[Noa.department_name]" Font="Times New Roman, 9pt, style=Italic"/>
+      <TextObject Name="Text41" Top="349.65" Width="217.35" Height="18.9" CanGrow="true" Text="[Noa.position_name]" Font="Times New Roman, 9pt, style=Italic"/>
       <TextObject Name="Text42" Top="567" Width="198.45" Height="132.3" CanGrow="true" Text="(Signiture over Printed Name)&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;(Designation)&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;(Date)&#13;&#10;" Font="Times New Roman, 9pt, style=Italic"/>
       <TextObject Name="Text43" Top="510.3" Width="217.35" Height="18.9" CanGrow="true" Text="Conforme:" Font="Times New Roman, 9pt, style=Bold"/>
       <LineObject Name="Line13" Top="565.87" Width="217.35"/>

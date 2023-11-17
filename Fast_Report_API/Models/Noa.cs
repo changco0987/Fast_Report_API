@@ -11,6 +11,7 @@ namespace Fast_Report_API.Models
         public string? grand_total { get; set; }
         public string? grand_total_amount_in_words { get; set; }
         public string? date_needed { get; set; }
+        public string? position_name { get; set; }
 
         //Company info from suppliers_tbl
         public string? supplier_name { get; set; }

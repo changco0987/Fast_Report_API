@@ -22,6 +22,7 @@ namespace Fast_Report_API.Controllers
         private readonly ILogger<HomeController> _logger;
         private  IWebHostEnvironment _env;
         private List<Noa> noa_list;
+        private List<Po> po_list;
         private List<Noa_terms> noa_terms_list;
         private List<LeaveAppPrint> leave_list;
         private List<Noa_details> noa_detail_list;
@@ -72,18 +73,18 @@ namespace Fast_Report_API.Controllers
             };
 
             rep.Toolbar.ShowPrint = false;
-            
+
             //rep.Toolba
 
 
 
-
-                noa_list = new List<Noa>();
+            po_list = new List<Po>(); //purchase orders
+            noa_list = new List<Noa>(); //notice of awards
             leave_list = new List<LeaveAppPrint>();
             string decode = Base64Decode(response);//base64 to string
             //string decode = "";
             //Add another condition statement if there's new file/report to print
-            if (title.ToLower().Equals("noa")) 
+            if (title.ToLower().Equals("noa"))
             {
 
                 var noa_details = Base64Decode(response2);//base64 to string
@@ -96,7 +97,7 @@ namespace Fast_Report_API.Controllers
                 //string path = mapPath.MapVirtualPathToPhysical("~/noa_report.frx");
                 rep.Report.Load(path);
 
-        
+
 
                 noa_list.Add(new Noa()
                 {
@@ -109,6 +110,7 @@ namespace Fast_Report_API.Controllers
                     delivery_address = noa_data.delivery_address,
                     contact = noa_data.contact,
                     position = noa_data.position,
+                    position_name = noa_data.position_name,
                     fax_number = noa_data.fax_number,
                     pur_tbl = noa_data.pur_tbl,
                     attention_title = noa_data.attention_title,
@@ -126,7 +128,7 @@ namespace Fast_Report_API.Controllers
                 noa_detail_list = new List<Noa_details>();
                 if (noa_details != null)
                 {
-                   
+
                     var noa_details_converted = System.Text.Json.JsonSerializer.Deserialize<List<Noa_details>>(noa_details);
                     foreach (var data in noa_details_converted)
                     {
@@ -149,8 +151,8 @@ namespace Fast_Report_API.Controllers
                     var noa_terms_converted = System.Text.Json.JsonSerializer.Deserialize<List<Noa_terms>>(noa_terms);
                     foreach (var datas in noa_terms_converted)
                     {
-                        noa_terms_list.Add(new Noa_terms 
-                        { 
+                        noa_terms_list.Add(new Noa_terms
+                        {
                             number = datas.number,
                             description = datas.description,
                         });
@@ -162,7 +164,8 @@ namespace Fast_Report_API.Controllers
                 rep.Report.RegisterData(noa_terms_list, "NoaRefTerm");//pass the data to fast report
                 rep.Report.RegisterData(noa_detail_list, "NoaDetailsRef");//pass the data to fast report
             }
-            else if (title.ToLower().Equals("leaveapplication")){
+            else if (title.ToLower().Equals("leaveapplication"))
+            {
 
                 var leave = System.Text.Json.JsonSerializer.Deserialize<LeaveAppPrint>(decode);
                 fileName = "/" + title + "_report.frx";
@@ -172,9 +175,9 @@ namespace Fast_Report_API.Controllers
 
                 leave_list.Add(new LeaveAppPrint()
                 {
-                   first_name = leave.first_name,
-                   middle_name = leave.middle_name,
-                   last_name = leave.last_name,
+                    first_name = leave.first_name,
+                    middle_name = leave.middle_name,
+                    last_name = leave.last_name,
                     department_name = leave.department_name,
                     date_of_filing = leave.date_of_filing,
                     position_name = leave.position_name,
@@ -184,7 +187,7 @@ namespace Fast_Report_API.Controllers
                     imageUrlDept = leave.imageUrlDept,
 
                 });
-              
+
                 //This will assign list of noa_details separately
                 //noa_detail_list = new List<Noa_details>();
 
@@ -194,7 +197,104 @@ namespace Fast_Report_API.Controllers
                 //}
                 rep.Report.RegisterData(leave_list, "leaveRequest");
             }
+            else if (title.ToLower().Equals("po"))
+            {
+                var noa_details = Base64Decode(response2);//base64 to string
 
+                var noa_terms = Base64Decode(response3);//base64 to string
+
+                var po_data = System.Text.Json.JsonSerializer.Deserialize<Po>(decode);
+                fileName = "/" + po_data.title + "_report.frx";
+                string path = Path.Combine(_env.WebRootPath + fileName);
+                //string path = mapPath.MapVirtualPathToPhysical("~/noa_report.frx");
+                rep.Report.Load(path);
+
+                po_list.Add(new Po()
+                {
+                    noa_contract_ID = po_data.noa_contract_ID,
+                    noa_title = po_data.noa_title,
+                    grand_total = po_data.grand_total,
+                    grand_total_amount_in_words = po_data.grand_total_amount_in_words,
+                    date_needed = DateTime.ParseExact(po_data.date_needed, "yyyy-MM-dd", CultureInfo.InvariantCulture).ToString("dd MMMM, yyyy", CultureInfo.InvariantCulture),
+                    supplier_name = po_data.supplier_name,
+                    delivery_address = po_data.delivery_address,
+                    position = po_data.position,
+                    position_name = po_data.position_name,
+                    fax_number = po_data.fax_number,
+                    pur_tbl = po_data.pur_tbl,
+                    attention_title = po_data.attention_title,
+                    contact_person = po_data.contact_person,
+                    department_name = po_data.department_name,
+                    mode_name = po_data.mode_name,
+                    mode_description = po_data.mode_description,
+                    perf_sec_30 = po_data.perf_sec_30,
+                    perf_sec_5 = po_data.perf_sec_5,
+                    //po
+                    purchase_order_ID = po_data.purchase_order_ID,
+                    purchase_order_number = po_data.purchase_order_number,
+                    TIN = po_data.TIN,
+                    contact = po_data.contact,
+                    place_of_delivery = po_data.place_of_delivery,
+                    payment_term = po_data.payment_term,
+                    commodities_ID = po_data.commodities_ID,
+                    commodities = po_data.commodities,
+                    prefix = po_data.prefix,
+                    delivery_term = po_data.delivery_term,
+                    supplier_date = po_data.supplier_date,
+                    fund_cluster = po_data.fund_cluster,
+                    funds_available = po_data.funds_available,
+                    ors_burs_number = po_data.ors_burs_number,
+                    ors_burs_date = po_data.ors_burs_date,
+                    amount = po_data.amount,
+                    auth_first_name = po_data.auth_first_name,
+                    auth_last_name = po_data.auth_last_name,
+                    chief_first_name = po_data.chief_first_name,
+                    chief_last_name = po_data.chief_last_name,
+                    //new
+                    date_needed_po = po_data.date_needed_po,
+                    auth_user_position = po_data.auth_user_position,
+                    chief_accountant_user_position = po_data.chief_accountant_user_position,
+                });
+
+                noa_detail_list = new List<Noa_details>();
+                if (noa_details != null)
+                {
+
+                    var noa_details_converted = System.Text.Json.JsonSerializer.Deserialize<List<Noa_details>>(noa_details);
+                    foreach (var data in noa_details_converted)
+                    {
+                        noa_detail_list.Add(new Noa_details
+                        {
+                            quantity = data.quantity,
+                            item_number = data.item_number,
+                            uom_name = data.uom_name,
+                            unit_cost = data.unit_cost,
+                            total_cost = data.total_cost,
+                            description = data.description,
+                            stock_property_number = data.stock_property_number,
+                        });
+                    }
+                }
+
+                noa_terms_list = new List<Noa_terms>();
+                if (noa_terms != null)
+                {
+                    var noa_terms_converted = System.Text.Json.JsonSerializer.Deserialize<List<Noa_terms>>(noa_terms);
+                    foreach (var datas in noa_terms_converted)
+                    {
+                        noa_terms_list.Add(new Noa_terms
+                        {
+                            number = datas.number,
+                            description = datas.description,
+                        });
+                    }
+
+                }
+
+                rep.Report.RegisterData(po_list, "PoRef");//pass the data to fast report
+                rep.Report.RegisterData(noa_terms_list, "NoaRefTerm");//pass the data to fast report
+                rep.Report.RegisterData(noa_detail_list, "NoaDetailsRef");//pass the data to fast report
+            }
 
             ViewBag.WebReport = rep;
             //ViewBag.Message = decode;
