@@ -1,11 +1,17 @@
 using FastReport.Data;
 using FastReport.Utils;
 using FastReport;
+using MySqlConnector;
+using Microsoft.EntityFrameworkCore;
+using Fast_Report_API.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Dependency Injection
+builder.Services.AddDbContext<PghContext>(item => item.UseMySQL(builder.Configuration.GetConnectionString("Default")));
 
 var app = builder.Build();
 

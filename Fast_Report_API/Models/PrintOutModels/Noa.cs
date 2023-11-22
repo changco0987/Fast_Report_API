@@ -1,12 +1,12 @@
 ﻿using FastReport.Web;
 
-namespace Fast_Report_API.Models
+namespace Fast_Report_API.Models.PrintOutModels
 {
     public class Noa
     {
         public string? title { get; set; }
         //Data from noa_tbl
-        public string? noa_contract_ID{get; set; }
+        public string? noa_contract_ID { get; set; }
         public string? noa_title { get; set; }
         public string? grand_total { get; set; }
         public string? grand_total_amount_in_words { get; set; }
@@ -48,7 +48,7 @@ namespace Fast_Report_API.Models
 
     }
 
- 
+
 
     public class ReportModel
     {

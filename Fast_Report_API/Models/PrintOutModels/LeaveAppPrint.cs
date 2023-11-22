@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Fast_Report_API.Models
+namespace Fast_Report_API.Models.PrintOutModels
 {
     public class LeaveAppPrint
     {

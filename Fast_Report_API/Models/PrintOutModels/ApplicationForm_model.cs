@@ -1,4 +1,4 @@
-﻿namespace Fast_Report_API.Models
+﻿namespace Fast_Report_API.Models.PrintOutModels
 {
     public class ApplicationForm_model
     {
@@ -30,7 +30,7 @@
 
     }
 
-    public class Educational_background 
+    public class Educational_background
     {
         public string? level { get; set; }
         public string? degree { get; set; }
