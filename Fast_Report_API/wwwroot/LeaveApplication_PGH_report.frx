@@ -1,0 +1,422 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="09/15/2023 09:44:29" ReportInfo.Modified="12/01/2023 14:18:28" ReportInfo.CreatorVersion="2023.2.0.0">
+  <ScriptText>using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Windows.Forms;
+using System.Drawing;
+using System.Data;
+using FastReport;
+using FastReport.Data;
+using FastReport.Dialog;
+using FastReport.Barcode;
+using FastReport.Table;
+using FastReport.Utils;
+
+namespace FastReport
+{
+  public class ReportScript
+  {
+      
+
+    private void _StartReport(object sender, EventArgs e)
+    {
+          getEducationDetails();
+    }
+    
+    //To get all data from education datasource
+    private void getEducationDetails()
+    { 
+      // get a reference to the data source
+      DataSourceBase ds = Report.GetDataSource(&quot;leave_names&quot;);
+                                                                      
+      int index = 1;
+ 
+
+      // initialize it
+      ds.Init();    
+
+      // enum all rows
+      while (ds.HasMoreRows)
+      {
+
+        // get the data column value from the current row                     
+        string leaveName = ((String)Report.GetColumnValue(&quot;leave_names.value&quot;));   
+        string selectedLeaveName = ((String)Report.GetColumnValue(&quot;LeaveAppPrint.leave_type_name&quot;));
+                                                                                               
+        if(index == 1)
+        {                                 
+          Text9.Text = leaveName;   
+          if(leaveName == selectedLeaveName)
+          {         
+            CheckBox1.Checked = true;      
+          }
+        }
+        else if(index == 2)
+        {                                     
+          Text10.Text = leaveName;    
+          if(leaveName == selectedLeaveName)
+          {         
+            CheckBox2.Checked = true;      
+          }
+        } 
+        else if(index == 3)
+        {                                     
+          Text11.Text = leaveName;    
+          if(leaveName == selectedLeaveName)
+          {         
+            CheckBox3.Checked = true;      
+          }
+        } 
+        else if(index == 4)
+        {                                     
+          Text12.Text = leaveName; 
+          if(leaveName == selectedLeaveName)
+          {         
+            CheckBox4.Checked = true;      
+          }
+        } 
+        else if(index == 5)
+        {                                     
+          Text13.Text = leaveName;   
+          if(leaveName == selectedLeaveName)
+          {         
+            CheckBox5.Checked = true;      
+          }
+        } 
+        else if(index == 6)
+        {                                     
+          Text14.Text = leaveName;  
+          if(leaveName == selectedLeaveName)
+          {         
+            CheckBox6.Checked = true;      
+          }
+        } 
+        else if(index == 7)
+        {                                     
+          Text15.Text = leaveName;  
+          if(leaveName == selectedLeaveName)
+          {         
+            CheckBox7.Checked = true;      
+          }
+        } 
+        else if(index == 8)
+        {                                     
+          Text16.Text = leaveName;
+          if(leaveName == selectedLeaveName)
+          {         
+            CheckBox8.Checked = true;      
+          }
+        } 
+        else if(index == 9)
+        {                                     
+          Text17.Text = leaveName; 
+          if(leaveName == selectedLeaveName)
+          {         
+            CheckBox9.Checked = true;      
+          }
+        } 
+        else if(index == 10)
+        {                                     
+          Text18.Text = leaveName; 
+          if(leaveName == selectedLeaveName)
+          {         
+            CheckBox10.Checked = true;      
+          }
+        } 
+        else if(index == 11)
+        {                                     
+          Text19.Text = leaveName;  
+          if(leaveName == selectedLeaveName)
+          {         
+            CheckBox11.Checked = true;      
+          }
+        } 
+        else if(index == 12)
+        {                                     
+          Text20.Text = leaveName;  
+          if(leaveName == selectedLeaveName)
+          {         
+            CheckBox12.Checked = true;      
+          }
+        } 
+        else if(index == 13)
+        {                                     
+          Text21.Text = leaveName;    
+          if(leaveName == selectedLeaveName)
+          {         
+            CheckBox13.Checked = true;      
+          }
+        } 
+        else if(index == 14)
+        {                                     
+          Text22.Text = leaveName;
+          if(leaveName == selectedLeaveName)
+          {         
+            CheckBox14.Checked = true;      
+          }
+        } 
+        
+       
+       
+        
+        
+        
+        
+        
+        
+
+        index++;
+ 
+
+        // go next data row
+        ds.Next();
+
+      }     
+      
+     
+     
+    }
+    
+  }
+  
+  
+  
+  
+}
+</ScriptText>
+  <Dictionary>
+    <BusinessObjectDataSource Name="LeaveAppPrint" ReferenceName="leaveRequest" DataType="System.Int32" Enabled="true">
+      <Column Name="first_name" DataType="System.String"/>
+      <Column Name="middle_name" DataType="System.String"/>
+      <Column Name="last_name" DataType="System.String"/>
+      <Column Name="from_needed_date" DataType="System.String"/>
+      <Column Name="to_needed_date" DataType="System.String"/>
+      <Column Name="no_days" DataType="System.String"/>
+      <Column Name="department_name" DataType="System.String"/>
+      <Column Name="position_name" DataType="System.String"/>
+      <Column Name="leave_type_name" DataType="System.String"/>
+      <Column Name="leaveDetails" DataType="System.String"/>
+      <Column Name="date_of_filing" DataType="System.String"/>
+      <Column Name="imageUrl" DataType="System.String"/>
+      <Column Name="imageUrlDept" DataType="System.String"/>
+      <Column Name="UPimageUrlPNG" DataType="System.String"/>
+      <Column Name="PGHimageUrl" DataType="System.String"/>
+      <Column Name="leave_balance" DataType="System.String"/>
+      <Column Name="imageUrlHR" DataType="System.String"/>
+      <Column Name="remarks" DataType="System.String"/>
+      <Column Name="approved_date" DataType="System.String"/>
+    </BusinessObjectDataSource>
+    <BusinessObjectDataSource Name="leave_names" ReferenceName="leave_name_ref" DataType="System.Int32" Enabled="true">
+      <Column Name="name" DataType="System.String"/>
+      <Column Name="value" DataType="System.String"/>
+    </BusinessObjectDataSource>
+  </Dictionary>
+  <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="5" TopMargin="5" RightMargin="5" BottomMargin="5" Watermark.Font="Arial, 60pt">
+    <PageHeaderBand Name="PageHeader1" Width="756" Height="179.55">
+      <TableObject Name="Table2" Left="9.45" Top="9.45" Width="736.8" Height="103.95" Border.Lines="Left, Right, Top">
+        <TableColumn Name="Column5" Width="248.75"/>
+        <TableColumn Name="Column6" Width="248.75"/>
+        <TableColumn Name="Column7" Width="239.3"/>
+        <TableRow Name="Row2" Height="103.95">
+          <TableCell Name="Cell5" Font="Arial, 10pt">
+            <PictureObject Name="Picture3" Left="94.5" Top="18.9" Width="113.4" Height="75.6" DataColumn="LeaveAppPrint.PGHimageUrl"/>
+            <TextObject Name="Text7" Left="9.45" Top="9.45" Width="94.5" Height="18.9" Text="Civil Serve Form No.6&#13;&#10;Revised 2022" Font="Arial, 4pt"/>
+          </TableCell>
+          <TableCell Name="Cell6" Font="Arial, 10pt, style=Bold">
+            <TextObject Name="Text3" Left="9.45" Top="18.9" Width="207.9" Height="75.6" Text="Republic of the Philippines&#13;&#10;UNIVERSITY OF THE PHILIPPINES&#13;&#10;PHILIPPINE GENERAL HOSPITAL" HorzAlign="Center" Font="Arial, 9pt, style=Bold"/>
+          </TableCell>
+          <TableCell Name="Cell7" Font="Arial, 10pt">
+            <ShapeObject Name="Shape1" Left="75.6" Top="9.45" Width="151.2" Height="66.15" Border.Style="Dot"/>
+            <TextObject Name="Text8" Left="75.6" Top="9.45" Width="151.2" Height="18.9" Text="Stamp of Date of Receipt&#13;&#10;" HorzAlign="Center" Font="Arial, 8pt"/>
+          </TableCell>
+        </TableRow>
+      </TableObject>
+      <TableObject Name="Table3" Left="9.45" Top="113.4" Width="736.72" Height="56.7" Border.Lines="Left, Right, Bottom" PrintOnParent="true">
+        <TableColumn Name="Column8" Width="736.72"/>
+        <TableRow Name="Row3" Height="56.7">
+          <TableCell Name="Cell8" Text="APPLICATION FOR LEAVE" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text28" Left="-9450" Top="-9450" Width="122.85" Height="9.45" Font="Arial, 6pt"/>
+    </PageHeaderBand>
+    <DataBand Name="Data1" Top="181.33" Width="756" Height="856.17" Guides="151.2">
+      <TableObject Name="Table1" Left="9.45" Width="736.71" Height="47.25" Border.Lines="All">
+        <TableColumn Name="Column1" Width="205.44"/>
+        <TableColumn Name="Column2" Width="186.54"/>
+        <TableColumn Name="Column3" Width="177.09"/>
+        <TableColumn Name="Column4" Width="167.64"/>
+        <TableRow Name="Row1" Height="47.25">
+          <TableCell Name="Cell1" Text="1. OFFICE/DEPARTMENT&#13;&#10;[LeaveAppPrint.department_name]" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell2" Text="2. NAME: (Last)&#13;&#10;[LeaveAppPrint.last_name]" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell3" Text="(First)&#13;&#10;[LeaveAppPrint.first_name]" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell4" Text="(Middle)&#13;&#10;[LeaveAppPrint.middle_name]" Font="Arial, 10pt, style=Bold"/>
+        </TableRow>
+      </TableObject>
+      <TableObject Name="Table4" Left="9.45" Top="85.05" Width="736.72" Height="18.9" Border.Lines="Left, Right, Bottom" PrintOnParent="true">
+        <TableColumn Name="Column9" Width="736.72"/>
+        <TableRow Name="Row5">
+          <TableCell Name="Cell13" Border.Lines="Top, Bottom" Text="6.DETAILS OF APPLICATION" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        </TableRow>
+      </TableObject>
+      <TableObject Name="Table5" Left="9.45" Top="103.95" Width="736.71" Height="266.9" Border.Lines="Left, Right, Bottom">
+        <TableColumn Name="Column10" Width="495.92"/>
+        <TableColumn Name="Column11" Width="240.79"/>
+        <TableRow Name="Row6" Height="22.81">
+          <TableCell Name="Cell14" Border.Lines="Right, Top" Text="6.A  TYPE OF LEAVE (NON-CUMULATIVE) TO BE AVAILED OF :&#13;&#10;&#13;&#10;" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell15" Border.Lines="Left, Top" Text="6.B  DETAILS OF LEAVE:&#13;&#10;&#13;&#10;" Font="Arial, 10pt, style=Bold"/>
+        </TableRow>
+        <TableRow Name="Row7" Height="164.56">
+          <TableCell Name="Cell20" Border.Lines="Left, Right" VertAlign="Bottom" Font="Arial, 6pt">
+            <TextObject Name="Text10" Left="28.35" Top="18.9" Width="122.85" Height="9.45" Font="Arial, 6pt"/>
+            <CheckBoxObject Name="CheckBox2" Left="9.45" Top="18.9" Width="9.45" Height="9.45" Border.Lines="All" Checked="false"/>
+            <TextObject Name="Text9" Left="28.35" Top="9.45" Width="122.85" Height="9.45" Font="Arial, 6pt"/>
+            <CheckBoxObject Name="CheckBox1" Left="9.45" Top="9.45" Width="9.45" Height="9.45" Border.Lines="All" Checked="false"/>
+            <TextObject Name="Text11" Left="28.35" Top="28.35" Width="122.85" Height="9.45" Font="Arial, 6pt"/>
+            <TextObject Name="Text12" Left="28.35" Top="37.8" Width="122.85" Height="9.45" Font="Arial, 6pt"/>
+            <TextObject Name="Text13" Left="28.35" Top="47.25" Width="122.85" Height="9.45" Font="Arial, 6pt"/>
+            <TextObject Name="Text14" Left="28.35" Top="56.7" Width="122.85" Height="9.45" Font="Arial, 6pt"/>
+            <TextObject Name="Text15" Left="28.35" Top="66.15" Width="122.85" Height="9.45" Font="Arial, 6pt"/>
+            <TextObject Name="Text16" Left="28.35" Top="75.6" Width="122.85" Height="9.45" Font="Arial, 6pt"/>
+            <TextObject Name="Text17" Left="28.35" Top="85.05" Width="122.85" Height="9.45" Font="Arial, 6pt"/>
+            <TextObject Name="Text18" Left="28.35" Top="94.5" Width="122.85" Height="9.45" Font="Arial, 6pt"/>
+            <TextObject Name="Text19" Left="28.35" Top="103.95" Width="122.85" Height="9.45" Font="Arial, 6pt"/>
+            <TextObject Name="Text20" Left="28.35" Top="113.4" Width="122.85" Height="9.45" Font="Arial, 6pt"/>
+            <TextObject Name="Text21" Left="28.35" Top="122.85" Width="122.85" Height="9.45" Font="Arial, 6pt"/>
+            <TextObject Name="Text22" Left="28.35" Top="132.3" Width="122.85" Height="9.45" Font="Arial, 6pt"/>
+            <CheckBoxObject Name="CheckBox3" Left="9.45" Top="28.35" Width="9.45" Height="9.45" Border.Lines="All" Checked="false"/>
+            <CheckBoxObject Name="CheckBox4" Left="9.45" Top="37.8" Width="9.45" Height="9.45" Border.Lines="All" Checked="false"/>
+            <CheckBoxObject Name="CheckBox5" Left="9.45" Top="47.25" Width="9.45" Height="9.45" Border.Lines="All" Checked="false"/>
+            <CheckBoxObject Name="CheckBox6" Left="9.45" Top="56.7" Width="9.45" Height="9.45" Border.Lines="All" Checked="false"/>
+            <CheckBoxObject Name="CheckBox7" Left="9.45" Top="66.15" Width="9.45" Height="9.45" Border.Lines="All" Checked="false"/>
+            <CheckBoxObject Name="CheckBox8" Left="9.45" Top="75.6" Width="9.45" Height="9.45" Border.Lines="All" Checked="false"/>
+            <CheckBoxObject Name="CheckBox9" Left="9.45" Top="85.05" Width="9.45" Height="9.45" Border.Lines="All" Checked="false"/>
+            <CheckBoxObject Name="CheckBox10" Left="9.45" Top="94.5" Width="9.45" Height="9.45" Border.Lines="All" Checked="false"/>
+            <CheckBoxObject Name="CheckBox11" Left="9.45" Top="103.95" Width="9.45" Height="9.45" Border.Lines="All" Checked="false"/>
+            <CheckBoxObject Name="CheckBox12" Left="9.45" Top="113.4" Width="9.45" Height="9.45" Border.Lines="All" Checked="false"/>
+            <CheckBoxObject Name="CheckBox13" Left="9.45" Top="122.85" Width="9.45" Height="9.45" Border.Lines="All" Checked="false"/>
+            <CheckBoxObject Name="CheckBox14" Left="9.45" Top="132.3" Width="9.45" Height="9.45" Border.Lines="All" Checked="false"/>
+            <TextObject Name="Text26" Left="160.65" Top="9.45" Width="311.85" Height="9.45" Text="(Sec. 51, Rule XVI, Omnibus Rules Implementing E.O No.292)" Font="Arial, 6pt"/>
+            <TextObject Name="Text27" Left="160.65" Top="18.9" Width="311.85" Height="9.45" Text="(Sec. 25, Rule XVI, Omnibus Rules Implementing E.O No.292)" Font="Arial, 6pt"/>
+            <TextObject Name="Text29" Left="160.65" Top="28.35" Width="311.85" Height="9.45" Text="(Sec. 43, Rule XVI, Omnibus Rules Implementing E.O No.292)" Font="Arial, 6pt"/>
+            <TextObject Name="Text30" Left="160.65" Top="37.8" Width="311.85" Height="9.45" Text="(R.A No. 11210/ IRR issued by CSC, DOLE and SSS)" Font="Arial, 6pt"/>
+            <TextObject Name="Text31" Left="160.65" Top="47.25" Width="311.85" Height="9.45" Text="(R.A No. 8187 / CSC MC No.71, s. 1998,as amended)" Font="Arial, 6pt"/>
+            <TextObject Name="Text32" Left="160.65" Top="56.7" Width="311.85" Height="9.45" Text="(Sec. 21, Rule XVI, Omnibus Rules Implementing E.O No.292)" Font="Arial, 6pt"/>
+            <TextObject Name="Text33" Left="160.65" Top="66.15" Width="311.85" Height="9.45" Text="(R.A No. 8927 / CSC MC No.8, s. 2004)" Font="Arial, 6pt"/>
+            <TextObject Name="Text34" Left="160.65" Top="75.6" Width="311.85" Height="9.45" Text="(Sec. 68, Rule XVI, Omnibus Rules Implementing E.O No. 292)" Font="Arial, 6pt"/>
+            <TextObject Name="Text35" Left="160.65" Top="85.05" Width="311.85" Height="9.45" Text="(R.A No.9262 / CSC MC No. 15, s. 2005)" Font="Arial, 6pt"/>
+            <TextObject Name="Text36" Left="160.65" Top="94.5" Width="311.85" Height="9.45" Text="(Sec. 55, Rule XVI, Omnibus Rules Implementing E.O No. 292)" Font="Arial, 6pt"/>
+            <TextObject Name="Text37" Left="160.65" Top="103.95" Width="311.85" Height="9.45" Text="(R.A No. 9710 / CSC MC No. 25, s.2010)" Font="Arial, 6pt"/>
+            <TextObject Name="Text38" Left="160.65" Top="113.4" Width="311.85" Height="9.45" Text="(CSC MC No.2 ,s. 2012, as amended)" Font="Arial, 6pt"/>
+            <TextObject Name="Text39" Left="160.65" Top="122.85" Width="311.85" Height="9.45" Text="(R.A No. 8552)" Font="Arial, 6pt"/>
+            <TextObject Name="Text40" Left="160.65" Top="132.3" Width="311.85" Height="9.45" Font="Arial, 6pt"/>
+          </TableCell>
+          <TableCell Text="[LeaveAppPrint.leaveDetails]" Font="Arial, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row10" Height="79.53">
+          <TableCell Name="Cell24" Border.Lines="Right, Top" Text="6.C  NUMBERS OF WORKING DAYS APPLIED FOR:  [LeaveAppPrint.no_days]&#13;&#10;&#13;&#10;INCLUSIVE DATES : [LeaveAppPrint.from_needed_date] -[LeaveAppPrint.to_needed_date]" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell25" Border.Lines="Top" Text="(Signature of Applicant)" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt">
+            <PictureObject Name="Picture4" Left="85.05" Top="28.35" Width="66.15" Height="37.8" DataColumn="LeaveAppPrint.imageUrl"/>
+            <TextObject Name="Text47" Width="141.75" Height="18.9" Text="6.D COMMUTATION:" Font="Arial, 8pt, style=Bold"/>
+            <CheckBoxObject Name="CheckBox19" Left="113.4" Top="9.45" Width="9.45" Height="9.45" Border.Lines="All" Checked="false"/>
+            <TextObject Name="Text48" Left="122.85" Top="9.45" Width="122.85" Height="9.45" Text="Not Requested" Font="Arial, 6pt"/>
+            <CheckBoxObject Name="CheckBox20" Left="179.55" Top="9.45" Width="9.45" Height="9.45" Border.Lines="All" Checked="false"/>
+            <TextObject Name="Text49" Left="189" Top="9.45" Width="122.85" Height="9.45" Text=" Requested" Font="Arial, 6pt"/>
+          </TableCell>
+        </TableRow>
+      </TableObject>
+      <TableObject Name="Table7" Left="9.45" Top="47.25" Width="519.36" Height="37.8" Border.Lines="All">
+        <TableColumn Name="Column13" Width="207.63"/>
+        <TableColumn Name="Column14" Width="311.73"/>
+        <TableRow Name="Row9" Height="37.8">
+          <TableCell Name="Cell22" Text="3. DATE OF FILING&#13;&#10;[LeaveAppPrint.date_of_filing]" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell23" Text="4. POSITION&#13;&#10;[LeaveAppPrint.position_name]" Font="Arial, 10pt, style=Bold"/>
+        </TableRow>
+      </TableObject>
+      <TableObject Name="Table8" Left="9.45" Top="396.9" Width="736.72" Height="340.2" Border.Lines="Left, Right, Top">
+        <TableColumn Name="Column15" Width="495.92"/>
+        <TableColumn Name="Column16" Width="240.8"/>
+        <TableRow Name="Row11" Height="47.25">
+          <TableCell Name="Cell26" Border.Lines="Right" Text="7.A  CERTIFICATION OF LEAVE BALANCE &#13;&#10;as of : [LeaveAppPrint.approved_date]" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell27" Text="7.B RECOMMENDATION" Font="Arial, 10pt, style=Bold">
+            <CheckBoxObject Name="CheckBox15" Left="9.45" Top="28.35" Width="9.45" Height="9.45" Border.Lines="All" Checked="false"/>
+            <TextObject Name="Text41" Left="28.35" Top="28.35" Width="122.85" Height="9.45" Text="For Approval&#13;&#10;" Font="Arial, 6pt"/>
+          </TableCell>
+        </TableRow>
+        <TableRow Name="Row12" Height="94.5">
+          <TableCell Name="Cell31" Border.Lines="Right" Font="Arial, 10pt">
+            <TableObject Name="Table9" Left="75.6" Top="28.35" Width="349.52" Height="56.72" Border.Lines="All" PrintOnParent="true">
+              <TableColumn Name="Column17" Width="87.38"/>
+              <TableColumn Name="Column18" Width="87.38"/>
+              <TableColumn Name="Column19" Width="87.38"/>
+              <TableColumn Name="Column20" Width="87.38"/>
+              <TableRow Name="Row13" Height="28.36">
+                <TableCell Name="Cell33" Text="Type&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+                <TableCell Name="Cell34" Border.Lines="Left" Text="Total" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+                <TableCell Name="Cell35" Border.Lines="Left" Text="Less:This Application" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+                <TableCell Name="Cell36" Border.Lines="Left" Text="Balance" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+              </TableRow>
+              <TableRow Name="Row14" Height="28.36">
+                <TableCell Name="Cell38" Border.Lines="Right, Top" Text="[LeaveAppPrint.leave_type_name]" Font="Arial, 7pt"/>
+                <TableCell Name="Cell39" Border.Lines="Right, Top" Font="Arial, 10pt"/>
+                <TableCell Name="Cell40" Border.Lines="Top" Text="[LeaveAppPrint.no_days]" Font="Arial, 10pt"/>
+                <TableCell Name="Cell41" Border.Lines="Left, Top" Text="[LeaveAppPrint.leave_balance]" Font="Arial, 10pt"/>
+              </TableRow>
+            </TableObject>
+          </TableCell>
+          <TableCell Name="Cell32" Font="Arial, 10pt">
+            <CheckBoxObject Name="CheckBox16" Left="9.45" Width="9.45" Height="9.45" Border.Lines="All" Checked="false"/>
+            <TextObject Name="Text42" Left="28.35" Width="160.65" Height="37.8" Text="For Disapproval due to : [LeaveAppPrint.remarks]" Font="Arial, 6pt"/>
+          </TableCell>
+        </TableRow>
+        <TableRow Name="Row15" Height="85.05">
+          <TableCell Name="Cell42" Font="Arial, 10pt">
+            <PictureObject Name="Picture5" Left="141.75" Width="141.75" Height="75.6" DataColumn="LeaveAppPrint.imageUrlHR"/>
+          </TableCell>
+          <TableCell Name="Cell43" Border.Lines="Left, Top" Font="Arial, 10pt">
+            <PictureObject Name="Picture6" Left="37.8" Width="141.75" Height="75.6" DataColumn="LeaveAppPrint.imageUrlDept"/>
+          </TableCell>
+        </TableRow>
+        <TableRow Name="Row16" Height="28.35">
+          <TableCell Name="Cell44" Border.Lines="Top" Font="Arial, 10pt">
+            <TextObject Name="Text4" Left="132.3" Top="9.45" Width="160.65" Height="18.9" Text="(Authorized Officer)" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          </TableCell>
+          <TableCell Name="Cell45" Border.Lines="Left, Top" Font="Arial, 10pt">
+            <TextObject Name="Text6" Left="18.9" Top="9.45" Width="160.65" Height="18.9" Text="(Authorized Officer)" HorzAlign="Center" VertAlign="Center" Font="Arial, 7pt"/>
+          </TableCell>
+        </TableRow>
+        <TableRow Name="Row17" Height="85.05">
+          <TableCell Name="Cell46" Border.Lines="Top" Text="7.C APPROVED FOR:" Font="Arial, 10pt, style=Bold">
+            <TextObject Name="Text43" Left="37.8" Top="28.35" Width="122.85" Height="9.45" Text="days with pay &#13;&#10;" Font="Arial, 6pt"/>
+            <TextObject Name="Text44" Left="37.8" Top="56.7" Width="122.85" Height="9.45" Text="days without pay &#13;&#10;" Font="Arial, 6pt"/>
+            <CheckBoxObject Name="CheckBox17" Left="9.45" Top="28.35" Width="9.45" Height="9.45" Checked="false"/>
+            <CheckBoxObject Name="CheckBox18" Left="9.45" Top="56.7" Width="9.45" Height="9.45" Checked="false"/>
+            <TextObject Name="Text45" Top="37.8" Width="37.8" Height="9.45" Border.Lines="Bottom" Font="Arial, 10pt, style=Bold"/>
+            <TextObject Name="Text46" Top="66.15" Width="37.8" Height="9.45" Border.Lines="Bottom" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          </TableCell>
+          <TableCell Name="Cell47" Border.Lines="Top" Text="7.D DISAPPROVED DUE TO : __________________________________________________________________________________" Font="Arial, 10pt, style=Bold"/>
+        </TableRow>
+      </TableObject>
+      <TableObject Name="Table6" Left="9.45" Top="376.11" Width="736.72" Height="18.9" Border.Lines="Left, Right, Bottom" PrintOnParent="true">
+        <TableColumn Name="Column12" Width="736.72"/>
+        <TableRow Name="Row8">
+          <TableCell Name="Cell21" Border.Lines="Top" Text="7.  DETAILS OF ACTION ON APPLICATION" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        </TableRow>
+      </TableObject>
+      <TableObject Name="Table10" Left="9.45" Top="737.1" Width="736.72" Height="100.17">
+        <TableColumn Name="Column21" Width="736.72"/>
+        <TableRow Name="Row18" Height="100.17">
+          <TableCell Name="Cell48" Border.Lines="Left, Right, Bottom" Text="(Authorized Official)" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 10pt">
+            <PictureObject Name="Picture7" Left="292.95" Width="141.75" Height="75.6" DataColumn="LeaveAppPrint.imageUrlDept"/>
+            <TextObject Name="Text50" Top="9.45" Width="37.8" Height="9.45" Border.Lines="Bottom" Font="Arial, 10pt, style=Bold"/>
+            <TextObject Name="Text51" Left="37.8" Width="122.85" Height="9.45" Text="others (specify)&#13;&#10;" Font="Arial, 6pt"/>
+            <CheckBoxObject Name="CheckBox21" Left="9.45" Width="9.45" Height="9.45" Checked="false"/>
+          </TableCell>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text25" Left="529.2" Top="47.25" Width="217.35" Height="37.8" Border.Lines="Right, Bottom" Text="5.SALARY" Font="Arial, 10pt, style=Bold"/>
+    </DataBand>
+    <PageFooterBand Name="PageFooter1" Top="1039.28" Width="756" Height="37.8"/>
+  </ReportPage>
+</Report>

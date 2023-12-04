@@ -28,8 +28,12 @@ namespace Fast_Report_API.Controllers
         private List<Noa> noa_list;
         private List<Po> po_list;
         private List<Noa_terms> noa_terms_list;
-        private List<LeaveAppPrint> leave_list;
         private List<Noa_details> noa_detail_list;
+
+
+        private List<LeaveAppPrint> leave_list;
+        private List<leave_names> leave_name_list;
+        //private List<leave_names_desc> leave_name_desc_list;
 
 
         private List<ApplicationForm_model> application_form_list;
@@ -203,6 +207,7 @@ namespace Fast_Report_API.Controllers
                     other_remarks = leave.other_remarks,
                     imageUrl = leave.imageUrl,
                     imageUrlDept = leave.imageUrlDept,
+                    leave_balance = leave.leave_balance,
 
                 });
 
@@ -820,7 +825,7 @@ namespace Fast_Report_API.Controllers
 
             FastReport.Utils.Config.WebMode = true;
             WebReport UserWebReport = new WebReport();
-            
+
             UserWebReport.Toolbar.Exports = new ExportMenuSettings()
             {
                 ExportTypes = Exports.All
@@ -840,6 +845,8 @@ namespace Fast_Report_API.Controllers
 
 
             leave_list = new List<LeaveAppPrint>();
+            leave_name_list = new List<leave_names>();
+            //leave_name_desc_list = new List<leave_names_desc>();
             string decode = Base64Decode(response);//base64 to string
 
             var leave = System.Text.Json.JsonSerializer.Deserialize<LeaveAppPrint>(decode);
@@ -858,13 +865,29 @@ namespace Fast_Report_API.Controllers
                 position_name = leave.position_name,
                 leave_type_name = leave.leave_type_name,
                 other_remarks = leave.other_remarks,
+                to_needed_date = leave.to_needed_date,
+                from_needed_date = leave.from_needed_date,
+                no_days = leave.no_days,
+                PGHimageUrl = leave.PGHimageUrl,
+                leaveDetails = leave.leaveDetails,
                 imageUrl = leave.imageUrl,
                 imageUrlDept = leave.imageUrlDept,
+                leave_balance = leave.leave_balance,
+                UPimageUrlPNG = leave.UPimageUrlPNG,
+                imageUrlHR = leave.imageUrlHR,
+                remarks = leave.remarks,
+                approved_date = leave.approved_date,
+                leave_list = leave.leave_list,
+                //leave_desc = leave.leave_desc,
+
 
             });
+            leave_name_list = leave.leave_list;
+            //leave_name_desc_list = leave.leave_desc;
 
-         
             UserWebReport.Report.RegisterData(leave_list, "leaveRequest");
+            UserWebReport.Report.RegisterData(leave_name_list, "leave_name_ref");
+            //UserWebReport.Report.RegisterData(leave_name_desc_list, "leave_name_desc_ref");
 
             ViewData["ReportName"] = "leaveapplication";
             ViewData["Resp"] = response;
