@@ -908,8 +908,10 @@ namespace Fast_Report_API.Controllers
             }
         }
 
+
         [HttpGet("[action]")]
-        public async Task<IActionResult> Residency(string title, string response)
+        //residency method parameters(filename, form data, signature filepath)
+        public async Task<IActionResult> Residency(string title, string response, string signature)
         {
 
             FastReport.Utils.Config.WebMode = true;
@@ -946,6 +948,7 @@ namespace Fast_Report_API.Controllers
             recognition_list = new List<Recognitions>();
             references_list = new List<References>();
 
+            application_details.signature = signature + "/" + application_details.signature;
             application_form_list.Add(application_details);
             educational_Backgrounds_list = application_details.educational_background;
             work_experience_list = application_details.work_experiences;
