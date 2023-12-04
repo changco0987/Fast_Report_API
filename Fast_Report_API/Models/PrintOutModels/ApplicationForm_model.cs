@@ -23,6 +23,7 @@
         public string? specialty { get; set; }
         public string? position_applied { get; set; }
         public string? email { get; set; }
+        public string? signature { get; set; }
         public List<Educational_background>? educational_background { get; set; }
         public List<Work_experience>? work_experiences { get; set; }
         public List<Recognitions>? recognitions { get; set; }
