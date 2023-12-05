@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="11/09/2023 10:20:01" ReportInfo.Modified="12/04/2023 15:33:26" ReportInfo.CreatorVersion="2023.2.0.0">
+<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="11/09/2023 10:20:01" ReportInfo.Modified="12/05/2023 08:42:36" ReportInfo.CreatorVersion="2023.2.0.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -551,7 +551,7 @@ namespace FastReport
         <TableRow Name="Row10">
           <TableCell Name="Cell41" Font="Arial, 10pt"/>
           <TableCell Name="Cell42" Font="Arial, 10pt">
-            <PictureObject Name="Picture2" Left="28.35" Width="103.95" Height="56.7" DataColumn="appForm.signature"/>
+            <PictureObject Name="Picture2" Left="28.35" Width="103.95" Height="56.7" DataColumn="appForm.signature" SizeMode="StretchImage"/>
           </TableCell>
           <TableCell Name="Cell43" Font="Arial, 10pt"/>
           <TableCell Name="Cell44" Font="Arial, 10pt"/>

@@ -934,6 +934,7 @@ namespace Fast_Report_API.Controllers
 
 
             string decode = Base64Decode(response);//base64 to string
+            signature = Base64Decode(signature);
        
 
             ApplicationForm_model application_details = Newtonsoft.Json.JsonConvert.DeserializeObject<ApplicationForm_model>(decode);
