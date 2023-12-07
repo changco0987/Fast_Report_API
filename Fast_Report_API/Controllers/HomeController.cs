@@ -927,7 +927,8 @@ namespace Fast_Report_API.Controllers
             UserWebReport.Toolbar.ShowLastButton = true;
             UserWebReport.Toolbar.ShowFirstButton = true;
             UserWebReport.Toolbar.ShowZoomButton = true;
-            UserWebReport.Toolbar.ShowPrint = false;
+            UserWebReport.Toolbar.ShowPrint = true;
+            UserWebReport.Toolbar.Exports.Show = true;
             UserWebReport.ReportPrepared = false;
 
             ViewData["ReportName"] = title;
@@ -1107,10 +1108,10 @@ namespace Fast_Report_API.Controllers
                 recognition_list = application_details.recognitions;
                 references_list = application_details.references;
 
-                rep.RegisterData(application_form_list, "appForm_ref");
-                rep.RegisterData(educational_Backgrounds_list, "education_ref");
-                rep.RegisterData(work_experience_list, "work_exp_ref");
-                rep.RegisterData(recognition_list, "recognitions_ref");
+                rep.Report.RegisterData(application_form_list, "appForm_ref");
+                rep.Report.RegisterData(educational_Backgrounds_list, "education_ref");
+                rep.Report.RegisterData(work_experience_list, "work_exp_ref");
+                rep.Report.RegisterData(recognition_list, "recognitions_ref");
                 rep.Report.RegisterData(references_list, "references_ref");
             }
 
@@ -1121,7 +1122,7 @@ namespace Fast_Report_API.Controllers
                 pdfExport.Subject = "Subject Report";
                 pdfExport.Title = "Report Report";
                 MemoryStream ms = new MemoryStream();
-                rep.Export(pdfExport, ms);
+                rep.Report.Export(pdfExport, ms);
                 rep.Dispose();
                 pdfExport.Dispose();
                 ms.Position = 0;
