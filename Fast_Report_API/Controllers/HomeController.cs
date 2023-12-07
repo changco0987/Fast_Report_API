@@ -928,7 +928,7 @@ namespace Fast_Report_API.Controllers
             UserWebReport.Toolbar.ShowFirstButton = true;
             UserWebReport.Toolbar.ShowZoomButton = true;
             UserWebReport.Toolbar.ShowPrint = true;
-            UserWebReport.Toolbar.Exports.Show = true;
+            UserWebReport.Toolbar.Exports.Show = false;
             UserWebReport.ReportPrepared = false;
 
             ViewData["ReportName"] = title;
