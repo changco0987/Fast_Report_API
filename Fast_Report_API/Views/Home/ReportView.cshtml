@@ -21,13 +21,18 @@
 <script>
     $(document).ready(function() {
    
-        var title = "@ViewBag.ReportName";
-      
-        var resp1 = "@resp1";
-        var resp2 = "@resp2";
-        var resp3 = "@resp3";
+        var title = @Html.Raw(Json.Serialize(ViewBag.ReportName));
+
+
+
+        var resp1 = @Html.Raw(Json.Serialize(ViewBag.Resp));
+        var resp2 = @Html.Raw(Json.Serialize(ViewBag.Resp2));
+        var resp3 = @Html.Raw(Json.Serialize(ViewBag.Resp3));
+        console.log("title", title);
+        console.log("resp1", resp1);
+        console.log("resp2", resp2);
+        console.log("resp3", resp3);
         $('#dlBtn').click(function() {
-            console.log("@resp1");
             window.location.href = '@Url.Action("saveFile", "Home")?title='+title +'&response=' + resp1 +'&response2=' + resp2 +'&response3=' + resp3;
         });
 

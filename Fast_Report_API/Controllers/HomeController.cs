@@ -930,7 +930,10 @@ namespace Fast_Report_API.Controllers
             UserWebReport.Toolbar.ShowPrint = false;
             UserWebReport.ReportPrepared = false;
 
-
+            ViewData["ReportName"] = title;
+            ViewData["Resp"] = response;
+            ViewData["Resp2"] = signature;
+            ViewData["Resp3"] = "";
 
 
             string decode = Base64Decode(response);//base64 to string
@@ -1085,9 +1088,33 @@ namespace Fast_Report_API.Controllers
                 rep.Report.RegisterData(leave_list, "leaveRequest");
 
             }
+            else if (title.ToLower().Equals("appForm"))
+            {
+                var signature = Base64Decode(response2);
 
+                ApplicationForm_model application_details = Newtonsoft.Json.JsonConvert.DeserializeObject<ApplicationForm_model>(decode);
 
-            if (rep.Report.Prepare())
+                application_form_list = new List<ApplicationForm_model>();
+                educational_Backgrounds_list = new List<Educational_background>();
+                work_experience_list = new List<Work_experience>();
+                recognition_list = new List<Recognitions>();
+                references_list = new List<References>();
+
+                application_details.signature = signature + "/" + application_details.signature;
+                application_form_list.Add(application_details);
+                educational_Backgrounds_list = application_details.educational_background;
+                work_experience_list = application_details.work_experiences;
+                recognition_list = application_details.recognitions;
+                references_list = application_details.references;
+
+                rep.RegisterData(application_form_list, "appForm_ref");
+                rep.RegisterData(educational_Backgrounds_list, "education_ref");
+                rep.RegisterData(work_experience_list, "work_exp_ref");
+                rep.RegisterData(recognition_list, "recognitions_ref");
+                rep.Report.RegisterData(references_list, "references_ref");
+            }
+
+            if (rep.Prepare())
             {
                 FastReport.Export.PdfSimple.PDFSimpleExport pdfExport = new FastReport.Export.PdfSimple.PDFSimpleExport();
                 pdfExport.ShowProgress = false;
