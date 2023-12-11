@@ -14,6 +14,4 @@ public partial class SeriesTbl
     public decimal? Number { get; set; }
 
     public ulong StatusId { get; set; }
-
-    public virtual StatusTbl Status { get; set; } = null!;
 }

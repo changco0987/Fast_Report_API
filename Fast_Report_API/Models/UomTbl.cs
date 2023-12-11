@@ -14,6 +14,4 @@ public partial class UomTbl
     public ulong StatusId { get; set; }
 
     public virtual ICollection<NoaDetailsTbl> NoaDetailsTbls { get; set; } = new List<NoaDetailsTbl>();
-
-    public virtual StatusTbl Status { get; set; } = null!;
 }
