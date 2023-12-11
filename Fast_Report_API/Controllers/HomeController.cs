@@ -931,11 +931,6 @@ namespace Fast_Report_API.Controllers
             UserWebReport.Toolbar.Exports.Show = false;
             UserWebReport.ReportPrepared = false;
 
-            ViewData["ReportName"] = title;
-            ViewData["Resp"] = response;
-            ViewData["Resp2"] = signature;
-            ViewData["Resp3"] = "";
-
 
             string decode = Base64Decode(response);//base64 to string
             signature = Base64Decode(signature);
@@ -953,7 +948,7 @@ namespace Fast_Report_API.Controllers
             recognition_list = new List<Recognitions>();
             references_list = new List<References>();
 
-            application_details.signature = signature + "/" + application_details.signature;
+            application_details.signature = signature + "/" + application_details.signature; //Path + / + file name
             application_form_list.Add(application_details);
             educational_Backgrounds_list = application_details.educational_background;
             work_experience_list = application_details.work_experiences;
