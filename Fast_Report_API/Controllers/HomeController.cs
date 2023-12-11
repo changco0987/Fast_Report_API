@@ -36,12 +36,17 @@ namespace Fast_Report_API.Controllers
         //private List<leave_names_desc> leave_name_desc_list;
 
 
-        private List<ApplicationForm_model> application_form_list;
-        private List<Educational_background> educational_Backgrounds_list;
-        private List<Work_experience> work_experience_list;
-        private List<Recognitions> recognition_list;
-        private List<References> references_list;
+        private List<ApplicationForm_model> application_form_list = new List<ApplicationForm_model>();
+        private List<Educational_background> educational_Backgrounds_list = new List<Educational_background>();
+        private List<Work_experience> work_experience_list = new List<Work_experience>();
+        private List<Recognitions> recognition_list = new List<Recognitions>();
+        private List<References> references_list = new List<References>();
 
+        //application_form_list = new List<ApplicationForm_model>();
+        //educational_Backgrounds_list = new List<Educational_background>();
+        //work_experience_list = new List<Work_experience>();
+        //recognition_list = new List<Recognitions>();
+        //references_list = new List<References>();
 
         private string fileName;
 
@@ -942,12 +947,6 @@ namespace Fast_Report_API.Controllers
             //string path = mapPath.MapVirtualPathToPhysical("~/noa_report.frx");
             UserWebReport.Report.Load(path);
 
-            application_form_list = new List<ApplicationForm_model>();
-            educational_Backgrounds_list = new List<Educational_background>();
-            work_experience_list = new List<Work_experience>();
-            recognition_list = new List<Recognitions>();
-            references_list = new List<References>();
-
             application_details.signature = signature + "/" + application_details.signature; //Path + / + file name
             application_form_list.Add(application_details);
             educational_Backgrounds_list = application_details.educational_background;
@@ -1090,11 +1089,11 @@ namespace Fast_Report_API.Controllers
 
                 ApplicationForm_model application_details = Newtonsoft.Json.JsonConvert.DeserializeObject<ApplicationForm_model>(decode);
 
-                application_form_list = new List<ApplicationForm_model>();
-                educational_Backgrounds_list = new List<Educational_background>();
-                work_experience_list = new List<Work_experience>();
-                recognition_list = new List<Recognitions>();
-                references_list = new List<References>();
+                //application_form_list = new List<ApplicationForm_model>();
+                //educational_Backgrounds_list = new List<Educational_background>();
+                //work_experience_list = new List<Work_experience>();
+                //recognition_list = new List<Recognitions>();
+                //references_list = new List<References>();
 
                 application_details.signature = signature + "/" + application_details.signature;
                 application_form_list.Add(application_details);
