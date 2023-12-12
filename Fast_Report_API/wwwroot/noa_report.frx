@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="08/11/2023 08:41:06" ReportInfo.Modified="10/06/2023 08:20:50" ReportInfo.CreatorVersion="2023.2.0.0">
+<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="08/11/2023 08:41:06" ReportInfo.Modified="12/12/2023 10:03:23" ReportInfo.CreatorVersion="2023.2.0.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -111,8 +111,8 @@ namespace FastReport
       <TextObject Name="Text8" Left="274.05" Top="141.75" Width="217.35" Height="18.9" CanGrow="true" CanBreak="false" Text="ISO 9001 Certified" HorzAlign="Center" Font="Times New Roman, 9pt"/>
       <LineObject Name="Line10" Left="-9450" Top="-9440.55" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
     </ReportTitleBand>
-    <PageHeaderBand Name="PageHeader1" Top="221.35" Width="718.2" Height="18.9"/>
-    <DataBand Name="Data1" Top="244.25" Width="718.2" Height="217.35" Guides="160.65" DataSource="Noa">
+    <PageHeaderBand Name="PageHeader1" Top="222.68" Width="718.2" Height="18.9"/>
+    <DataBand Name="Data1" Top="246.92" Width="718.2" Height="217.35" Guides="160.65" DataSource="Noa">
       <TextObject Name="Text9" Width="94.5" Height="18.9" Text="[Noa.date_needed]" HorzAlign="Center" Font="Times New Roman, 9pt"/>
       <TextObject Name="Text10" Top="37.8" Width="94.5" Height="18.9" CanBreak="false" Text="[Noa.supplier_name]" AutoWidth="true" Font="Times New Roman, 11pt, style=Bold"/>
       <TextObject Name="Text11" Top="56.7" Width="198.45" Height="18.9" CanGrow="true" CanBreak="false" Text="[Noa.delivery_address]" Padding="2, 0, 10, 10" Font="Times New Roman, 9pt, style=Italic"/>
@@ -124,7 +124,7 @@ namespace FastReport
       <TextObject Name="Text18" Left="595.35" Width="94.5" Height="18.9" CanBreak="false" Text="NOA No:  [Noa.noa_contract_ID]" AutoWidth="true" Font="Times New Roman, 9pt, style=Bold"/>
       <TextObject Name="Text44" Left="113.4" Top="75.6" Width="94.5" Height="18.9" CanBreak="false" Text="Fax: [Noa.fax_number]" AutoWidth="true" Font="Times New Roman, 9pt"/>
     </DataBand>
-    <DataBand Name="Data2" Top="465.6" Width="718.2" Height="154.98">
+    <DataBand Name="Data2" Top="469.6" Width="718.2" Height="154.98">
       <CheckBoxObject Name="CheckBox4" Left="37.8" Top="37.8" Width="18.9" Height="18.9" Checked="false"/>
       <CheckBoxObject Name="CheckBox5" Left="37.8" Top="66.15" Width="18.9" Height="18.9" Checked="false"/>
       <CheckBoxObject Name="CheckBox6" Left="37.8" Top="94.5" Width="18.9" Height="18.9" Checked="false"/>
@@ -136,7 +136,7 @@ namespace FastReport
       <ShapeObject Name="Shape4" Left="28.35" Top="66.15" Width="37.8" Height="22.68"/>
       <ShapeObject Name="Shape5" Left="28.35" Top="37.8" Width="37.8" Height="22.68"/>
     </DataBand>
-    <DataBand Name="Data3" Top="624.58" Width="718.2" Height="103.95">
+    <DataBand Name="Data3" Top="629.91" Width="718.2" Height="103.95">
       <TableObject Name="Table1" Top="66.15" Width="718.39" Height="37.8" Border.Lines="Left, Right, Top">
         <TableColumn Name="Column1" Width="39.4"/>
         <TableColumn Name="Column2" Width="67.76"/>
@@ -154,7 +154,7 @@ namespace FastReport
         </TableRow>
       </TableObject>
     </DataBand>
-    <DataBand Name="Data4" Top="732.53" Width="718.2" Height="37.8" CanGrow="true" CanShrink="true" CanBreak="true" Guides="0,0,0" DataSource="Noa_details">
+    <DataBand Name="Data4" Top="739.2" Width="718.2" Height="37.8" CanGrow="true" CanShrink="true" CanBreak="true" Guides="0,0,0" DataSource="Noa_details">
       <TextObject Name="Text20" Left="175.01" Width="370.06" Height="37.8" Border.Lines="Left, Right" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[Noa_details.description]" Padding="10, 0, 10, 150" HorzAlign="Justify" Font="Times New Roman, 8pt" TextRenderType="HtmlTags"/>
       <LineObject Name="Line1" Left="38.93" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
       <LineObject Name="Line2" Left="106.97" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
@@ -168,7 +168,7 @@ namespace FastReport
       <TextObject Name="Text25" Left="548.1" Top="9.45" Width="85.05" Height="18.9" Text="[Noa_details.unit_cost]" HorzAlign="Center" Font="Times New Roman, 8pt"/>
       <TextObject Name="Text27" Left="633.15" Top="9.45" Width="85.05" Height="18.9" Text="[Noa_details.total_cost]" HorzAlign="Center" Font="Times New Roman, 8pt"/>
     </DataBand>
-    <DataBand Name="Data5" Top="774.33" Width="718.2" Height="37.8" DataSource="Noa">
+    <DataBand Name="Data5" Top="782.33" Width="718.2" Height="37.8" DataSource="Noa">
       <LineObject Name="Line8" Top="37.8" Width="719.33"/>
       <LineObject Name="Line9" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
       <LineObject Name="Line11" Left="631.64" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
@@ -177,14 +177,14 @@ namespace FastReport
       <TextObject Name="Text29" Top="18.9" Width="633.15" Height="18.9" CanBreak="false" Text="[Noa.grand_total_amount_in_words]" AutoWidth="true" HorzAlign="Center" Font="Times New Roman, 10pt, style=Italic"/>
       <TextObject Name="Text30" Left="633.15" Top="9.45" Width="85.05" Height="18.9" Text="[Noa.grand_total]" HorzAlign="Center" Font="Times New Roman, 8pt"/>
     </DataBand>
-    <DataBand Name="Data6" Top="816.13" Width="718.2" Height="37.8">
+    <DataBand Name="Data6" Top="825.46" Width="718.2" Height="37.8">
       <TextObject Name="Text31" Top="18.9" Width="94.5" Height="18.9" CanBreak="false" Text="Terms and Conditions:" AutoWidth="true" Font="Times New Roman, 9pt, style=Italic, Underline"/>
     </DataBand>
-    <DataBand Name="Data7" Top="857.93" Width="718.2" Height="18.9" CanGrow="true" CanShrink="true" CanBreak="true" DataSource="Noa_terms">
+    <DataBand Name="Data7" Top="868.6" Width="718.2" Height="18.9" CanGrow="true" CanShrink="true" CanBreak="true" DataSource="Noa_terms">
       <TextObject Name="Text33" Left="37.8" Width="680.4" Height="18.9" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[Noa_terms.description]" Padding="2, 0, 2, 30" HorzAlign="Justify" Font="Times New Roman, 9pt" TextRenderType="HtmlTags"/>
       <TextObject Name="Text32" Left="18.9" Width="37.8" Height="18.9" CanBreak="false" Text="[Noa_terms.number]" Font="Times New Roman, 9pt"/>
     </DataBand>
-    <DataBand Name="Data8" Top="880.83" Width="718.2" Height="699.3">
+    <DataBand Name="Data8" Top="892.83" Width="718.2" Height="699.3">
       <TextObject Name="Text34" Width="633.15" Height="28.35" CanGrow="true" Text="You are hereby required to provide the performance security and shall be submitted to Purchasing Office, UPM-PGH in the form of the following&#13;&#10;" Padding="2, 0, 2, 10" Font="Times New Roman, 9pt"/>
       <TableObject Name="Table2" Top="37.8" Width="721.94" Height="143.64" Border.Lines="All">
         <TableColumn Name="Column7" Width="497.95"/>
@@ -214,13 +214,13 @@ namespace FastReport
       <TextObject Name="Text38" Top="236.25" Width="217.35" Height="18.9" CanGrow="true" Text="Please be guided accordingly." Font="Times New Roman, 9pt"/>
       <TextObject Name="Text39" Top="274.05" Width="217.35" Height="18.9" CanGrow="true" Text="Very truly yours," Font="Times New Roman, 9pt"/>
       <TextObject Name="Text40" Top="330.75" Width="217.35" Height="18.9" CanGrow="true" Text="[Noa.first_name] [Noa.last_name]" Font="Times New Roman, 9pt, style=Bold"/>
-      <TextObject Name="Text41" Top="349.65" Width="217.35" Height="18.9" CanGrow="true" Text="[Noa.department_name]" Font="Times New Roman, 9pt, style=Italic"/>
+      <TextObject Name="Text41" Left="66.15" Top="349.65" Width="217.35" Height="18.9" CanGrow="true" Text="[Noa.department_name]" Font="Times New Roman, 9pt, style=Italic"/>
       <TextObject Name="Text42" Top="567" Width="198.45" Height="132.3" CanGrow="true" Text="(Signiture over Printed Name)&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;(Designation)&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;(Date)&#13;&#10;" Font="Times New Roman, 9pt, style=Italic"/>
       <TextObject Name="Text43" Top="510.3" Width="217.35" Height="18.9" CanGrow="true" Text="Conforme:" Font="Times New Roman, 9pt, style=Bold"/>
       <LineObject Name="Line13" Top="565.87" Width="217.35"/>
       <LineObject Name="Line14" Top="620.3" Width="217.35"/>
       <LineObject Name="Line15" Top="675.49" Width="217.35"/>
     </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="1584.13" Width="718.2" Height="18.9" Guides="0,0"/>
+    <PageFooterBand Name="PageFooter1" Top="1597.46" Width="718.2" Height="18.9" Guides="0,0"/>
   </ReportPage>
 </Report>
