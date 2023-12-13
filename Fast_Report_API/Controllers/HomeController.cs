@@ -21,7 +21,7 @@ namespace Fast_Report_API.Controllers
 {
     //[Route("api/[controller]")]
     public class HomeController : Controller
-    {
+    { 
         private readonly ILogger<HomeController> _logger;
         private PghContext _context;
         private IWebHostEnvironment _env;
@@ -32,6 +32,7 @@ namespace Fast_Report_API.Controllers
 
 
         private List<LeaveAppPrint> leave_list;
+        private List<TimeAttendance> Time_Record;
         private List<leave_names> leave_name_list;
         //private List<leave_names_desc> leave_name_desc_list;
 
@@ -878,6 +879,9 @@ namespace Fast_Report_API.Controllers
                 remarks = leave.remarks,
                 approved_date = leave.approved_date,
                 leave_list = leave.leave_list,
+                status = leave.status,
+                vacation_balance = leave.vacation_balance,
+                sick_balance = leave.sick_balance,
                 //leave_desc = leave.leave_desc,
 
 
@@ -894,6 +898,64 @@ namespace Fast_Report_API.Controllers
             ViewData["Resp2"] = response2;
             ViewData["Resp3"] = response3;
 
+
+            ViewBag.WebReport = UserWebReport;
+            //ViewBag.Message = decode;
+            //ViewBag.base64 = Base64Decode("aGVsbG8=");
+            if (UserWebReport.Report.Prepare())
+            {
+                return View("Views/Home/ReportView.cshtml");
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> TimeAttendance(string response, string title)
+        {
+
+            FastReport.Utils.Config.WebMode = true;
+            WebReport UserWebReport = new WebReport();
+
+            UserWebReport.Toolbar.Exports = new ExportMenuSettings()
+            {
+                ExportTypes = Exports.All
+            };
+
+            UserWebReport.Toolbar.ShowPrevButton = true;
+            UserWebReport.Toolbar.ShowNextButton = true;
+            UserWebReport.Toolbar.ShowLastButton = true;
+            UserWebReport.Toolbar.ShowFirstButton = true;
+            UserWebReport.Toolbar.ShowZoomButton = true;
+            UserWebReport.Toolbar.ShowPrint = false;
+            UserWebReport.ReportPrepared = false;
+
+
+
+
+
+
+            Time_Record = new List<TimeAttendance>();
+            //leave_name_desc_list = new List<leave_names_desc>();
+            string decode = Base64Decode(response);//base64 to string
+
+            List<TimeAttendance> record = System.Text.Json.JsonSerializer.Deserialize<List<TimeAttendance>>(decode);
+            //var record = Newtonsoft.Json.JsonConvert.DeserializeObject<TimeAttendance>(decode);
+            fileName = "/" + title + ".frx";
+            string path = Path.Combine(_env.WebRootPath + fileName);
+            //string path = mapPath.MapVirtualPathToPhysical("~/noa_report.frx");
+            UserWebReport.Report.Load(path);
+
+            Time_Record = record;
+           
+
+            UserWebReport.Report.RegisterData(Time_Record, "TimeAttendance_ref");
+
+          
 
             ViewBag.WebReport = UserWebReport;
             //ViewBag.Message = decode;

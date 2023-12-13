@@ -29,6 +29,10 @@ namespace Fast_Report_API.Models.PrintOutModels
         public string imageUrlHR { get; set; }
         public string remarks { get; set; }
         public string approved_date { get; set; }
+        public string status { get; set; }
+        public string sick_balance{ get; set; }
+        public string vacation_balance { get; set; }
+
         public List<leave_names> leave_list { get; set; }
 
 
