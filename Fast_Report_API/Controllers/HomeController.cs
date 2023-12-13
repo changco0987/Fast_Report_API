@@ -37,12 +37,17 @@ namespace Fast_Report_API.Controllers
         //private List<leave_names_desc> leave_name_desc_list;
 
 
-        private List<ApplicationForm_model> application_form_list;
-        private List<Educational_background> educational_Backgrounds_list;
-        private List<Work_experience> work_experience_list;
-        private List<Recognitions> recognition_list;
-        private List<References> references_list;
+        private List<ApplicationForm_model> application_form_list = new List<ApplicationForm_model>();
+        private List<Educational_background> educational_Backgrounds_list = new List<Educational_background>();
+        private List<Work_experience> work_experience_list = new List<Work_experience>();
+        private List<Recognitions> recognition_list = new List<Recognitions>();
+        private List<References> references_list = new List<References>();
 
+        //application_form_list = new List<ApplicationForm_model>();
+        //educational_Backgrounds_list = new List<Educational_background>();
+        //work_experience_list = new List<Work_experience>();
+        //recognition_list = new List<Recognitions>();
+        //references_list = new List<References>();
 
         private string fileName;
 
@@ -970,8 +975,10 @@ namespace Fast_Report_API.Controllers
             }
         }
 
+
         [HttpGet("[action]")]
-        public async Task<IActionResult> Residency(string title, string response)
+        //residency method parameters(filename, form data, signature filepath)
+        public async Task<IActionResult> Residency(string title, string response, string signature)
         {
 
             FastReport.Utils.Config.WebMode = true;
@@ -987,13 +994,13 @@ namespace Fast_Report_API.Controllers
             UserWebReport.Toolbar.ShowLastButton = true;
             UserWebReport.Toolbar.ShowFirstButton = true;
             UserWebReport.Toolbar.ShowZoomButton = true;
-            UserWebReport.Toolbar.ShowPrint = false;
+            UserWebReport.Toolbar.ShowPrint = true;
+            UserWebReport.Toolbar.Exports.Show = false;
             UserWebReport.ReportPrepared = false;
 
 
-
-
             string decode = Base64Decode(response);//base64 to string
+            signature = Base64Decode(signature);
        
 
             ApplicationForm_model application_details = Newtonsoft.Json.JsonConvert.DeserializeObject<ApplicationForm_model>(decode);
@@ -1002,12 +1009,7 @@ namespace Fast_Report_API.Controllers
             //string path = mapPath.MapVirtualPathToPhysical("~/noa_report.frx");
             UserWebReport.Report.Load(path);
 
-            application_form_list = new List<ApplicationForm_model>();
-            educational_Backgrounds_list = new List<Educational_background>();
-            work_experience_list = new List<Work_experience>();
-            recognition_list = new List<Recognitions>();
-            references_list = new List<References>();
-
+            application_details.signature = signature + "/" + application_details.signature; //Path + / + file name
             application_form_list.Add(application_details);
             educational_Backgrounds_list = application_details.educational_background;
             work_experience_list = application_details.work_experiences;
@@ -1143,16 +1145,40 @@ namespace Fast_Report_API.Controllers
                 rep.Report.RegisterData(leave_list, "leaveRequest");
 
             }
+            else if (title.ToLower().Equals("appForm"))
+            {
+                var signature = Base64Decode(response2);
 
+                ApplicationForm_model application_details = Newtonsoft.Json.JsonConvert.DeserializeObject<ApplicationForm_model>(decode);
 
-            if (rep.Report.Prepare())
+                //application_form_list = new List<ApplicationForm_model>();
+                //educational_Backgrounds_list = new List<Educational_background>();
+                //work_experience_list = new List<Work_experience>();
+                //recognition_list = new List<Recognitions>();
+                //references_list = new List<References>();
+
+                application_details.signature = signature + "/" + application_details.signature;
+                application_form_list.Add(application_details);
+                educational_Backgrounds_list = application_details.educational_background;
+                work_experience_list = application_details.work_experiences;
+                recognition_list = application_details.recognitions;
+                references_list = application_details.references;
+
+                rep.Report.RegisterData(application_form_list, "appForm_ref");
+                rep.Report.RegisterData(educational_Backgrounds_list, "education_ref");
+                rep.Report.RegisterData(work_experience_list, "work_exp_ref");
+                rep.Report.RegisterData(recognition_list, "recognitions_ref");
+                rep.Report.RegisterData(references_list, "references_ref");
+            }
+
+            if (rep.Prepare())
             {
                 FastReport.Export.PdfSimple.PDFSimpleExport pdfExport = new FastReport.Export.PdfSimple.PDFSimpleExport();
                 pdfExport.ShowProgress = false;
                 pdfExport.Subject = "Subject Report";
                 pdfExport.Title = "Report Report";
                 MemoryStream ms = new MemoryStream();
-                rep.Export(pdfExport, ms);
+                rep.Report.Export(pdfExport, ms);
                 rep.Dispose();
                 pdfExport.Dispose();
                 ms.Position = 0;
