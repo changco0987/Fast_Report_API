@@ -673,7 +673,7 @@ namespace Fast_Report_API.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<IActionResult> Nefa(string title, int Id)
+        public async Task<IActionResult> Nefa(string title, int Id, string logo)
         {
 
             FastReport.Utils.Config.WebMode = true;
@@ -733,12 +733,15 @@ namespace Fast_Report_API.Controllers
                 grand_total_amount_in_words = noa_data.GrandTotalAmountInWords,
                 type = noa_data.Type,
                 date_needed = ((DateTime)noa_data.DateNeeded).ToString("yyyy-MM-dd"),
+                date_bid = ((DateTime)noa_data.DateBid).ToString("yyyy-MM-dd"),
+                date_awarded = ((DateTime)noa_data.DateAwarded).ToString("yyyy-MM-dd"),
                 supplier_name = noa_data.Supplier.SupplierName,
                 delivery_address = noa_data.Supplier.DeliveryAddress,
                 contact = noa_data.Supplier.Contact,
                 position = noa_data.Supplier.Position,
                 fax_number = noa_data.Supplier.FaxNumber,
                 pur_tbl = noa_data.PurTbl,
+                committee_type = noa_data.CommitteeType,
                 attention_title = noa_data.Supplier.AttentionTitle,
                 contact_person = noa_data.Supplier.ContactPerson,
                 first_name = noa_data.AppAuthUser.FirstName,
@@ -748,7 +751,8 @@ namespace Fast_Report_API.Controllers
                 mode_description = noa_data.ModeOfPrecurement.ModeDescription,
                 perf_sec_30 = noa_data.PerfSec30.ToString(),
                 perf_sec_5 = noa_data.PerfSec5.ToString(),
-            });
+                logo = logo,
+            }); 
 
             //This will assign list of noa_details separately
             noa_detail_list = new List<Noa_details>();

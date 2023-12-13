@@ -53,6 +53,8 @@ public partial class NoaTbl
 
     public DateTime? DateAwarded { get; set; }
 
+    public string? CommitteeType { get; set; }
+
     public virtual UsersTbl AppAuthUser { get; set; } = null!;
 
     public virtual ICollection<AttachmentTbl> AttachmentTbls { get; set; } = new List<AttachmentTbl>();

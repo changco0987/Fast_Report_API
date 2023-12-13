@@ -59,7 +59,10 @@ public partial class PghContext : DbContext
 
     public virtual DbSet<UsersTbl> UsersTbls { get; set; }
 
-  
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseMySQL("Server=localhost;Port=3306;Database=pgh;User Id=root;Password=");
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<AccessTbl>(entity =>
@@ -320,6 +323,9 @@ public partial class PghContext : DbContext
 
             entity.Property(e => e.NoaId).HasColumnName("noa_ID");
             entity.Property(e => e.AppAuthUserId).HasColumnName("app_auth_user_ID");
+            entity.Property(e => e.CommitteeType)
+                .HasMaxLength(100)
+                .HasColumnName("committee_type");
             entity.Property(e => e.DateAwarded)
                 .HasColumnType("date")
                 .HasColumnName("date_awarded");

@@ -14,6 +14,7 @@ namespace Fast_Report_API.Models.PrintOutModels
         public string? date_bid { get; set; }
         public string? date_awarded { get; set; }
         public string? type { get; set; }
+        public string? committee_type { get; set; }
         public string? position_name { get; set; }
 
         //Company info from suppliers_tbl
@@ -40,6 +41,8 @@ namespace Fast_Report_API.Models.PrintOutModels
 
         public string? perf_sec_30 { get; set; }
         public string? perf_sec_5 { get; set; }
+        //logo
+        public string? logo { get; set; }
 
 
         //Items info from noa_details_tbl
