@@ -607,7 +607,9 @@ namespace Fast_Report_API.Controllers
                 mode_name = noa_data.ModeOfPrecurement.ModeName,
                 mode_description = noa_data.ModeOfPrecurement.ModeDescription,
                 perf_sec_30 = noa_data.PerfSec30.ToString(),
+                Perf_sec_30_word = noa_data.PerfSec30.ToString(),
                 perf_sec_5 = noa_data.PerfSec5.ToString(),
+                Perf_sec_5_word = noa_data.PerfSec5.ToString(),
             });
 
             //This will assign list of noa_details separately
@@ -755,7 +757,9 @@ namespace Fast_Report_API.Controllers
                 mode_name = noa_data.ModeOfPrecurement.ModeName,
                 mode_description = noa_data.ModeOfPrecurement.ModeDescription,
                 perf_sec_30 = noa_data.PerfSec30.ToString(),
+                Perf_sec_30_word = noa_data.PerfSec30.ToString(),
                 perf_sec_5 = noa_data.PerfSec5.ToString(),
+                Perf_sec_5_word = noa_data.PerfSec5.ToString(),
                 logo = logo,
             }); 
 
