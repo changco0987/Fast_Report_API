@@ -16,6 +16,4 @@ public partial class PositionTbl
     public DateTime? EncodedDate { get; set; }
 
     public bool IsApprovingAuthority { get; set; }
-
-    public virtual StatusTbl Status { get; set; } = null!;
 }

@@ -11,6 +11,11 @@ namespace Fast_Report_API.Models.PrintOutModels
         public string? grand_total { get; set; }
         public string? grand_total_amount_in_words { get; set; }
         public string? date_needed { get; set; }
+        public string? date_bid { get; set; }
+        public string? date_awarded { get; set; }
+        public string? type { get; set; }
+        public string? committee_type { get; set; }
+        public string? position_name { get; set; }
 
         //Company info from suppliers_tbl
         public string? supplier_name { get; set; }
@@ -18,7 +23,7 @@ namespace Fast_Report_API.Models.PrintOutModels
         public string? delivery_address { get; set; }
         public string? contact { get; set; }
         public string? position { get; set; }
-        public string? fax_number { get; set; }
+        public string? fax_number { get; set; }                    
         public string? pur_tbl { get; set; }
         public string? attention_title { get; set; }
         //Approving authority
@@ -36,6 +41,8 @@ namespace Fast_Report_API.Models.PrintOutModels
 
         public string? perf_sec_30 { get; set; }
         public string? perf_sec_5 { get; set; }
+        //logo
+        public string? logo { get; set; }
 
 
         //Items info from noa_details_tbl

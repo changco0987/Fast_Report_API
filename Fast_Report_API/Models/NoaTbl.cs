@@ -47,6 +47,14 @@ public partial class NoaTbl
 
     public DateTime? DateNeeded { get; set; }
 
+    public string? Type { get; set; }
+
+    public DateTime? DateBid { get; set; }
+
+    public DateTime? DateAwarded { get; set; }
+
+    public string? CommitteeType { get; set; }
+
     public virtual UsersTbl AppAuthUser { get; set; } = null!;
 
     public virtual ICollection<AttachmentTbl> AttachmentTbls { get; set; } = new List<AttachmentTbl>();
@@ -60,8 +68,6 @@ public partial class NoaTbl
     public virtual PerformanceBondTbl Performance { get; set; } = null!;
 
     public virtual ICollection<PurchaseOrdersTbl> PurchaseOrdersTbls { get; set; } = new List<PurchaseOrdersTbl>();
-
-    public virtual ICollection<ReceiptTbl> ReceiptTbls { get; set; } = new List<ReceiptTbl>();
 
     public virtual StatusTbl Status { get; set; } = null!;
 

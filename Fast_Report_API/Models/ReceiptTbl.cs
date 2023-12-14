@@ -14,6 +14,4 @@ public partial class ReceiptTbl
     public int? EncodedBy { get; set; }
 
     public DateTime? EncodedDate { get; set; }
-
-    public virtual NoaTbl Noa { get; set; } = null!;
 }
