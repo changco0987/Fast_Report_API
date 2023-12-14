@@ -708,6 +708,7 @@ namespace Fast_Report_API.Controllers
 
 
 
+            logo = Base64Decode(logo);
 
             noa_list = new List<Noa>();
             leave_list = new List<LeaveAppPrint>();
