@@ -693,7 +693,7 @@ namespace Fast_Report_API.Controllers
             UserWebReport.Toolbar.ShowLastButton = true;
             UserWebReport.Toolbar.ShowFirstButton = true;
             UserWebReport.Toolbar.ShowZoomButton = true;
-            UserWebReport.Toolbar.ShowPrint = false;
+            UserWebReport.Toolbar.ShowPrint = true;
             UserWebReport.ReportPrepared = false;
 
 
