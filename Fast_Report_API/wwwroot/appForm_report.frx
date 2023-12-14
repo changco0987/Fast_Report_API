@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="11/09/2023 10:20:01" ReportInfo.Modified="12/11/2023 11:06:19" ReportInfo.CreatorVersion="2023.2.0.0">
+<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="11/09/2023 10:20:01" ReportInfo.Modified="12/13/2023 14:37:44" ReportInfo.CreatorVersion="2023.2.0.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -392,7 +392,7 @@ namespace FastReport
       <TextObject Name="Text3" Left="236.25" Top="103.95" Width="302.4" Height="47.25" Text="PHIC-Accredited Health Care Provider &#13;&#10;ISO 900:2008 Certified" HorzAlign="Center" Font="Arial, 11.25pt"/>
       <TextObject Name="Text4" Left="47.25" Top="170.1" Width="633.15" Height="28.35" Text="APPLICATION FORM FOR RESIDENCY/POST-RESIDENCY FELLOWSHIP" HorzAlign="Center" Font="Arial, 12pt, style=Bold"/>
     </PageHeaderBand>
-    <DataBand Name="Data1" Top="204.85" Width="740.5" Height="916.65" CanGrow="true" CanShrink="true" CanBreak="true" StartNewPage="true">
+    <DataBand Name="Data1" Top="204.85" Width="740.5" Height="916.65" CanGrow="true" CanShrink="true" CanBreak="true" StartNewPage="true" KeepDetail="true">
       <TextObject Name="Text5" Left="37.8" Top="18.9" Width="56.7" Height="18.9" Text="NAME" Font="Arial, 9.75pt, style=Bold"/>
       <TextObject Name="Text6" Left="359.1" Top="18.9" Width="37.8" Height="18.9" Text="AGE" Font="Arial, 9.75pt, style=Bold"/>
       <TextObject Name="Text7" Left="444.15" Top="18.9" Width="37.8" Height="18.9" Text="SEX" Font="Arial, 9.75pt, style=Bold"/>
@@ -555,7 +555,7 @@ namespace FastReport
       <LineObject Name="Line26" Left="576.45" Top="831.6" Width="132.3"/>
       <TextObject Name="Text81" Left="37.8" Top="850.5" Width="321.3" Height="18.9" Text="HONORS/AWARDS/RECOGNITION RECEIVED:" Font="Arial, 9.75pt, style=Bold"/>
       <LineObject Name="Line27" Left="47.25" Top="888.3" Width="661.5"/>
-      <TextObject Name="Text82" Left="47.25" Top="869.4" Width="661.5" Height="18.9" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="N/A [recognitions.recognition_details]&#13;&#10;" Font="Arial, 10pt" TextRenderType="HtmlTags"/>
+      <TextObject Name="Text82" Left="47.25" Top="869.4" Width="652.05" Height="18.9" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="N/A [recognitions.recognition_details]&#13;&#10;" Font="Arial, 10pt" TextRenderType="HtmlTags"/>
       <TextObject Name="intern_txt" Left="122.85" Top="756" Width="330.75" Height="18.9" Font="Arial, 10pt"/>
       <TextObject Name="residency_txt" Left="179.55" Top="784.35" Width="274.05" Height="18.9" Font="Arial, 10pt"/>
       <TextObject Name="other_txt" Left="160.65" Top="812.7" Width="292.95" Height="18.9" Font="Arial, 10pt"/>
