@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="08/11/2023 08:41:06" ReportInfo.Modified="12/14/2023 14:20:35" ReportInfo.CreatorVersion="2023.2.0.0">
+<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="08/11/2023 08:41:06" ReportInfo.Modified="12/15/2023 14:09:33" ReportInfo.CreatorVersion="2023.2.0.0">
   <ScriptText>using System;
 using System.Text;
 using System.Collections;
@@ -24,107 +24,22 @@ namespace FastReport
     
     private void _StartReport(object sender, EventArgs e)
     {
-      //terms and condition
-      noa_terms_description();
+                    
       //list of items
-      noa_list_of_items_description();
-
-      
-      //nefa first paragraph
-      string dateBidStr = (string)Report.GetColumnValue(&quot;Noa.date_bid&quot;);
-      string dateAwardedStr = (string)Report.GetColumnValue(&quot;Noa.date_awarded&quot;);
-      string noaTitle = ((string)Report.GetColumnValue(&quot;Noa.noa_title&quot;)).ToUpper(); // Convert to uppercase
-      string purTbl = (string)Report.GetColumnValue(&quot;Noa.pur_tbl&quot;);
-      string grandTotalAmountInWords = (string)Report.GetColumnValue(&quot;Noa.grand_total_amount_in_words&quot;);
-      string grandTotalStr = (string)Report.GetColumnValue(&quot;Noa.grand_total&quot;);
-
-      DateTime dateBid;
-      DateTime dateAwarded;
-
-      // Try parsing string values to DateTime
-      bool parsedDateBid = DateTime.TryParse(dateBidStr, out dateBid);
-      bool parsedDateAwarded = DateTime.TryParse(dateAwardedStr, out dateAwarded);
-
-      // Format date_bid to &quot;dd MMMM yyyy&quot; format if parsing is successful
-      string formattedDateBid = parsedDateBid ? dateBid.ToString(&quot;dd MMMM yyyy&quot;) : string.Empty;
-
-      // Format date_awarded to &quot;dd MMMM yyyy&quot; format if parsing is successful
-      string formattedDateAwarded = parsedDateAwarded ? dateAwarded.ToString(&quot;dd MMMM yyyy&quot;) : string.Empty;
-
-      // Function to format a decimal number with commas and a decimal point
-      string FormatNumberWithScale(decimal number)
-      {
-      // Convert the number to its string representation with commas for thousands separator and a decimal point
-      string formattedNumber = string.Format(&quot;{0:#,0.00}&quot;, number);
-      return formattedNumber;
-    }
-
-      // Format grand total to include commas for thousands, millions, etc.
-      decimal grandTotal;
-      bool parsedGrandTotal = decimal.TryParse(grandTotalStr, out grandTotal);
-      string formattedGrandTotal = parsedGrandTotal ? FormatNumberWithScale(grandTotal) : string.Empty;
-
-      // Remove asterisks and &quot;ONLY&quot; from grand total amount in words
-      string cleanedGrandTotalAmountInWords = grandTotalAmountInWords.Replace(&quot;*&quot;, &quot;&quot;).Replace(&quot; ONLY&quot;, &quot;&quot;);
-
-      // Original text
-      string originalText = $&quot;We are happy to notify you that your bid Dated &lt;b&gt;&lt;u&gt;{dateBidStr}&lt;/u&gt;&lt;/b&gt; but awarded on &lt;b&gt;&lt;u&gt;{dateAwardedStr}&lt;/u&gt;&lt;/b&gt; for the &lt;b&gt;&lt;u&gt;{noaTitle} - FRAMEWORK AGREEMENT&lt;/u&gt;&lt;/b&gt; under Project Reference No.: &lt;b&gt;&lt;u&gt;BAC{purTbl}&lt;/u&gt;&lt;/b&gt; for the Contract Price equivalent to &lt;b&gt;&lt;u&gt;{cleanedGrandTotalAmountInWords} ( PHP{formattedGrandTotal}) ONLY&lt;/b&gt;&lt;/u&gt;; as corrected and modified in accordance with Instructions to Bidders is hereby accepted.&quot;;
-
-      // Replace placeholders with formatted values
-      string updatedText = originalText.Replace($&quot;&lt;b&gt;&lt;u&gt;{dateBidStr}&lt;/u&gt;&lt;/b&gt;&quot;, $&quot;&lt;b&gt;&lt;u&gt;{formattedDateBid}&lt;/u&gt;&lt;/b&gt;&quot;)
-        .Replace($&quot;&lt;b&gt;&lt;u&gt;{dateAwardedStr}&lt;/u&gt;&lt;/b&gt;&quot;, $&quot;&lt;b&gt;&lt;u&gt;{formattedDateAwarded}&lt;/u&gt;&lt;/b&gt;&quot;)
-        .Replace($&quot;&lt;b&gt;&lt;u&gt;{noaTitle}&lt;/u&gt;&lt;/b&gt;&quot;, $&quot;&lt;b&gt;&lt;u&gt;{noaTitle}&lt;/u&gt;&lt;/b&gt;&quot;)
-        .Replace($&quot;&lt;b&gt;&lt;u&gt;{grandTotalStr}&lt;/u&gt;&lt;/b&gt;&quot;, $&quot;&lt;b&gt;&lt;u&gt;{formattedGrandTotal}&lt;/u&gt;&lt;/b&gt;&quot;);
-
-      // Assign updated text to the TextObject
-      TextObject textObject28 = Report.FindObject(&quot;Text128&quot;) as TextObject;
-      textObject28.Text = updatedText;
-
-      //nefa second paragraph
-      TextObject textObject130 = Report.FindObject(&quot;Text130&quot;) as TextObject;
-      string perfsecFive = ((String)Report.GetColumnValue(&quot;Noa.perf_sec_5&quot;));
-      string perfsecThirty = ((String)Report.GetColumnValue(&quot;Noa.perf_sec_30&quot;));
-
-   
-      //date needed
-      // Get the date string from the report
-      TextObject textObject29 = Report.FindObject(&quot;Text129&quot;) as TextObject;
-      string dateString = ((String)Report.GetColumnValue(&quot;Noa.date_needed&quot;));
-
-      // Parse the date string to DateTime
-      if (DateTime.TryParse(dateString, out DateTime date))
-      {
-      // Format the DateTime to the desired format: day month year
-      string formattedDate = date.ToString(&quot;dd MMMM yyyy&quot;); // &quot;dd&quot; for day, &quot;MMMM&quot; for full month name, &quot;yyyy&quot; for year
-
-      // Set the formatted date to the TextObject
-      textObject29.Text = formattedDate;
-      }
-      else
-      {
-      // Handle the case when the date string is not in a valid format
-      textObject29.Text = &quot;Invalid Date&quot;;
-      }
-      
-        //upper case the Contact person
-        TextObject textObject13 = Report.FindObject(&quot;Text13&quot;) as TextObject;
-        string textContentContact = (string)Report.GetColumnValue(&quot;Noa.contact_person&quot;);
-        string textContentContactMerge = (string)Report.GetColumnValue(&quot;Noa.attention_title&quot;);
-
-        if (!string.IsNullOrEmpty(textContentContact))
-        {
-          textContentContact = textContentContact.ToUpper();
-
-          if (!string.IsNullOrEmpty(textContentContactMerge))
-          {
-            textContentContact = $&quot;{textContentContactMerge}. {textContentContact}&quot;; // Merge the strings with the prefix &quot;Dr&quot;
-          }
-
-          textObject13.Text = textContentContact; // Set the modified text to the TextObject
-        }
-
-  
-               
+            noa_item_number();
+      noa_quantity(); 
+      noa_uom();        
+      noa_unit_cost();
+      noa_total_cost();
+     noa_list_description();
+      //terms and condition
+      //  noa_terms_description();
+      //nefa paragraphs
+     // nefa_first_graph();
+      //nefa uppercase and text formats
+     // nefa_uppercase_and_text_formats();
+     
+              
       /*
         //description display
         TextObject textObject20 = Report.FindObject(&quot;Text20&quot;) as TextObject;
@@ -180,61 +95,9 @@ namespace FastReport
                             */
       
       
-        // Upprecase Text
-        // For Text10
-        TextObject textObject10 = Report.FindObject(&quot;Text10&quot;) as TextObject;
-
-        if (textObject10 != null)
-        {
-          string supplierName10 = (string)Report.GetColumnValue(&quot;Noa.supplier_name&quot;);
-
-          if (supplierName10 != null)
-          {
-            textObject10.Text = supplierName10.ToUpper();
-          }
-        }
-
-        // For Text99
-        TextObject textObject99 = Report.FindObject(&quot;suppliername2&quot;) as TextObject;
-
-        if (textObject99 != null)
-        {
-          string supplierName99 = (string)Report.GetColumnValue(&quot;Noa.supplier_name&quot;);
-
-          if (supplierName99 != null)
-          {
-            textObject99.Text = supplierName99.ToUpper();
-          }
-        }
-      
-      //total amount of award for the contract AND amount cost || unit cost and quantity
-
-      // Function to remove non-numeric characters except for decimal point
-      string RemoveNonNumericCharacters(string input)
-      {
-      StringBuilder result = new StringBuilder();
-
-      foreach (char c in input)
-      {
-        if (char.IsDigit(c) || c == '.')
-        {
-          result.Append(c);
-        }
-      }
-
-      return result.ToString();
-      }
 
 
-
-      // Formatting for Noa.grand_total
-      decimal noaGrandTotalValue = Convert.ToDecimal(Report.GetColumnValue(&quot;Noa.grand_total&quot;));
-      string formattedNoaGrandTotalValue = string.Format(&quot;{0:#,##0.00}&quot;, noaGrandTotalValue, System.Globalization.CultureInfo.InvariantCulture);
-
-      TextObject textObject73 = Report.FindObject(&quot;Text73&quot;) as TextObject;
-      textObject73.Text = $&quot;Total Amount of Award for the Contract: PhP{formattedNoaGrandTotalValue}&quot;;
-
-      // Formatting for Noa_details.unit_cost
+  /*    // Formatting for Noa_details.unit_cost
       string unitCostStr = (string)Report.GetColumnValue(&quot;Noa_details.unit_cost&quot;);
       unitCostStr = RemoveNonNumericCharacters(unitCostStr);
 
@@ -253,7 +116,7 @@ namespace FastReport
         TextObject textObject25 = Report.FindObject(&quot;Text25&quot;) as TextObject;
         textObject25.Text = &quot;Invalid value&quot;; // Display an error message or handle as needed
       }
-
+ 
       // Formatting for Noa_details.quantity
       string quantityStr = (string)Report.GetColumnValue(&quot;Noa_details.quantity&quot;);
 
@@ -281,7 +144,7 @@ namespace FastReport
       }
       
       //list of items
- /*     TextObject textObject20 = Report.FindObject(&quot;Text20&quot;) as TextObject;
+     TextObject textObject20 = Report.FindObject(&quot;Text20&quot;) as TextObject;
 
       // Get the text content from the column value
       string textContent = ((string)Report.GetColumnValue(&quot;Noa_details.description&quot;));
@@ -293,38 +156,77 @@ namespace FastReport
       // Set the formatted content to the TextObject
       textObject20.Text = textContent;
 
-  // Apply line breaks to simulate table borders (a visual representation)
-      string formattedContent = textContentTerm.Replace(&quot;&lt;th&gt;&quot;, &quot;&lt;th style='border: 1px solid black;'&gt;&quot;)
-        .Replace(&quot;&lt;td&gt;&quot;, &quot;&lt;td style='border: 1px solid black;'&gt;&quot;);
-
-      // Set the formatted content to the TextObject
-      textObject131.Text = formattedContent;          */
+  */ 
+      
 
 
     }  
     
-    public void noa_list_of_items_description()
+    public void ProcessNoaDetails(TextObject textObject, string dataSourceName, string columnName)
     {
-      //list of items
-      TextObject textObject20 = Report.FindObject(&quot;Text20&quot;) as TextObject;
+      DataSourceBase dataSource = Report.GetDataSource(dataSourceName);
+      dataSource.Init();
+              
+      while (dataSource.HasMoreRows)
+      {                                   
+        string textValue = ((string)Report.GetColumnValue($&quot;Noa_details.{columnName}&quot;));
+                textObject.Text += textValue + &quot;&lt;/br&gt;&quot;;
+                       
+        dataSource.Next();      
+        
+      }  
 
-      // Get the text content from the column value
+    }
+
+    public void noa_item_number()
+    {
+      TextObject textObject = Report.FindObject(&quot;Text21&quot;) as TextObject;
+      ProcessNoaDetails(textObject, &quot;Noa_details&quot;, &quot;stock_property_number&quot;);
+    }
+
+    public void noa_quantity()
+    {
+      TextObject textObject = Report.FindObject(&quot;Text22&quot;) as TextObject;
+      ProcessNoaDetails(textObject, &quot;Noa_details&quot;, &quot;quantity&quot;);
+    }
+
+    public void noa_uom()
+    {
+      TextObject textObject = Report.FindObject(&quot;Text23&quot;) as TextObject;
+      ProcessNoaDetails(Text23, &quot;Noa_details&quot;, &quot;uom_name&quot;);
+    }
+
+    public void noa_unit_cost()
+    {
+      TextObject textObject = Report.FindObject(&quot;Text25&quot;) as TextObject;
+      ProcessNoaDetails(textObject, &quot;Noa_details&quot;, &quot;unit_cost&quot;);
+    }            
+
+    public void noa_total_cost()
+    {
+      TextObject textObject = Report.FindObject(&quot;Text27&quot;) as TextObject;
+      ProcessNoaDetails(textObject, &quot;Noa_details&quot;, &quot;total_cost&quot;);
+    }
+
+    public void noa_list_description()
+    {
+      TextObject textObject = Report.FindObject(&quot;Text132&quot;) as TextObject;
       DataSourceBase textContentList = Report.GetDataSource(&quot;Noa_details&quot;);
-      
-      int index = 1;
-      
+    
       textContentList.Init();
-      
-      while(textContentList.HasMoreRows)
+      int index = 1;
+
+      while (textContentList.HasMoreRows &amp;&amp; index &lt;= 50)
       {
         string textListDescription = ((String)Report.GetColumnValue(&quot;Noa_details.description&quot;));
-     
-        Text20.Text += textListDescription+&quot;&lt;/br&gt;&quot;;
-       
+        textObject.Text += textListDescription + &quot;&lt;/br&gt;&quot;;
+        index++;
         textContentList.Next();
-      }                         
+      }
     }
-    
+
+
+    //terms and condition
     public void noa_terms_description()
     {
       //terms and condition
@@ -332,21 +234,178 @@ namespace FastReport
 
       // Get the text content from the column value
       DataSourceBase textContentTerm = Report.GetDataSource(&quot;Noa_terms&quot;);
-      
+
       int index = 1;
-      
+
       textContentTerm.Init();
-      
-      while(textContentTerm.HasMoreRows)
+
+      while (textContentTerm.HasMoreRows)
       {
-        string textTermDescription = ((String)Report.GetColumnValue(&quot;Noa_terms.description&quot;));
-     
-          Text131.Text += textTermDescription+&quot;&lt;/br&gt;&quot;;
-       
+        string textTermDescription = ((string)Report.GetColumnValue(&quot;Noa_terms.description&quot;));
+        
+        // Replace table tags with inline styles for border formatting
+        string formattedContent = textTermDescription.Replace(&quot;&lt;th&gt;&quot;, &quot;&lt;th style='border: 1px solid black;'&gt;&quot;)
+          .Replace(&quot;&lt;td&gt;&quot;, &quot;&lt;td style='border: 1px solid black;'&gt;&quot;);
+
+        // Append formatted content to Text131.Text
+        Text131.Text += formattedContent;
+
+        index++;
         textContentTerm.Next();
-      }                         
+      }
     }
+
     
+    public void nefa_first_graph()
+    {
+      //nefa first paragraph
+      string dateBidStr = (string)Report.GetColumnValue(&quot;Noa.date_bid&quot;);
+      string dateAwardedStr = (string)Report.GetColumnValue(&quot;Noa.date_awarded&quot;);
+      string noaTitle = ((string)Report.GetColumnValue(&quot;Noa.noa_title&quot;)).ToUpper(); // Convert to uppercase
+      string purTbl = (string)Report.GetColumnValue(&quot;Noa.pur_tbl&quot;);
+      string grandTotalAmountInWords = (string)Report.GetColumnValue(&quot;Noa.grand_total_amount_in_words&quot;);
+      string grandTotalStr = (string)Report.GetColumnValue(&quot;Noa.grand_total&quot;);
+
+      DateTime dateBid;
+      DateTime dateAwarded;
+
+      // Try parsing string values to DateTime
+      bool parsedDateBid = DateTime.TryParse(dateBidStr, out dateBid);
+      bool parsedDateAwarded = DateTime.TryParse(dateAwardedStr, out dateAwarded);
+
+      // Format date_bid to &quot;dd MMMM yyyy&quot; format if parsing is successful
+      string formattedDateBid = parsedDateBid ? dateBid.ToString(&quot;dd MMMM yyyy&quot;) : string.Empty;
+
+      // Format date_awarded to &quot;dd MMMM yyyy&quot; format if parsing is successful
+      string formattedDateAwarded = parsedDateAwarded ? dateAwarded.ToString(&quot;dd MMMM yyyy&quot;) : string.Empty;
+
+      // Function to format a decimal number with commas and a decimal point
+      string FormatNumberWithScale(decimal number)
+      {
+      // Convert the number to its string representation with commas for thousands separator and a decimal point
+      string formattedNumber = string.Format(&quot;{0:#,0.00}&quot;, number);
+      return formattedNumber;
+    }
+
+      // Format grand total to include commas for thousands, millions, etc.
+      decimal grandTotal;
+      bool parsedGrandTotal = decimal.TryParse(grandTotalStr, out grandTotal);
+      string formattedGrandTotal = parsedGrandTotal ? FormatNumberWithScale(grandTotal) : string.Empty;
+
+      // Remove asterisks and &quot;ONLY&quot; from grand total amount in words
+      string cleanedGrandTotalAmountInWords = grandTotalAmountInWords.Replace(&quot;*&quot;, &quot;&quot;).Replace(&quot; ONLY&quot;, &quot;&quot;);
+
+      // Original text
+      string originalText = $&quot;We are happy to notify you that your bid Dated &lt;b&gt;&lt;u&gt;{dateBidStr}&lt;/u&gt;&lt;/b&gt; but awarded on &lt;b&gt;&lt;u&gt;{dateAwardedStr}&lt;/u&gt;&lt;/b&gt; for the &lt;b&gt;&lt;u&gt;{noaTitle} - FRAMEWORK AGREEMENT&lt;/u&gt;&lt;/b&gt; under Project Reference No.: &lt;b&gt;&lt;u&gt;BAC{purTbl}&lt;/u&gt;&lt;/b&gt; for the Contract Price equivalent to &lt;b&gt;&lt;u&gt;{cleanedGrandTotalAmountInWords} ( PHP{formattedGrandTotal}) ONLY&lt;/b&gt;&lt;/u&gt;; as corrected and modified in accordance with Instructions to Bidders is hereby accepted.&quot;;
+
+      // Replace placeholders with formatted values
+      string updatedText = originalText.Replace($&quot;&lt;b&gt;&lt;u&gt;{dateBidStr}&lt;/u&gt;&lt;/b&gt;&quot;, $&quot;&lt;b&gt;&lt;u&gt;{formattedDateBid}&lt;/u&gt;&lt;/b&gt;&quot;)
+        .Replace($&quot;&lt;b&gt;&lt;u&gt;{dateAwardedStr}&lt;/u&gt;&lt;/b&gt;&quot;, $&quot;&lt;b&gt;&lt;u&gt;{formattedDateAwarded}&lt;/u&gt;&lt;/b&gt;&quot;)
+        .Replace($&quot;&lt;b&gt;&lt;u&gt;{noaTitle}&lt;/u&gt;&lt;/b&gt;&quot;, $&quot;&lt;b&gt;&lt;u&gt;{noaTitle}&lt;/u&gt;&lt;/b&gt;&quot;)
+        .Replace($&quot;&lt;b&gt;&lt;u&gt;{grandTotalStr}&lt;/u&gt;&lt;/b&gt;&quot;, $&quot;&lt;b&gt;&lt;u&gt;{formattedGrandTotal}&lt;/u&gt;&lt;/b&gt;&quot;);
+
+      // Assign updated text to the TextObject
+      TextObject textObject28 = Report.FindObject(&quot;Text128&quot;) as TextObject;
+      textObject28.Text = updatedText;
+      }
+    
+    public void nefa_uppercase_and_text_formats()
+    {
+    
+      //date needed
+      // Get the date string from the report
+      TextObject textObject29 = Report.FindObject(&quot;Text129&quot;) as TextObject;
+      string dateString = ((String)Report.GetColumnValue(&quot;Noa.date_needed&quot;));
+
+      // Parse the date string to DateTime
+      if (DateTime.TryParse(dateString, out DateTime date))
+      {
+      // Format the DateTime to the desired format: day month year
+      string formattedDate = date.ToString(&quot;dd MMMM yyyy&quot;); // &quot;dd&quot; for day, &quot;MMMM&quot; for full month name, &quot;yyyy&quot; for year
+
+      // Set the formatted date to the TextObject
+      textObject29.Text = formattedDate;
+    }
+      else
+      {
+      // Handle the case when the date string is not in a valid format
+      textObject29.Text = &quot;Invalid Date&quot;;
+      }
+      
+      //upper case the Contact person
+      TextObject textObject13 = Report.FindObject(&quot;Text13&quot;) as TextObject;
+      string textContentContact = (string)Report.GetColumnValue(&quot;Noa.contact_person&quot;);
+      string textContentContactMerge = (string)Report.GetColumnValue(&quot;Noa.attention_title&quot;);
+
+      if (!string.IsNullOrEmpty(textContentContact))
+      {
+        textContentContact = textContentContact.ToUpper();
+
+        if (!string.IsNullOrEmpty(textContentContactMerge))
+        {
+          textContentContact = $&quot;{textContentContactMerge}. {textContentContact}&quot;; // Merge the strings with the prefix &quot;Dr&quot;
+        }
+
+        textObject13.Text = textContentContact; // Set the modified text to the TextObject
+        
+        // Upprecase Text
+        // For Text10
+        TextObject textObject10 = Report.FindObject(&quot;Text10&quot;) as TextObject;
+
+        if (textObject10 != null)
+        {
+          string supplierName10 = (string)Report.GetColumnValue(&quot;Noa.supplier_name&quot;);
+
+          if (supplierName10 != null)
+          {
+            textObject10.Text = supplierName10.ToUpper();
+          }
+        }
+
+        // For Text99
+        TextObject textObject99 = Report.FindObject(&quot;suppliername2&quot;) as TextObject;
+
+        if (textObject99 != null)
+        {
+          string supplierName99 = (string)Report.GetColumnValue(&quot;Noa.supplier_name&quot;);
+
+          if (supplierName99 != null)
+          {
+            textObject99.Text = supplierName99.ToUpper();
+          }
+        }
+      
+        //total amount of award for the contract AND amount cost || unit cost and quantity
+
+        // Function to remove non-numeric characters except for decimal point
+        string RemoveNonNumericCharacters(string input)
+        {
+        StringBuilder result = new StringBuilder();
+
+        foreach (char c in input)
+        {
+          if (char.IsDigit(c) || c == '.')
+          {
+            result.Append(c);
+          }
+        }
+
+        return result.ToString();
+      }
+
+
+
+        // Formatting for Noa.grand_total
+        decimal noaGrandTotalValue = Convert.ToDecimal(Report.GetColumnValue(&quot;Noa.grand_total&quot;));
+        string formattedNoaGrandTotalValue = string.Format(&quot;{0:#,##0.00}&quot;, noaGrandTotalValue, System.Globalization.CultureInfo.InvariantCulture);
+
+        TextObject textObject73 = Report.FindObject(&quot;Text73&quot;) as TextObject;
+        textObject73.Text = $&quot;Total Amount of Award for the Contract: PhP{formattedNoaGrandTotalValue}&quot;;
+        }
+
+      }
+
+  
   }
 }
 </ScriptText>
@@ -417,12 +476,12 @@ namespace FastReport
         <TableColumn Name="Column5" Width="86.66"/>
         <TableColumn Name="Column6" Width="86.66"/>
         <TableRow Name="Row1" Height="37.8">
-          <TableCell Name="Cell1" Text="Item&#13;&#10;No." HorzAlign="Center" Font="Times New Roman, 9pt"/>
-          <TableCell Name="Cell2" Border.Lines="Left, Right" Text="Qty." HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt"/>
-          <TableCell Name="Cell3" Text="UOM" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt"/>
-          <TableCell Name="Cell4" Border.Lines="Left, Right" Text="&#13;&#10;Item Description" Padding="2, 0, 2, 1" HorzAlign="Center" Font="Times New Roman, 9pt"/>
-          <TableCell Name="Cell5" Text="Unit Cost" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt"/>
-          <TableCell Name="Cell26" Border.Lines="Left" Text="Total Cost&#13;&#10;(PHP)" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell1" Border.Lines="Bottom" Text="Item&#13;&#10;No." HorzAlign="Center" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell2" Border.Lines="Left, Right, Bottom" Text="Qty." HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell3" Border.Lines="Bottom" Text="UOM" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell4" Border.Lines="Left, Right, Bottom" Text="&#13;&#10;Item Description" Padding="2, 0, 2, 1" HorzAlign="Center" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell5" Border.Lines="Bottom" Text="Unit Cost" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt"/>
+          <TableCell Name="Cell26" Border.Lines="Left, Bottom" Text="Total Cost&#13;&#10;(PHP)" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 9pt"/>
         </TableRow>
       </TableObject>
       <TextObject Name="Text3" Left="255.15" Top="189" Width="217.35" Height="18.9" Text="NOTICE TO EXECUTE FRAMEWORK AGREEMENT" AutoWidth="true" HorzAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
@@ -438,20 +497,18 @@ namespace FastReport
       <TextObject Name="Text129" Top="236.25" Width="103.95" Height="28.35" Text="[Noa.date_needed]" Format="Date" Format.Format="MMMM dd, yyyy" Font="Times New Roman, 9pt"/>
       <TextObject Name="Text130" Top="444.15" Width="718.2" Height="18.9" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="You are hereby required to provide within &lt;b&gt;&lt;u&gt;TEN (10) DAYS&lt;/u&gt;&lt;/b&gt; the performance security in the form of: (a) Cash, Certified Check, Cashier's Check, Manager's Check, Bank Draft or Irrevocable Letter of Credit confirmed by a reputable local bank at 5% of the total amount of award which amounts to &lt;b&gt;&lt;u&gt;[Noa.Perf_sec_5_word] (PHP[Noa.perf_sec_5])&lt;/u&gt;&lt;/b&gt;; or (b) 30% of the total amount of award in the form of Security Bond callable upon demand issued by any reputable surety or insurance company in the amount of &lt;b&gt;&lt;u&gt;[Noa.Perf_sec_30_word] (PHP[Noa.perf_sec_30])&lt;/u&gt;&lt;/b&gt; to be submitterd to the Purchasing Office, UPM-PGH. &lt;b&gt;Failure to provide the performance security shall constitute suffient ground for the cancellation of the award and forfeiture of the bid security.&lt;/b&gt;" HorzAlign="Justify" Font="Times New Roman, 9pt" TextRenderType="HtmlTags"/>
     </DataBand>
-    <DataBand Name="Data3" Top="561.55" Width="718.2" Height="37.8" CanGrow="true" CanShrink="true" CanBreak="true" Guides="103.95">
-      <TextObject Name="Text21" Top="9.45" Width="37.8" Height="18.9" Text="[Noa_details.stock_property_number]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 8pt"/>
-      <TextObject Name="Text22" Left="37.8" Top="9.45" Width="66.15" Height="18.9" Text="[Noa_details.quantity]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 8pt"/>
-      <TextObject Name="Text23" Left="103.95" Top="9.45" Width="75.6" Height="18.9" Text="[Noa_details.uom_name]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 8pt"/>
-      <TextObject Name="Text25" Left="548.1" Top="9.45" Width="85.05" Height="18.9" Text="[Noa_details.unit_cost]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 8pt"/>
-      <TextObject Name="Text27" Left="633.15" Top="9.45" Width="85.05" Height="18.9" Text="[Noa_details.total_cost]" Format="Currency" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.CurrencySymbol="₱" Format.PositivePattern="0" Format.NegativePattern="0" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 8pt"/>
-      <LineObject Name="Line1" Left="38.93" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
-      <LineObject Name="Line2" Left="106.97" Height="37.8" Border.Width="0.25" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
+    <DataBand Name="Data3" Top="561.55" Width="718.2" Height="37.8" CanGrow="true" Guides="103.95" KeepTogether="true" KeepDetail="true">
+      <TextObject Name="Text25" Left="544.1" Top="9.45" Width="89.05" Height="18.9" CanGrow="true" CanShrink="true" GrowToBottom="true" Padding="2, 0, 2, -50" HorzAlign="Center" Font="Times New Roman, 8pt" TextRenderType="HtmlTags"/>
+      <TextObject Name="Text27" Left="633.15" Top="9.45" Width="85.05" Height="18.9" CanGrow="true" CanShrink="true" GrowToBottom="true" Padding="2, 0, 2, -50" Format="Currency" Format.UseLocale="false" Format.DecimalDigits="2" Format.DecimalSeparator="." Format.GroupSeparator="," Format.CurrencySymbol="₱" Format.PositivePattern="0" Format.NegativePattern="0" HorzAlign="Center" Font="Times New Roman, 8pt" TextRenderType="HtmlTags"/>
       <LineObject Name="Line3" Left="631.64" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
       <LineObject Name="Line4" Left="717.82" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
+      <LineObject Name="Line1" Left="38.93" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
+      <LineObject Name="Line2" Left="106.97" Height="37.8" Border.Width="0.25" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
       <LineObject Name="Line5" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
-      <LineObject Name="Line24" Left="544.32" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
-      <TextObject Name="Text132" Width="718.2" Height="18.9" Border.Lines="Top" Border.Width="0.25" VertAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text20" Left="175.01" Width="370.06" Height="37.8" Border.Lines="Left" CanGrow="true" CanShrink="true" GrowToBottom="true" ProcessAt="ColumnFinished" HorzAlign="Justify" Font="Times New Roman, 9pt" TextRenderType="HtmlTags"/>
+      <TextObject Name="Text132" Left="174.88" Width="369.68" Height="37.8" Border.Lines="Left, Right" Border.Width="0.25" CanGrow="true" CanBreak="false" Padding="2, 0, 2, -50" HorzAlign="Justify" Font="Times New Roman, 10pt" TextRenderType="HtmlTags"/>
+      <TextObject Name="Text22" Left="37.8" Top="9.45" Width="66.15" Height="18.9" CanGrow="true" CanShrink="true" GrowToBottom="true" Padding="2, 0, 2, -50" ProcessAt="ReportFinished" Duplicates="Hide" HorzAlign="Center" Font="Times New Roman, 8pt" TextRenderType="HtmlTags"/>
+      <TextObject Name="Text23" Left="107.62" Top="9.45" Width="66.26" Height="18.9" CanGrow="true" CanShrink="true" GrowToBottom="true" Padding="2, 0, 2, -50" HorzAlign="Center" Font="Times New Roman, 8pt" TextRenderType="HtmlTags"/>
+      <TextObject Name="Text21" Top="9.45" Width="37.8" Height="18.9" CanGrow="true" GrowToBottom="true" CanBreak="false" Padding="2, 0, 2, -100" HorzAlign="Center" Font="Times New Roman, 8pt" TextRenderType="HtmlTags"/>
     </DataBand>
     <DataBand Name="Data4" Top="603.35" Width="718.2" Height="28.35">
       <TextObject Name="Text73" Width="718.2" Height="28.35" Border.Lines="All" CanBreak="false" Text="Total Amount of Award for the Contract: PhP[Noa.grand_total]" HorzAlign="Center" VertAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
@@ -480,8 +537,8 @@ namespace FastReport
       <TextObject Name="Text91" Left="-9185.4" Top="-9440.55" Width="245.7" Height="18.9" CanGrow="true" Text="PHILIPPINE GENERAL HOSPITAL" AutoWidth="true" HorzAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
       <TextObject Name="Text92" Left="-9450" Top="-9450" Width="94.5" Height="18.9" CanGrow="true" Text="PGH Form No. Q-250006&#13;&#10;Rev.00 Eff. 16 Sept. 2019&#13;&#10;" Font="Arial, 5pt, style=Bold"/>
     </ReportTitleBand>
-    <DataBand Name="Data5" Top="4" Width="718.2" Height="28.35" CanGrow="true" CanShrink="true" Guides="94.5" KeepTogether="true">
-      <TextObject Name="Text131" Width="718.2" Height="28.35" CanGrow="true" CanShrink="true" GrowToBottom="true" Font="Times New Roman, 10pt" TextRenderType="HtmlTags"/>
+    <DataBand Name="Data5" Top="4" Width="718.2" Height="28.35" CanGrow="true" CanShrink="true" CanBreak="true" Guides="94.5" KeepTogether="true" KeepDetail="true">
+      <TextObject Name="Text131" Width="718.2" Height="28.35" CanGrow="true" CanBreak="false" Padding="2, 0, 2, -50" Font="Times New Roman, 10pt" TextRenderType="HtmlTags"/>
     </DataBand>
     <DataBand Name="Data1" Top="36.35" Width="718.2" Height="378">
       <TextObject Name="Text123" Top="170.1" Width="217.35" Height="18.9" CanGrow="true" Text="CONFORME:" Font="Times New Roman, 9pt, style=Bold"/>
