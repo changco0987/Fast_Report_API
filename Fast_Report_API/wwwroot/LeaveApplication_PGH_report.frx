@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="09/15/2023 09:44:29" ReportInfo.Modified="12/11/2023 08:15:06" ReportInfo.CreatorVersion="2023.2.0.0">
+<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="09/15/2023 09:44:29" ReportInfo.Modified="01/31/2024 08:47:05" ReportInfo.CreatorVersion="2023.2.0.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -47,7 +47,7 @@ namespace FastReport
         // get the data column value from the current row                     
         string leaveName = ((String)Report.GetColumnValue(&quot;leave_names.value&quot;));   
         string selectedLeaveName = ((String)Report.GetColumnValue(&quot;LeaveAppPrint.leave_type_name&quot;));
-        string leave_remarks =((String)Report.GetColumnValue(&quot;LeaveAppPrint.other_remarks&quot;));                                                         
+        string leave_remarks =((String)Report.GetColumnValue(&quot;LeaveAppPrint.other_remarks&quot;));         
         if(index == 1)
         {                                 
           Text9.Text = leaveName;   
@@ -158,9 +158,19 @@ namespace FastReport
           if(leaveName == selectedLeaveName)
           {         
             CheckBox14.Checked = true;      
-            Text40.Text =leave_remarks; 
+         
+          }
+        }
+        else if(index == 15)
+        {                                     
+          Text86.Text = leaveName;
+          if(leaveName == selectedLeaveName)
+          {         
+               Text40.Text =leave_remarks; 
+            CheckBox30.Checked = true;   
           }
         } 
+       
         
        
        
@@ -219,46 +229,60 @@ namespace FastReport
         CheckBox22.Checked = true;
         string result = leave_details.ToUpper().Replace(&quot;WITHIN THE PHILIPPINES: &quot;, &quot;&quot;);
         Text74.Text = result;
+         CheckBox19.Checked = true;
       }
       if(abroad != -1){
         CheckBox23.Checked = true; 
         string result = leave_details.ToUpper().Replace(&quot;ABROAD: &quot;, &quot;&quot;);
         Text75.Text = result;
+         CheckBox19.Checked = true;
       }
       if(in_hosp != -1){
         CheckBox24.Checked = true; 
         string result = leave_details.ToUpper().Replace(&quot;IN HOSPITAL: &quot;, &quot;&quot;);
         Text76.Text = result;
+         CheckBox19.Checked = true;
       }
       if(out_patient != -1){
         CheckBox25.Checked = true;
         string result = leave_details.ToUpper().Replace(&quot;OUT PATIENT &quot;, &quot;&quot;);
         Text77.Text = result;
+         CheckBox19.Checked = true;
       }
       if(master_deg != -1){
         CheckBox26.Checked = true; 
         string result = leave_details.ToUpper().Replace(&quot;COMPLETION OF MASTER'S DEGREE &quot;, &quot;&quot;);
         Text78.Text = result;
+         CheckBox19.Checked = true;
       }
       if(board_exam != -1){
         CheckBox27.Checked = true; 
         string result = leave_details.ToUpper().Replace(&quot;BAR/BOARD EXAMINAION &quot;, &quot;&quot;);
         Text79.Text = result;
+         CheckBox19.Checked = true;
       }
       if(monetize != -1){
         CheckBox28.Checked = true; 
         string result = leave_details.ToUpper().Replace(&quot;MONETIZATION OF LEAVE CREDITS &quot;, &quot;&quot;);
         Text80.Text = result;
+        CheckBox20.Checked = true;
       }
       if(terminal != -1){
         CheckBox29.Checked = true; 
         string result = leave_details.ToUpper().Replace(&quot;TERMINAL LEAVE &quot;, &quot;&quot;);
         Text81.Text = result;
+        CheckBox20.Checked = true;
       }
      
       
       
     }
+    
+
+    
+    
+    
+    
     
   }
   
@@ -292,11 +316,13 @@ namespace FastReport
       <Column Name="other_remarks" DataType="System.String"/>
       <Column Name="vacation_balance" DataType="System.String"/>
       <Column Name="sick_balance" DataType="System.String"/>
+      <Column Name="multiple_date" DataType="System.String"/>
     </BusinessObjectDataSource>
     <BusinessObjectDataSource Name="leave_names" ReferenceName="leave_name_ref" DataType="System.Int32" Enabled="true">
       <Column Name="name" DataType="System.String"/>
       <Column Name="value" DataType="System.String"/>
     </BusinessObjectDataSource>
+    
   </Dictionary>
   <ReportPage Name="Page1" RawPaperSize="9" LeftMargin="5" TopMargin="5" RightMargin="5" BottomMargin="5" Watermark.Font="Arial, 60pt">
     <PageHeaderBand Name="PageHeader1" Width="756" Height="151.2">
@@ -400,7 +426,9 @@ namespace FastReport
             <TextObject Name="Text37" Left="170.1" Top="103.95" Width="311.85" Height="9.45" Text="(RA No. 9710 / CSC MC No. 25, s. 2010)" Font="Arial, 6pt"/>
             <TextObject Name="Text38" Left="170.1" Top="113.4" Width="311.85" Height="9.45" Text="(CSC MC No. 2 ,s. 2012, as amended)" Font="Arial, 6pt"/>
             <TextObject Name="Text39" Left="170.1" Top="122.85" Width="311.85" Height="9.45" Text="(R.A No. 8552)" Font="Arial, 6pt"/>
-            <TextObject Name="Text40" Left="170.1" Top="132.3" Width="311.85" Height="9.45" Border.Lines="Bottom" Font="Arial, 6pt"/>
+            <TextObject Name="Text40" Left="170.1" Top="141.75" Width="311.85" Height="9.45" Border.Lines="Bottom" Font="Arial, 6pt"/>
+            <TextObject Name="Text86" Left="28.35" Top="141.75" Width="122.85" Height="9.45" Font="Arial, 6pt, style=Bold"/>
+            <CheckBoxObject Name="CheckBox30" Left="9.45" Top="141.75" Width="9.45" Height="9.45" Border.Lines="All" Checked="false"/>
           </TableCell>
           <TableCell Font="Arial, 10pt">
             <TextObject Name="Text60" Left="28.35" Top="9.45" Width="94.5" Height="9.45" Text="Within the Philippines&#13;&#10;" Font="Arial, 6pt"/>
@@ -438,7 +466,7 @@ namespace FastReport
         <TableRow Name="Row10" Height="79.53">
           <TableCell Name="Cell24" Border.Lines="Right, Top" Text="6.C  NUMBER OF WORKING DAYS APPLIED FOR  &#13;&#10;&#13;&#10;" Font="Arial, 10pt, style=Bold">
             <TextObject Name="Text56" Left="18.9" Top="37.8" Width="113.4" Height="47.25" Text="INCLUSIVE DATES " Font="Arial, 8pt"/>
-            <TextObject Name="Text57" Left="122.85" Top="37.8" Width="349.65" Height="47.25" Text="[LeaveAppPrint.from_needed_date] -[LeaveAppPrint.to_needed_date]" Font="Arial, 8pt, style=Underline"/>
+            <TextObject Name="Text57" Left="122.85" Top="37.8" Width="387.45" Height="47.25" Text="[LeaveAppPrint.from_needed_date] - [LeaveAppPrint.to_needed_date] [LeaveAppPrint.multiple_date]" Font="Arial, 8pt, style=Underline"/>
             <TextObject Name="Text73" Left="321.3" Width="160.65" Height="18.9" Border.Lines="Bottom" Text="[LeaveAppPrint.no_days]" Font="Arial, 10pt"/>
           </TableCell>
           <TableCell Name="Cell25" Border.Lines="Top" Text="(Signature of Applicant)" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 8pt">

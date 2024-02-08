@@ -887,6 +887,7 @@ namespace Fast_Report_API.Controllers
                 status = leave.status,
                 vacation_balance = leave.vacation_balance,
                 sick_balance = leave.sick_balance,
+                multiple_date = leave.multiple_date,
                 //leave_desc = leave.leave_desc,
 
 

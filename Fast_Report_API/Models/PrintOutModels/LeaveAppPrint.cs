@@ -16,7 +16,7 @@ namespace Fast_Report_API.Models.PrintOutModels
         public string to_needed_date { get; set; }
         public string no_days { get; set; }
         public string leaveDetails { get; set; }
-        
+
 
 
 
@@ -36,9 +36,17 @@ namespace Fast_Report_API.Models.PrintOutModels
         public List<leave_names> leave_list { get; set; }
 
 
+        public string multiple_date { get; set; }
 
 
 
+
+
+    }
+    public class multiple_date
+    {
+
+        public string? date { get; set; }
     }
 
     public class leave_names

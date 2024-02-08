@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="12/11/2023 10:00:55" ReportInfo.Modified="12/14/2023 08:39:02" ReportInfo.CreatorVersion="2023.2.0.0">
+<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="12/11/2023 10:00:55" ReportInfo.Modified="02/06/2024 08:56:03" ReportInfo.CreatorVersion="2023.2.0.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -44,26 +44,29 @@ namespace FastReport
         string department =((String)Report.GetColumnValue(&quot;TimeAttendance_record.department&quot;)) ;
         DateTime date =((DateTime)Report.GetColumnValue(&quot;TimeAttendance_record.date&quot;));
         string time_in =((String)Report.GetColumnValue(&quot;TimeAttendance_record.time_in&quot;));
-        string time_out = ((String)Report.GetColumnValue(&quot;TimeAttendance_record.time_out&quot;));             
+        string time_out = ((String)Report.GetColumnValue(&quot;TimeAttendance_record.time_out&quot;));
+        string tardiness =((String)Report.GetColumnValue(&quot;TimeAttendance_record.tardiness&quot;));
+        string undertime =((String)Report.GetColumnValue(&quot;TimeAttendance_record.undertime&quot;));
+        string schedule =((String)Report.GetColumnValue(&quot;TimeAttendance_record.schedule&quot;));
        
         int day = Day(date); 
       
-      
-      
-      
+                            
       
       int indexOfColon = time_in.IndexOf(':');
       int hour = 0;
       if (indexOfColon != -1)
       {
+          
         // Extract the substring before the first colon
         string result = time_in.Substring(0, indexOfColon);  
         hour = Convert.ToInt32(result);
       }
-      
-      
+     
         if( day == 01){
          Cell29.Text = time_out;  
+          Cell30.Text = tardiness; 
+          Cell51.Text = undertime;
           if(hour &lt; 12 ){
             Cell26.Text =time_in;
           }else{
@@ -71,6 +74,8 @@ namespace FastReport
           }
         }else if( day == 02){
           Cell34.Text = time_out;
+          Cell35.Text = tardiness; 
+          Cell52.Text = undertime;
           if(hour &lt; 12 ){
            Cell31.Text = time_in; 
           }else{
@@ -79,6 +84,8 @@ namespace FastReport
         }else if ( day == 03){
           
           Cell39.Text = time_out;
+          Cell40.Text = tardiness; 
+          Cell53.Text = undertime;
           if(hour &lt; 12 ){
            Cell36.Text = time_in;  
           }else{
@@ -86,6 +93,8 @@ namespace FastReport
           }
         }else if ( day == 04){ 
           Cell44.Text = time_out;
+          Cell45.Text = tardiness; 
+          Cell54.Text = undertime;
           if(hour &lt; 12 ){
            Cell41.Text = time_in;  
           }else{
@@ -94,6 +103,8 @@ namespace FastReport
         }
         else if ( day == 05){ 
           Cell49.Text = time_out;
+          Cell50.Text = tardiness; 
+          Cell55.Text = undertime;
           if(hour &lt; 12 ){
             Cell46.Text = time_in; 
           }else{
@@ -102,6 +113,8 @@ namespace FastReport
         
         }
         else if ( day == 06){ 
+          Cell60.Text = tardiness; 
+          Cell61.Text = undertime;
           Cell59.Text = time_out;
           if(hour &lt; 12 ){
              Cell56.Text = time_in; 
@@ -110,7 +123,8 @@ namespace FastReport
           }
         }
         else if ( day == 07){
-          
+          Cell66.Text = tardiness; 
+          Cell67.Text = undertime;
           Cell65.Text = time_out;
           if(hour &lt; 12 ){
           Cell62.Text = time_in;  
@@ -119,7 +133,8 @@ namespace FastReport
           }
         }
         else if ( day == 08){
-         
+          Cell72.Text = tardiness; 
+          Cell73.Text = undertime;
           Cell71.Text = time_out;
           if(hour &lt; 12 ){
             Cell68.Text = time_in;   
@@ -128,7 +143,8 @@ namespace FastReport
           }
         }
         else if ( day == 09){
-         
+          Cell78.Text = tardiness; 
+          Cell79.Text = undertime;
           Cell77.Text = time_out;
           if(hour &lt; 12 ){
             Cell74.Text = time_in;   
@@ -137,7 +153,8 @@ namespace FastReport
           }
         }
         else if ( day == 10){
-          
+          Cell84.Text = tardiness; 
+          Cell85.Text = undertime;
           Cell83.Text = time_out;
           if(hour &lt; 12 ){
             Cell80.Text = time_in;  
@@ -146,7 +163,8 @@ namespace FastReport
           }
         }
         else if ( day == 11){
-         
+          Cell90.Text = tardiness; 
+          Cell91.Text = undertime;
           Cell89.Text = time_out;
           if(hour &lt; 12 ){
             Cell86.Text =time_in;
@@ -155,7 +173,8 @@ namespace FastReport
           }
         }
         else if ( day == 12){
-          
+          Cell96.Text = tardiness; 
+          Cell97.Text = undertime;
           Cell95.Text = time_out;
           if(hour &lt; 12 ){
             Cell92.Text = time_in;  
@@ -164,7 +183,8 @@ namespace FastReport
           }
         }
         else if ( day == 13){
-           
+          Cell102.Text = tardiness; 
+          Cell103.Text = undertime; 
           Cell101.Text = time_out;
           if(hour &lt; 12 ){
             Cell98.Text = time_in;  
@@ -173,7 +193,8 @@ namespace FastReport
           }
         }
         else if ( day == 14){
-          
+          Cell108.Text = tardiness; 
+          Cell109.Text = undertime; 
           Cell107.Text = time_out;
           if(hour &lt; 12 ){
            Cell104.Text = time_in; 
@@ -182,7 +203,8 @@ namespace FastReport
           }
         }
         else if ( day == 15){
-          
+          Cell114.Text = tardiness; 
+          Cell115.Text = undertime; 
           Cell113.Text = time_out;
           if(hour &lt; 12 ){
            Cell110.Text = time_in; 
@@ -190,17 +212,10 @@ namespace FastReport
             Cell112.Text = time_in; 
           }
         }
+      
         else if ( day == 16){
-          
-          Cell119.Text = time_out;
-          if(hour &lt; 12 ){
-           Cell116.Text = time_in;
-          }else{
-           Cell118.Text = time_in; 
-          }
-        }
-        else if ( day == 17){
-         
+          Cell126.Text = tardiness; 
+          Cell127.Text = undertime;
           Cell125.Text = time_out;
           if(hour &lt; 12 ){
             Cell122.Text = time_in;
@@ -208,8 +223,9 @@ namespace FastReport
             Cell124.Text = time_in;
           }
         }
-        else if (day == 18){
-          
+        else if (day == 17){
+          Cell132.Text = tardiness; 
+          Cell133.Text = undertime;
           Cell131.Text = time_out;
           if(hour &lt; 12 ){
            Cell128.Text = time_in; 
@@ -217,8 +233,9 @@ namespace FastReport
            Cell130.Text = time_in; 
           }
         }
-        else if ( day == 19){
-          
+        else if ( day == 18){
+          Cell138.Text = tardiness; 
+          Cell139.Text = undertime; 
           Cell137.Text = time_out;
           if(hour &lt; 12 ){
             Cell134.Text = time_in; 
@@ -226,8 +243,9 @@ namespace FastReport
            Cell136.Text = time_in;  
           }
         }
-        else if ( day == 20){
-         
+        else if ( day == 19){
+          Cell144.Text = tardiness; 
+          Cell145.Text = undertime; 
           Cell143.Text = time_out;
           if(hour &lt; 12 ){
             Cell140.Text = time_in;  
@@ -235,8 +253,9 @@ namespace FastReport
             Cell142.Text = time_in;   
           }
         }
-        else if ( day == 21){
-          
+        else if ( day == 20){
+          Cell150.Text = tardiness; 
+          Cell151.Text = undertime;
           Cell149.Text = time_out;
           if(hour &lt; 12 ){
            Cell146.Text = time_in; 
@@ -244,8 +263,9 @@ namespace FastReport
            Cell148.Text = time_in;  
           }
         }
-        else if ( day == 22){
-          
+        else if ( day == 21){
+          Cell156.Text = tardiness; 
+          Cell157.Text = undertime;
           Cell155.Text = time_out;
           if(hour &lt; 12 ){
            Cell152.Text = time_in; 
@@ -253,8 +273,9 @@ namespace FastReport
             Cell154.Text = time_in;  
           }
         }
-        else if ( day == 23){
-          
+        else if ( day == 22){
+          Cell162.Text = tardiness; 
+          Cell163.Text = undertime;
           Cell161.Text = time_out;
           if(hour &lt; 12 ){
            Cell158.Text = time_in;  
@@ -262,8 +283,9 @@ namespace FastReport
             Cell160.Text = time_in; 
           }
         }
-        else if ( day == 24){
-          
+        else if ( day == 23){
+          Cell168.Text = tardiness; 
+          Cell169.Text = undertime;
           Cell167.Text = time_out;
           if(hour &lt; 12 ){
            Cell164.Text = time_in;   
@@ -271,8 +293,9 @@ namespace FastReport
           Cell166.Text = time_in; 
           }
         }
-        else if ( day == 25){
-         
+        else if ( day == 24){
+          Cell174.Text = tardiness; 
+          Cell175.Text = undertime;
           Cell173.Text = time_out;
           if(hour &lt; 12 ){
             Cell170.Text = time_in;   
@@ -280,8 +303,9 @@ namespace FastReport
             Cell172.Text = time_in; 
           }
         }
-        else if ( day == 26){
-           
+        else if ( day == 25){
+          Cell180.Text = tardiness; 
+          Cell181.Text = undertime; 
           Cell179.Text = time_out;
           if(hour &lt; 12 ){
             Cell176.Text = time_in; 
@@ -289,8 +313,9 @@ namespace FastReport
             Cell178.Text = time_in;
           }
         }
-        else if ( day == 27){
-        
+        else if ( day == 26){
+          Cell186.Text = tardiness; 
+          Cell187.Text = undertime;
           Cell185.Text = time_out;
           if(hour &lt; 12 ){
              Cell182.Text = time_in; 
@@ -298,8 +323,9 @@ namespace FastReport
              Cell184.Text = time_in; 
           }
         }
-        else if ( day == 28){
-         
+        else if ( day == 27){
+          Cell192.Text = tardiness; 
+          Cell193.Text = undertime;
           Cell191.Text = time_out;
           if(hour &lt; 12 ){
             Cell188.Text = time_in;  
@@ -307,8 +333,9 @@ namespace FastReport
             Cell190.Text = time_in; 
           }
         }
-        else if ( day == 29){
-         
+        else if ( day == 28){
+          Cell198.Text = tardiness; 
+          Cell199.Text = undertime;
           Cell197.Text = time_out;
           if(hour &lt; 12 ){
             Cell194.Text = time_in;   
@@ -316,8 +343,9 @@ namespace FastReport
             Cell196.Text = time_in;  
           }
         }
-        else if ( day == 30){
-         
+        else if ( day == 29){
+          Cell204.Text = tardiness; 
+          Cell205.Text = undertime;
           Cell203.Text = time_out;
           if(hour &lt; 12 ){
              Cell200.Text = time_in;   
@@ -325,8 +353,9 @@ namespace FastReport
             Cell202.Text = time_in;  
           }
         }
-        else if ( day == 31){
-         
+        else if ( day == 30){
+          Cell210.Text = tardiness; 
+          Cell211.Text = undertime;
           Cell209.Text = time_out;
           if(hour &lt; 12 ){
            Cell206.Text = time_in;    
@@ -334,11 +363,25 @@ namespace FastReport
              Cell208.Text = time_in;  
           }
         }
+        else if ( day == 31){
+          Cell216.Text = tardiness; 
+          Cell217.Text = undertime;
+          Cell215.Text = time_out;
+          if(hour &lt; 12 ){
+            Cell212.Text = time_in;    
+          }else{
+            Cell214.Text = time_in;  
+          }
+        }
         if (index == 1 ){
           Text2.Text += name;      
           Text12.Text += name;
           Text3.Text += department;
           Text15.Text += department;
+          Text10.Text += schedule;
+          Text7.Text +=  ((String)Report.GetColumnValue(&quot;TimeAttendance_record.monthName&quot;));
+          Text8.Text +=   ((String)Report.GetColumnValue(&quot;TimeAttendance_record.year&quot;));
+          
         }
         
         
@@ -367,9 +410,14 @@ namespace FastReport
     <BusinessObjectDataSource Name="TimeAttendance_record" ReferenceName="TimeAttendance_ref" DataType="System.Int32" Enabled="true">
       <Column Name="name" DataType="System.String"/>
       <Column Name="department" DataType="System.String"/>
-      <Column Name="date" DataType="System.String"/>
+      <Column Name="schedule" DataType="System.String"/>
       <Column Name="time_in" DataType="System.String"/>
       <Column Name="time_out" DataType="System.String"/>
+      <Column Name="tardiness" DataType="System.String"/>
+      <Column Name="undertime" DataType="System.String"/>
+      <Column Name="date" DataType="System.String"/>
+      <Column Name="year" DataType="System.String"/>
+      <Column Name="monthName" DataType="System.String"/>
     </BusinessObjectDataSource>
   </Dictionary>
   <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
@@ -380,10 +428,10 @@ namespace FastReport
       <TextObject Name="Text4" Left="56.7" Width="170.1" Height="18.9" Text="PGH Form No. Q-073002" Font="Arial, 8pt"/>
       <TextObject Name="Text5" Left="28.35" Width="306.18" Height="37.8" Border.Lines="All" Text="UP-PHILIPPINE GENERAL HOSPITAL&#13;&#10;" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 10pt"/>
       <TextObject Name="Text6" Left="28.35" Top="94.5" Width="306.18" Height="66.15" Border.Lines="All" Text="PGH TIME CARD&#13;&#10;" HorzAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text7" Left="47.25" Top="113.4" Width="132.3" Height="18.9" Text="MONTH:&#13;&#10;" Font="Arial, 8pt"/>
-      <TextObject Name="Text8" Left="47.25" Top="132.3" Width="170.1" Height="18.9" Text="YEAR:" Font="Arial, 8pt"/>
-      <TextObject Name="Text9" Left="189" Top="113.4" Width="113.4" Height="18.9" Text="OFFICIAL:" Font="Arial, 8pt"/>
-      <TextObject Name="Text10" Left="189" Top="132.3" Width="113.4" Height="18.9" Text="TIME" Font="Arial, 8pt"/>
+      <TextObject Name="Text7" Left="96.98" Top="101.14" Width="264.6" Height="28.35" Text="[TimeAttendance_record.monthName]&#13;&#10;" Font="Arial, 8pt"/>
+      <TextObject Name="Text8" Left="94.5" Top="132.3" Width="170.1" Height="18.9" Text=" [TimeAttendance_record.year]" Font="Arial, 8pt"/>
+      <TextObject Name="Text9" Left="189" Top="113.4" Width="189" Height="18.9" Text="OFFICIAL: " Font="Arial, 8pt"/>
+      <TextObject Name="Text10" Left="189" Top="132.3" Width="189" Height="18.9" Text="TIME: " Font="Arial, 8pt"/>
       <TextObject Name="Text11" Left="359.1" Width="85.05" Height="37.8" Border.Lines="All" Text="NO." Font="Arial, 10pt"/>
       <TextObject Name="Text12" Left="444.15" Width="221.13" Height="37.8" Border.Lines="All" Text="NAME : " Font="Arial, 10pt"/>
       <TextObject Name="Text13" Left="359.1" Top="37.8" Width="132.3" Height="18.9" Border.Lines="All" Text="SEC." Font="Arial, 10pt"/>
@@ -740,30 +788,32 @@ namespace FastReport
       <TextObject Name="Text133" Left="28.35" Top="371.95" Width="18.9" Height="29.11" Border.Lines="All" Text="07" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
       <TextObject Name="Text134" Left="28.35" Top="400.68" Width="18.9" Height="29.11" Border.Lines="All" Text="08" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
       <TextObject Name="Text135" Left="28.35" Top="429.79" Width="18.9" Height="29.11" Border.Lines="All" Text="09" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text136" Left="28.35" Top="458.51" Width="18.9" Height="29.11" Border.Lines="All" Text="10" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+      <TextObject Name="Text136" Left="28.34" Top="459.56" Width="18.91" Height="28.06" Border.Lines="All" Text="10" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
       <TextObject Name="Text137" Left="28.35" Top="487.62" Width="18.9" Height="29.11" Border.Lines="All" Text="11" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
       <TextObject Name="Text138" Left="28.35" Top="516.35" Width="18.9" Height="29.11" Border.Lines="All" Text="12" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
       <TextObject Name="Text139" Left="28.35" Top="545.45" Width="18.9" Height="29.11" Border.Lines="All" Text="13" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
       <TextObject Name="Text140" Left="28.35" Top="574.56" Width="18.9" Height="29.11" Border.Lines="All" Text="14" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
       <TextObject Name="Text141" Left="28.35" Top="603.29" Width="18.9" Height="29.11" Border.Lines="All" Text="15" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text142" Left="28.35" Top="632.39" Width="18.9" Height="29.11" Border.Lines="All" Text="16" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+      <TextObject Name="Text142" Left="28.35" Top="632.39" Width="18.9" Height="29.11" Border.Lines="All" Text="&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
       <TextObject Name="Text143" Left="28.35" Top="198.45" Width="18.9" Height="29.11" Border.Lines="All" Text="01" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text144" Left="359.1" Top="227.18" Width="18.9" Height="29.11" Border.Lines="All" Text="18" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text145" Left="359.1" Top="256.28" Width="18.9" Height="29.11" Border.Lines="All" Text="19" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text146" Left="359.1" Top="285.01" Width="18.9" Height="29.11" Border.Lines="All" Text="20" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text147" Left="359.1" Top="314.12" Width="18.9" Height="29.11" Border.Lines="All" Text="21" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text148" Left="359.1" Top="342.85" Width="18.9" Height="29.11" Border.Lines="All" Text="22&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text149" Left="359.1" Top="371.95" Width="18.9" Height="29.11" Border.Lines="All" Text="23" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text150" Left="359.1" Top="400.68" Width="18.9" Height="29.11" Border.Lines="All" Text="24" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text151" Left="359.1" Top="429.79" Width="18.9" Height="29.11" Border.Lines="All" Text="25" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text152" Left="359.1" Top="458.51" Width="18.9" Height="29.11" Border.Lines="All" Text="26" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text153" Left="359.1" Top="487.62" Width="18.9" Height="29.11" Border.Lines="All" Text="27" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text154" Left="359.1" Top="516.35" Width="18.9" Height="29.11" Border.Lines="All" Text="28" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text155" Left="359.1" Top="545.45" Width="18.9" Height="29.11" Border.Lines="All" Text="29" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text156" Left="359.1" Top="574.56" Width="18.9" Height="29.11" Border.Lines="All" Text="30" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text157" Left="359.1" Top="603.29" Width="18.9" Height="29.11" Border.Lines="All" Text="31" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text158" Left="359.1" Top="632.39" Width="18.9" Height="29.11" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text159" Left="359.1" Top="198.45" Width="18.9" Height="29.11" Border.Lines="All" Text="17" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+      <TextObject Name="Text144" Left="359.1" Top="227.18" Width="18.9" Height="29.11" Border.Lines="All" Text="17&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+      <TextObject Name="Text145" Left="359.1" Top="256.28" Width="18.9" Height="29.11" Border.Lines="All" Text="18" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+      <TextObject Name="Text146" Left="359.1" Top="285.01" Width="18.9" Height="29.11" Border.Lines="All" Text="19" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+      <TextObject Name="Text147" Left="359.1" Top="314.12" Width="18.9" Height="29.11" Border.Lines="All" Text="20" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+      <TextObject Name="Text148" Left="359.1" Top="342.85" Width="18.9" Height="29.11" Border.Lines="All" Text="21" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+      <TextObject Name="Text149" Left="359.1" Top="371.95" Width="18.9" Height="29.11" Border.Lines="All" Text="22" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+      <TextObject Name="Text150" Left="359.1" Top="400.68" Width="18.9" Height="29.11" Border.Lines="All" Text="23" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+      <TextObject Name="Text151" Left="359.1" Top="429.79" Width="18.9" Height="29.11" Border.Lines="All" Text="24" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+      <TextObject Name="Text152" Left="359.1" Top="458.51" Width="18.9" Height="29.11" Border.Lines="All" Text="25" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+      <TextObject Name="Text153" Left="359.1" Top="487.62" Width="18.9" Height="29.11" Border.Lines="All" Text="26" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+      <TextObject Name="Text154" Left="359.1" Top="516.35" Width="18.9" Height="29.11" Border.Lines="All" Text="27" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+      <TextObject Name="Text155" Left="359.1" Top="545.45" Width="18.9" Height="29.11" Border.Lines="All" Text="28" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+      <TextObject Name="Text156" Left="359.1" Top="574.56" Width="18.9" Height="29.11" Border.Lines="All" Text="29" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+      <TextObject Name="Text157" Left="359.1" Top="603.29" Width="18.9" Height="29.11" Border.Lines="All" Text="30" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+      <TextObject Name="Text158" Left="359.1" Top="632.39" Width="18.9" Height="29.11" Border.Lines="All" Text="31" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+      <TextObject Name="Text159" Left="359.1" Top="198.45" Width="18.9" Height="29.11" Border.Lines="All" Text="16" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+      <TextObject Name="Text160" Left="47.25" Top="113.4" Width="94.5" Height="18.9" Text="MONTH :" Font="Arial, 8pt"/>
+      <TextObject Name="Text161" Left="47.25" Top="132.3" Width="94.5" Height="18.9" Text="YEAR :" Font="Arial, 8pt"/>
     </DataBand>
   </ReportPage>
 </Report>

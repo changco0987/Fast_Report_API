@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="09/15/2023 09:44:29" ReportInfo.Modified="12/11/2023 08:11:15" ReportInfo.CreatorVersion="2023.2.0.0">
+<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="09/15/2023 09:44:29" ReportInfo.Modified="01/31/2024 08:57:04" ReportInfo.CreatorVersion="2023.2.0.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -199,6 +199,7 @@ namespace FastReport
       <Column Name="other_remarks" DataType="System.String"/>
       <Column Name="vacation_balance" DataType="System.String"/>
       <Column Name="sick_balance" DataType="System.String"/>
+      <Column Name="multiple_date" DataType="System.String"/>
     </BusinessObjectDataSource>
     <BusinessObjectDataSource Name="leave_names" ReferenceName="leave_name_ref" DataType="System.Int32" Enabled="true">
       <Column Name="name" DataType="System.String"/>
@@ -233,7 +234,7 @@ namespace FastReport
         </TableRow>
       </TableObject>
     </PageHeaderBand>
-    <DataBand Name="Data1" Top="182.75" Width="756" Height="803.25">
+    <DataBand Name="Data1" Top="181.84" Width="756" Height="803.25">
       <TableObject Name="Table1" Left="9.45" Width="736.71" Height="47.25" Border.Lines="All">
         <TableColumn Name="Column1" Width="205.44"/>
         <TableColumn Name="Column2" Width="186.54"/>
@@ -294,7 +295,7 @@ namespace FastReport
         <TableRow Name="Row10" Height="82.68">
           <TableCell Name="Cell24" Border.Lines="Right, Top" Text="5.C  NUMBER OF WORKING DAYS APPLIED FOR  &#13;&#10;&#13;&#10;" Font="Arial, 10pt, style=Bold">
             <TextObject Name="Text37" Left="330.75" Width="170.1" Height="18.9" Text="[LeaveAppPrint.no_days]" VertAlign="Center" Font="Arial, 10pt, style=Underline"/>
-            <TextObject Name="Text38" Left="141.75" Top="37.8" Width="349.65" Height="18.9" Text="[LeaveAppPrint.from_needed_date] - [LeaveAppPrint.to_needed_date]" VertAlign="Center" Font="Arial, 10pt, style=Underline"/>
+            <TextObject Name="Text38" Left="141.75" Top="37.8" Width="368.55" Height="18.9" Text="[LeaveAppPrint.from_needed_date] - [LeaveAppPrint.to_needed_date] [LeaveAppPrint.multiple_date]" VertAlign="Center" Font="Arial, 10pt, style=Underline"/>
             <TextObject Name="Text39" Left="9.45" Top="37.8" Width="160.65" Height="18.9" Text="INCLUSIVE DATES :" VertAlign="Center" Font="Arial, 10pt"/>
           </TableCell>
           <TableCell Name="Cell25" Border.Lines="Top" Text="(Signature of Applicant)" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 10pt">
@@ -402,6 +403,6 @@ namespace FastReport
       <TextObject Name="Text42" Left="311.85" Top="756" Width="122.85" Height="18.9" Text="Authorized Official&#13;&#10;" VertAlign="Center" Font="Arial, 10pt"/>
       <TextObject Name="Text47" Left="567" Top="66.15" Width="151.2" Height="18.9" Text="5. SALARY" VertAlign="Center" Font="Arial, 10pt, style=Bold"/>
     </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="989.2" Width="756" Height="37.8"/>
+    <PageFooterBand Name="PageFooter1" Top="987.37" Width="756" Height="37.8"/>
   </ReportPage>
 </Report>
