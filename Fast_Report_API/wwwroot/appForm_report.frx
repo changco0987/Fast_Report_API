@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" FinishReportEvent="_FinishReport" ReportInfo.Created="11/09/2023 10:20:01" ReportInfo.Modified="12/21/2023 15:21:30" ReportInfo.CreatorVersion="2023.2.0.0">
+<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="11/09/2023 10:20:01" ReportInfo.Modified="12/22/2023 10:40:24" ReportInfo.CreatorVersion="2023.2.0.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,10 +30,8 @@ namespace FastReport
       checkSpecialty(specialty);
       getEducationDetails();
       getWorkExp();
-      getReferences();  
-                 
-      //checkTxtBox_size();         
-                                                    
+      getReferences();
+      getRecognitions();
     }
     
     //This will check citizenship fields
@@ -166,7 +164,8 @@ namespace FastReport
       // get a reference to the data source
       DataSourceBase ds = Report.GetDataSource(&quot;education&quot;);
       int index = 1;
-                              
+ 
+
       // initialize it
       ds.Init();
 
@@ -179,28 +178,24 @@ namespace FastReport
         string schoolName = (string)Report.GetColumnValue(&quot;education.school_name&quot;);  
         string yearGraduated = (string)Report.GetColumnValue(&quot;education.year_graduated&quot;);
 
-        if(degreeName != null)
-        {  
-          if(index == 1)
-          {                                 
-            deg1_txt.Text = degreeName;    
-            Text105.Text = schoolName;
-            Text104.Text = yearGraduated;
-          }
-          else if(index == 2)
-          {                                    
-            deg2_txt.Text = degreeName;    
-            Text103.Text = schoolName;
-            Text102.Text = yearGraduated;
-          }
-          else if(index == 3)
-          {                                  
-            deg3_txt.Text = degreeName;    
-            Text101.Text = schoolName;
-            Text100.Text = yearGraduated;
-          }
-          checkTxtBox_size(index);
-        }     
+        if(index == 1)
+        {                                 
+          deg_cell1.Text = degreeName;      
+          school_cell1.Text = schoolName;
+          year_cell1.Text = yearGraduated;
+        }
+        else if(index == 2)
+        {                                  
+          deg_cell2.Text = degreeName;     
+          school_cell2.Text = schoolName;
+          year_cell2.Text = yearGraduated;
+        }
+        else if(index == 3)
+        {                                
+          deg_cell3.Text = degreeName;     
+          school_cell3.Text = schoolName;
+          year_cell3.Text = yearGraduated;
+        }
 
         index++;
  
@@ -228,22 +223,22 @@ namespace FastReport
       {
 
         // get the data column value from the current row                    
-        string schoolOrganization = (string)Report.GetColumnValue(&quot;work_exp.organization&quot;);  
+        string organization = (string)Report.GetColumnValue(&quot;work_exp.organization&quot;);  
         string yearCompleted = (string)Report.GetColumnValue(&quot;work_exp.year_completed&quot;);
 
         if(index == 1)
         {                                   
-          intern_txt.Text = schoolOrganization;
+          intern_txt.Text = organization;
           intern_datesTxt.Text = yearCompleted;
         }
         else if(index == 2)
         {                                   
-          residency_txt.Text = schoolOrganization;
+          residency_txt.Text = organization;
           residency_datesTxt.Text = yearCompleted;
         }
         else if(index == 3)
         {                                  
-          other_txt.Text = schoolOrganization;
+          other_txt.Text = organization;
           other_datesTxt.Text = yearCompleted;
         }
 
@@ -303,31 +298,39 @@ namespace FastReport
   
     }
     
-    
-    private void checkTxtBox_size(int index)
-    {        
-      if(index == 1)
-      {     
-        lvl1_txt.Height = deg1_txt.CalcHeight();
-        Text105.Height = deg1_txt.CalcHeight();                     
-        Text104.Height = Text105.CalcHeight();  
-      }
-      else if(index == 2)
-      {       
-        lvl2_txt.Height = deg2_txt.CalcHeight();       
-        Text103.Height = deg2_txt.CalcHeight();  
-        Text102.Height = Text103.CalcHeight(); 
-      } 
-      else if(index == 3)
-      { 
-        lvl3_txt.Height = deg3_txt.CalcHeight();       
-        Text101.Height = deg3_txt.CalcHeight();  
-        Text100.Height = Text101.CalcHeight();    
-      }                                         
-                                                                                      
+    private void getRecognitions()
+    {     
+      // get a reference to the data source
+      DataSourceBase ds = Report.GetDataSource(&quot;recognitions&quot;);
+      int index = 1;
+ 
 
+      // initialize it
+      ds.Init();
+
+      // enum all rows
+      while (ds.HasMoreRows)
+      {                
+        if(index == 1)
+        {
+           Text82.Text = &quot;&quot;;
+        }
+        
+        // get the data column value from the current row                    
+        string recognitions = (string)Report.GetColumnValue(&quot;recognitions.recognition_details&quot;);  
+        
+        Text82.Text += recognitions + &quot;&lt;br&gt;&quot;;
+
+        index++;
+ 
+
+        // go next data row
+        ds.Next();
+
+      }
+      
     }
-          
+    
     
   }
   
@@ -382,23 +385,23 @@ namespace FastReport
   </Dictionary>
   <ReportPage Name="Page1" PaperWidth="215.9" PaperHeight="355.6" RawPaperSize="5" Watermark.Font="Arial, 60pt">
     <ReportTitleBand Name="ReportTitle1" Width="740.5"/>
-    <PageHeaderBand Name="PageHeader1" Top="2.29" Width="740.5" Height="198.45" PrintOn="FirstPage">
+    <PageHeaderBand Name="PageHeader1" Top="2.67" Width="740.5" Height="198.45" PrintOn="FirstPage">
       <PictureObject Name="Picture1" Left="47.25" Top="28.35" Width="113.4" Height="103.95" ImageFormat="Png" Image="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"/>
       <TextObject Name="Text1" Left="37.8" Top="9.45" Width="151.2" Height="18.9" CanGrow="true" Text="PGH Form No. A-310006&#13;&#10;" VertAlign="Center" Font="Arial, 8.25pt, style=Bold"/>
       <TextObject Name="Text2" Left="236.25" Top="18.9" Width="302.4" Height="75.6" Text="PHILIPPINE GENERAL HOSPITAL&#13;&#10; The National University Hospital &#13;&#10; University of the Philippines Manila &#13;&#10; Taft Avenue, Manila" HorzAlign="Center" Font="Arial, 12pt, style=Bold"/>
       <TextObject Name="Text3" Left="236.25" Top="103.95" Width="302.4" Height="47.25" Text="PHIC-Accredited Health Care Provider &#13;&#10;ISO 900:2008 Certified" HorzAlign="Center" Font="Arial, 11.25pt"/>
       <TextObject Name="Text4" Left="47.25" Top="170.1" Width="633.15" Height="28.35" Text="APPLICATION FORM FOR RESIDENCY/POST-RESIDENCY FELLOWSHIP" HorzAlign="Center" Font="Arial, 12pt, style=Bold"/>
     </PageHeaderBand>
-    <DataBand Name="Data1" Top="203.02" Width="740.5" Height="576.45" CanGrow="true" StartNewPage="true">
-      <TextObject Name="Text5" Left="37.8" Top="18.9" Width="56.7" Height="18.9" Text="NAME" Font="Arial, 9.75pt"/>
-      <TextObject Name="Text6" Left="359.1" Top="18.9" Width="37.8" Height="18.9" Text="AGE" Font="Arial, 9.75pt"/>
-      <TextObject Name="Text7" Left="444.15" Top="18.9" Width="37.8" Height="18.9" Text="SEX" Font="Arial, 9.75pt"/>
-      <TextObject Name="Text8" Left="529.2" Top="18.9" Width="103.95" Height="18.9" Text="CIVIL STATUS" Font="Arial, 9.75pt"/>
-      <TextObject Name="Text9" Left="37.8" Top="56.7" Width="189" Height="18.9" Text="IF MARRIED, MAIDEN NAME" Font="Arial, 9.75pt"/>
-      <TextObject Name="Text10" Left="378" Top="56.7" Width="132.3" Height="18.9" Text="NAME OF SPOUSE" Font="Arial, 9.75pt"/>
-      <TextObject Name="Text11" Left="37.8" Top="94.5" Width="113.4" Height="18.9" Text="DATE OF BIRTH" Font="Arial, 9.75pt"/>
-      <TextObject Name="Text12" Left="340.2" Top="94.5" Width="122.85" Height="18.9" Text="PLACE OF BIRTH" Font="Arial, 9.75pt"/>
-      <TextObject Name="Text13" Left="37.8" Top="132.3" Width="94.5" Height="18.9" Text="CITIZENSHIP" Font="Arial, 9.75pt"/>
+    <DataBand Name="Data1" Top="203.78" Width="740.5" Height="916.65" CanGrow="true" CanShrink="true" CanBreak="true" StartNewPage="true" KeepDetail="true">
+      <TextObject Name="Text5" Left="37.8" Top="18.9" Width="56.7" Height="18.9" Text="NAME" Font="Arial, 9.75pt, style=Bold"/>
+      <TextObject Name="Text6" Left="359.1" Top="18.9" Width="37.8" Height="18.9" Text="AGE" Font="Arial, 9.75pt, style=Bold"/>
+      <TextObject Name="Text7" Left="444.15" Top="18.9" Width="37.8" Height="18.9" Text="SEX" Font="Arial, 9.75pt, style=Bold"/>
+      <TextObject Name="Text8" Left="529.2" Top="18.9" Width="103.95" Height="18.9" Text="CIVIL STATUS" Font="Arial, 9.75pt, style=Bold"/>
+      <TextObject Name="Text9" Left="37.8" Top="56.7" Width="189" Height="18.9" Text="IF MARRIED, MAIDEN NAME" Font="Arial, 9pt, style=Bold"/>
+      <TextObject Name="Text10" Left="378" Top="56.7" Width="132.3" Height="18.9" Text="NAME OF SPOUSE" Font="Arial, 9.75pt, style=Bold"/>
+      <TextObject Name="Text11" Left="37.8" Top="94.5" Width="113.4" Height="18.9" Text="DATE OF BIRTH" Font="Arial, 9.75pt, style=Bold"/>
+      <TextObject Name="Text12" Left="340.2" Top="94.5" Width="122.85" Height="18.9" Text="PLACE OF BIRTH" Font="Arial, 9.75pt, style=Bold"/>
+      <TextObject Name="Text13" Left="37.8" Top="132.3" Width="94.5" Height="18.9" Text="CITIZENSHIP" Font="Arial, 9.75pt, style=Bold"/>
       <CheckBoxObject Name="filipino_chkBox" Left="151.2" Top="132.3" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
       <TextObject Name="Text14" Left="170.1" Top="132.3" Width="56.7" Height="18.9" Text="Filipino" Font="Arial, 10pt"/>
       <CheckBoxObject Name="dual_chkBox" Left="255.15" Top="132.3" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
@@ -408,80 +411,81 @@ namespace FastReport
       <CheckBoxObject Name="naturalization_chkBox" Left="481.95" Top="132.3" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
       <TextObject Name="Text17" Left="500.85" Top="132.3" Width="113.4" Height="18.9" Text="by naturalization" Font="Arial, 10pt"/>
       <TextObject Name="Text18" Left="302.4" Top="170.1" Width="207.9" Height="18.9" Text=" Pls indicate country if not Filipino" Font="Arial, 9.75pt"/>
-      <TextObject Name="Text19" Left="37.8" Top="207.9" Width="113.4" Height="18.9" Text="ADDRESS: CITY" Font="Arial, 9.75pt"/>
-      <TextObject Name="Text20" Left="387.45" Top="207.9" Width="85.05" Height="18.9" Text="PROVINCE" Font="Arial, 9.75pt"/>
-      <TextObject Name="Text21" Left="37.8" Top="245.7" Width="122.85" Height="18.9" Text="TELEPHONE NO." Font="Arial, 9.75pt"/>
-      <TextObject Name="Text22" Left="245.7" Top="245.7" Width="122.85" Height="18.9" Text="CELLPHONE NO." Font="Arial, 9.75pt"/>
-      <TextObject Name="Text23" Left="453.6" Top="245.7" Width="56.7" Height="18.9" Text="E-MAIL" Font="Arial, 9.75pt"/>
-      <TextObject Name="Text24" Left="37.8" Top="283.5" Width="66.15" Height="18.9" Text="FATHER" Font="Arial, 9.75pt"/>
-      <TextObject Name="Text25" Left="378" Top="283.5" Width="75.6" Height="18.9" Text="MOTHER" Font="Arial, 9.75pt"/>
-      <TextObject Name="Text26" Left="37.8" Top="321.3" Width="170.1" Height="18.9" Text="POSITION APPLIED FOR:" Font="Arial, 9.75pt"/>
+      <TextObject Name="Text19" Left="37.8" Top="207.9" Width="113.4" Height="18.9" Text="ADDRESS: CITY" Font="Arial, 9.75pt, style=Bold"/>
+      <TextObject Name="Text20" Left="387.45" Top="207.9" Width="85.05" Height="18.9" Text="PROVINCE" Font="Arial, 9.75pt, style=Bold"/>
+      <TextObject Name="Text21" Left="37.8" Top="245.7" Width="122.85" Height="18.9" Text="TELEPHONE NO." Font="Arial, 9.75pt, style=Bold"/>
+      <TextObject Name="Text22" Left="245.7" Top="245.7" Width="122.85" Height="18.9" Text="CELLPHONE NO." Font="Arial, 9.75pt, style=Bold"/>
+      <TextObject Name="Text23" Left="453.6" Top="245.7" Width="56.7" Height="18.9" Text="E-MAIL" Font="Arial, 9.75pt, style=Bold"/>
+      <TextObject Name="Text24" Left="37.8" Top="283.5" Width="66.15" Height="18.9" Text="FATHER" Font="Arial, 9.75pt, style=Bold"/>
+      <TextObject Name="Text25" Left="378" Top="283.5" Width="75.6" Height="18.9" Text="MOTHER" Font="Arial, 9.75pt, style=Bold"/>
+      <TextObject Name="Text26" Left="37.8" Top="321.3" Width="170.1" Height="18.9" Text="POSITION APPLIED FOR:" Font="Arial, 9.75pt, style=Bold"/>
       <CheckBoxObject Name="residency_chkBox" Left="236.25" Top="321.3" Width="18.9" Height="18.9" Border.Lines="All" Checked="false" Editable="true"/>
       <TextObject Name="Text27" Left="255.15" Top="321.3" Width="94.5" Height="18.9" Text="RESIDENCY" Font="Arial, 10pt"/>
       <CheckBoxObject Name="postResidency_chkBox" Left="406.35" Top="321.3" Width="18.9" Height="18.9" Border.Lines="All" Checked="false" Editable="true"/>
       <TextObject Name="Text28" Left="425.25" Top="321.3" Width="226.8" Height="18.9" Text="POST-RESIDENCY FELLOWSHIP" Font="Arial, 10pt"/>
       <TextObject Name="Text29" Left="37.8" Top="359.1" Width="113.4" Height="18.9" Text="A.  SPECIALTY" Font="Arial, 9.75pt, style=Bold"/>
-      <CheckBoxObject Name="anes_chkBox" Left="37.8" Top="387.45" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="anes_chkBox" Left="37.8" Top="387.45" Width="18.9" Height="18.9" Border.Lines="All" Checked="false" Editable="true"/>
       <TextObject Name="Text30" Left="56.7" Top="387.45" Width="113.4" Height="18.9" Text="Anesthesiology" Font="Arial, 10pt"/>
-      <CheckBoxObject Name="derma_chkBox" Left="37.8" Top="415.8" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="derma_chkBox" Left="37.8" Top="415.8" Width="18.9" Height="18.9" Border.Lines="All" Checked="false" Editable="true"/>
       <TextObject Name="Text31" Left="56.7" Top="415.8" Width="94.5" Height="18.9" Text="Dermatology" Font="Arial, 10pt"/>
-      <CheckBoxObject Name="emergency_chkBox" Left="37.8" Top="444.15" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="emergency_chkBox" Left="37.8" Top="444.15" Width="18.9" Height="18.9" Border.Lines="All" Checked="false" Editable="true"/>
       <TextObject Name="Text32" Left="56.7" Top="444.15" Width="141.75" Height="18.9" Text="Emergency Medicine" Font="Arial, 10pt"/>
-      <CheckBoxObject Name="famCom_chkBox" Left="37.8" Top="472.5" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="famCom_chkBox" Left="37.8" Top="472.5" Width="18.9" Height="18.9" Border.Lines="All" Checked="false" Editable="true"/>
       <TextObject Name="Text33" Left="56.7" Top="472.5" Width="198.45" Height="18.9" Text="Family &amp; Community Medicine" Font="Arial, 10pt"/>
-      <CheckBoxObject Name="lab_chkBox" Left="37.8" Top="500.85" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="lab_chkBox" Left="37.8" Top="500.85" Width="18.9" Height="18.9" Border.Lines="All" Checked="false" Editable="true"/>
       <TextObject Name="Text34" Left="56.7" Top="500.85" Width="85.05" Height="18.9" Text="Laboratories" Font="Arial, 10pt"/>
-      <CheckBoxObject Name="med_chkBox" Left="217.35" Top="387.45" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="med_chkBox" Left="217.35" Top="387.45" Width="18.9" Height="18.9" Border.Lines="All" Checked="false" Editable="true"/>
       <TextObject Name="Text35" Left="236.25" Top="387.45" Width="75.6" Height="18.9" Text="Medicine" Font="Arial, 10pt"/>
-      <CheckBoxObject Name="neuro_chkBox" Left="217.35" Top="415.8" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="neuro_chkBox" Left="217.35" Top="415.8" Width="18.9" Height="18.9" Border.Lines="All" Checked="false" Editable="true"/>
       <TextObject Name="Text36" Left="236.25" Top="415.8" Width="94.5" Height="18.9" Text="Neurosciences" Font="Arial, 10pt"/>
-      <CheckBoxObject Name="neurology_chkBox" Left="245.7" Top="444.15" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="neurology_chkBox" Left="245.7" Top="444.15" Width="18.9" Height="18.9" Border.Lines="All" Checked="false" Editable="true"/>
       <TextObject Name="Text37" Left="264.6" Top="444.15" Width="75.6" Height="18.9" Text="Neurology" Font="Arial, 10pt"/>
-      <CheckBoxObject Name="neurosurgery_chkBox" Left="245.7" Top="472.5" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="neurosurgery_chkBox" Left="245.7" Top="472.5" Width="18.9" Height="18.9" Border.Lines="All" Checked="false" Editable="true"/>
       <TextObject Name="Text38" Left="264.6" Top="472.5" Width="94.5" Height="18.9" Text="Neurosurgery" Font="Arial, 10pt"/>
-      <CheckBoxObject Name="obGyne_chkBox" Left="217.35" Top="500.85" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="obGyne_chkBox" Left="217.35" Top="500.85" Width="18.9" Height="18.9" Border.Lines="All" Checked="false" Editable="true"/>
       <TextObject Name="Text39" Left="236.25" Top="500.85" Width="160.65" Height="18.9" Text="Obstetrics &amp; Gynecology" Font="Arial, 10pt"/>
-      <CheckBoxObject Name="optha_chkBox" Left="396.9" Top="387.45" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="optha_chkBox" Left="396.9" Top="387.45" Width="18.9" Height="18.9" Border.Lines="All" Checked="false" Editable="true"/>
       <TextObject Name="Text40" Left="415.8" Top="387.45" Width="113.4" Height="18.9" Text="Ophthalmology" Font="Arial, 10pt"/>
-      <CheckBoxObject Name="ortho_chkBox" Left="396.9" Top="415.8" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="ortho_chkBox" Left="396.9" Top="415.8" Width="18.9" Height="18.9" Border.Lines="All" Checked="false" Editable="true"/>
       <TextObject Name="Text41" Left="415.8" Top="415.8" Width="94.5" Height="18.9" Text="Orthopedics" Font="Arial, 10pt"/>
-      <CheckBoxObject Name="otorhino_chkBox" Left="396.9" Top="444.15" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="otorhino_chkBox" Left="396.9" Top="444.15" Width="18.9" Height="18.9" Border.Lines="All" Checked="false" Editable="true"/>
       <TextObject Name="Text42" Left="415.8" Top="444.15" Width="132.3" Height="18.9" Text="Otorhinolaryngology" Font="Arial, 10pt"/>
-      <CheckBoxObject Name="pedia_chkBox" Left="396.9" Top="472.5" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="pedia_chkBox" Left="396.9" Top="472.5" Width="18.9" Height="18.9" Border.Lines="All" Checked="false" Editable="true"/>
       <TextObject Name="Text43" Left="415.8" Top="472.5" Width="75.6" Height="18.9" Text="Pediatrics" Font="Arial, 10pt"/>
-      <CheckBoxObject Name="psych_chkBox" Left="396.9" Top="500.85" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="psych_chkBox" Left="396.9" Top="500.85" Width="18.9" Height="18.9" Border.Lines="All" Checked="false" Editable="true"/>
       <TextObject Name="Text44" Left="415.8" Top="500.85" Width="75.6" Height="18.9" Text="Psychiatry" Font="Arial, 10pt"/>
-      <CheckBoxObject Name="radio_chkBox" Left="548.1" Top="387.45" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="radio_chkBox" Left="548.1" Top="387.45" Width="18.9" Height="18.9" Border.Lines="All" Checked="false" Editable="true"/>
       <TextObject Name="Text45" Left="567" Top="387.45" Width="75.6" Height="18.9" Text="Radiology" Font="Arial, 10pt"/>
-      <CheckBoxObject Name="CheckBox23" Left="576.45" Top="415.8" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
-      <CheckBoxObject Name="rehab_chkBox" Left="548.1" Top="444.15" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="CheckBox23" Left="576.45" Top="415.8" Width="18.9" Height="18.9" Border.Lines="All" Checked="false" Editable="true"/>
+      <CheckBoxObject Name="rehab_chkBox" Left="548.1" Top="444.15" Width="18.9" Height="18.9" Border.Lines="All" Checked="false" Editable="true"/>
       <TextObject Name="Text47" Left="567" Top="444.15" Width="94.5" Height="18.9" Text="Rehab Med" Font="Arial, 10pt"/>
-      <CheckBoxObject Name="surgery_chkBox" Left="548.1" Top="472.5" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="surgery_chkBox" Left="548.1" Top="472.5" Width="18.9" Height="18.9" Border.Lines="All" Checked="false" Editable="true"/>
       <TextObject Name="Text48" Left="567" Top="472.5" Width="132.3" Height="18.9" Text="Surgery" Font="Arial, 10pt"/>
-      <CheckBoxObject Name="CheckBox26" Left="576.45" Top="500.85" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
-      <CheckBoxObject Name="toxic_chkBox" Left="548.1" Top="529.2" Width="18.9" Height="18.9" Border.Lines="All" Checked="false"/>
+      <CheckBoxObject Name="CheckBox26" Left="576.45" Top="500.85" Width="18.9" Height="18.9" Border.Lines="All" Checked="false" Editable="true"/>
+      <CheckBoxObject Name="toxic_chkBox" Left="548.1" Top="529.2" Width="18.9" Height="18.9" Border.Lines="All" Checked="false" Editable="true"/>
       <TextObject Name="Text50" Left="567" Top="529.2" Width="85.05" Height="18.9" Text="Toxicology" Font="Arial, 10pt"/>
       <LineObject Name="Line1" Left="604.8" Top="434.7" Width="103.95"/>
       <LineObject Name="Line2" Left="604.8" Top="519.75" Width="103.95"/>
       <TextObject Name="Text51" Left="37.8" Top="557.55" Width="141.75" Height="18.9" Text="B.  SUBSPECIALTY:" Font="Arial, 9.75pt, style=Bold"/>
-      <LineObject Name="Line3" Left="170.1" Top="576.45" Width="359.1"/>
+      <LineObject Name="Line3" Left="170.1" Top="576.45" Width="283.5"/>
+      <TextObject Name="Text52" Left="37.8" Top="604.8" Width="207.9" Height="18.9" Text="EDUCATIONAL BACKGROUND" Font="Arial, 9.75pt, style=Bold"/>
       <TextObject Name="Text57" Left="94.5" Top="18.9" Width="245.7" Height="18.9" Text="[appForm.first_name] [appForm.last_name]" Font="Arial, 10pt"/>
       <TextObject Name="Text58" Left="396.9" Top="18.9" Width="47.25" Height="18.9" Text="[appForm.age]" Font="Arial, 10pt"/>
       <TextObject Name="Text59" Left="481.95" Top="18.9" Width="47.25" Height="18.9" Text="[appForm.sex]" Font="Arial, 10pt"/>
       <TextObject Name="Text60" Left="633.15" Top="18.9" Width="66.15" Height="18.9" Text="[appForm.civil_status]" Font="Arial, 10pt"/>
-      <LineObject Name="Line4" Left="94.5" Top="37.8" Width="255.15"/>
+      <LineObject Name="Line4" Left="85.05" Top="37.8" Width="255.15"/>
       <LineObject Name="Line5" Left="396.9" Top="37.8" Width="47.25"/>
       <LineObject Name="Line6" Left="481.95" Top="37.8" Width="47.25"/>
       <LineObject Name="Line7" Left="623.7" Top="37.8" Width="85.05"/>
       <LineObject Name="Line8" Left="151.2" Top="226.8" Width="226.8"/>
-      <LineObject Name="Line9" Left="472.5" Top="226.8" Width="236.25"/>
+      <LineObject Name="Line9" Left="463.05" Top="226.8" Width="245.7"/>
       <LineObject Name="Line10" Left="103.95" Top="302.4" Width="264.6"/>
       <LineObject Name="Line11" Left="444.15" Top="302.4" Width="264.6"/>
-      <LineObject Name="Line13" Left="349.65" Top="264.6" Width="103.95"/>
-      <LineObject Name="Line14" Left="500.85" Top="264.6" Width="207.9"/>
+      <LineObject Name="Line13" Left="359.1" Top="264.6" Width="94.5"/>
+      <LineObject Name="Line14" Left="510.3" Top="264.6" Width="198.45"/>
       <LineObject Name="Line15" Left="510.3" Top="189" Width="198.45"/>
       <LineObject Name="Line16" Left="453.6" Top="113.4" Width="255.15"/>
-      <LineObject Name="Line17" Left="217.35" Top="75.6" Width="151.2"/>
+      <LineObject Name="Line17" Left="207.9" Top="75.6" Width="151.2"/>
       <LineObject Name="Line18" Left="500.85" Top="75.6" Width="207.9"/>
       <LineObject Name="Line19" Left="141.75" Top="113.4" Width="189"/>
       <TextObject Name="Text61" Left="160.65" Top="94.5" Width="160.65" Height="18.9" Text="[appForm.birthdate]" Font="Arial, 10pt"/>
@@ -494,60 +498,76 @@ namespace FastReport
       <TextObject Name="Text68" Left="510.3" Top="245.7" Width="189" Height="18.9" Text="[appForm.email]" Font="Arial, 10pt"/>
       <TextObject Name="Text69" Left="103.95" Top="283.5" Width="255.15" Height="18.9" Text="[appForm.father_name]" Font="Arial, 10pt"/>
       <TextObject Name="Text70" Left="453.6" Top="283.5" Width="245.7" Height="18.9" Text="[appForm.mother_name]" Font="Arial, 10pt"/>
-      <TextObject Name="Text71" Left="179.55" Top="557.55" Width="340.2" Height="18.9" Text="[appForm.sub_specialty]" Font="Arial, 10pt"/>
+      <TextObject Name="Text71" Left="179.55" Top="557.55" Width="264.6" Height="18.9" Text="[appForm.sub_specialty]" Font="Arial, 10pt"/>
       <TextObject Name="radiology_specificTxt" Left="604.8" Top="415.8" Width="94.5" Height="18.9" Font="Arial, 10pt"/>
       <TextObject Name="surgery_specificTxt" Left="604.8" Top="500.85" Width="94.5" Height="18.9" Font="Arial, 10pt"/>
-      <TextObject Name="Text72" Left="226.8" Top="56.7" Width="132.3" Height="18.9" Text="[appForm.maiden_name]" Font="Arial, 10pt"/>
+      <TextObject Name="Text72" Left="217.35" Top="56.7" Width="132.3" Height="18.9" Text="[appForm.maiden_name]" Font="Arial, 10pt"/>
       <TextObject Name="Text73" Left="510.3" Top="56.7" Width="189" Height="18.9" Text="[appForm.spouse_name]" Font="Arial, 10pt"/>
-      <LineObject Name="Line20" Left="141.75" Top="264.6" Width="103.95"/>
-      <DataBand Name="Data3" Top="781.76" Width="740.5" Height="201.23" CanGrow="true" CanShrink="true">
-        <TextObject Name="deg3_txt" Left="213.79" Top="135.08" Width="166.63" Height="37.8" Border.Lines="All" CanGrow="true" CanShrink="true" GrowToBottom="true" CanBreak="false" Font="Arial, 9pt" TextRenderType="HtmlParagraph"/>
-        <TextObject Name="lvl3_txt" Left="47.24" Top="135.08" Width="166.63" Height="37.8" Border.Lines="All" CanGrow="true" CanBreak="false" Text="Other Post-Graduate Studies" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt" TextRenderType="HtmlParagraph"/>
-        <TextObject Name="deg2_txt" Left="213.8" Top="97.18" Width="166.63" Height="37.8" Border.Lines="All" CanGrow="true" CanShrink="true" GrowToBottom="true" CanBreak="false" Font="Arial, 9pt" TextRenderType="HtmlParagraph"/>
-        <TextObject Name="lvl2_txt" Left="47.25" Top="97.18" Width="166.63" Height="37.8" Border.Lines="All" CanGrow="true" CanBreak="false" Text="Medicine" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt" TextRenderType="HtmlParagraph"/>
-        <TextObject Name="deg1_txt" Left="213.8" Top="59.38" Width="166.63" Height="37.8" Border.Lines="All" CanGrow="true" CanShrink="true" GrowToBottom="true" CanBreak="false" Font="Arial, 9pt" TextRenderType="HtmlParagraph"/>
-        <TextObject Name="lvl1_txt" Left="47.25" Top="59.38" Width="166.63" Height="37.8" Border.Lines="All" CanGrow="true" CanBreak="false" Text="College (Pre-Med)" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt" TextRenderType="HtmlParagraph"/>
-        <TextObject Name="Text88" Left="47.25" Top="40.48" Width="166.63" Height="18.9" Border.Lines="All" CanGrow="true" Text="Level" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt" TextRenderType="HtmlParagraph"/>
-        <TextObject Name="Text89" Left="213.8" Top="40.48" Width="166.63" Height="18.9" Border.Lines="All" CanGrow="true" Text="Degree" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt" TextRenderType="HtmlParagraph"/>
-        <TextObject Name="Text90" Left="380.25" Top="40.43" Width="166.63" Height="18.9" Border.Lines="All" CanGrow="true" Text="Name of School" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt" TextRenderType="HtmlParagraph"/>
-        <TextObject Name="Text93" Left="546.83" Top="40.42" Width="159.92" Height="18.9" Border.Lines="All" CanGrow="true" Text="Year Graduated" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt" TextRenderType="HtmlParagraph"/>
-        <TextObject Name="Text52" Left="37.8" Top="9.45" Width="207.9" Height="18.9" Text="EDUCATIONAL BACKGROUND" Font="Arial, 9.75pt, style=Bold"/>
-        <TextObject Name="Text100" Left="546.84" Top="135.31" Width="159.79" Height="37.8" Border.Lines="All" CanGrow="true" GrowToBottom="true" CanBreak="false" HorzAlign="Center" Font="Arial, 9pt" TextRenderType="HtmlParagraph"/>
-        <TextObject Name="Text101" Left="380.29" Top="135.31" Width="166.63" Height="37.8" Border.Lines="All" CanGrow="true" CanBreak="false" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt" TextRenderType="HtmlParagraph"/>
-        <TextObject Name="Text102" Left="546.85" Top="97.41" Width="159.79" Height="37.8" Border.Lines="All" CanGrow="true" GrowToBottom="true" CanBreak="false" HorzAlign="Center" Font="Arial, 9pt" TextRenderType="HtmlParagraph"/>
-        <TextObject Name="Text103" Left="380.3" Top="97.41" Width="166.63" Height="37.8" Border.Lines="All" CanGrow="true" CanBreak="false" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt" TextRenderType="HtmlParagraph"/>
-        <TextObject Name="Text104" Left="546.85" Top="59.61" Width="159.79" Height="37.8" Border.Lines="All" CanGrow="true" GrowToBottom="true" CanBreak="false" HorzAlign="Center" Font="Arial, 9pt" TextRenderType="HtmlParagraph"/>
-        <TextObject Name="Text105" Left="380.3" Top="59.61" Width="166.63" Height="37.8" Border.Lines="All" CanGrow="true" CanBreak="false" HorzAlign="Center" VertAlign="Center" Font="Arial, 9pt" TextRenderType="HtmlParagraph"/>
-      </DataBand>
-      <DataBand Name="Data4" Top="985.27" Width="740.5" Height="198.45" CanGrow="true" CanShrink="true">
-        <TextObject Name="Text82" Left="47.25" Top="170.1" Width="661.5" Height="18.9" CanGrow="true" GrowToBottom="true" Text="sdadas&#13;&#10;d&#13;&#10;asdas&#13;&#10;das&#13;&#10;d&#13;&#10;asd&#13;&#10;asd&#13;&#10;as&#13;&#10;das&#13;&#10;d&#13;&#10;asddsaddddddd&#13;&#10;[recognitions.recognition_details]" WordWrap="false" Font="Arial, 10pt"/>
-        <TextObject Name="Text81" Left="37.8" Top="151.2" Width="321.3" Height="18.9" Text="HONORS/AWARDS/RECOGNITION RECEIVED:" Font="Arial, 9.75pt, style=Bold"/>
-        <LineObject Name="Line25" Left="151.2" Top="132.3" Width="321.3"/>
-        <LineObject Name="Line26" Left="576.45" Top="132.3" Width="132.3"/>
-        <TextObject Name="Text79" Left="47.25" Top="113.4" Width="113.4" Height="18.9" Text="Others (Specify)" Font="Arial, 9.75pt"/>
-        <TextObject Name="Text80" Left="472.5" Top="113.4" Width="113.4" Height="18.9" Text=" Inclusive dates" Font="Arial, 9.75pt"/>
-        <TextObject Name="other_txt" Left="160.65" Top="113.4" Width="292.95" Height="18.9" Font="Arial, 10pt"/>
-        <TextObject Name="other_datesTxt" Left="585.9" Top="113.4" Width="113.4" Height="18.9" Font="Arial, 10pt"/>
-        <LineObject Name="Line23" Left="170.1" Top="103.95" Width="302.4"/>
-        <LineObject Name="Line24" Left="576.45" Top="103.95" Width="132.3"/>
-        <TextObject Name="Text77" Left="47.25" Top="85.05" Width="132.3" Height="18.9" Text="Residency (Specify)" Font="Arial, 9.75pt"/>
-        <TextObject Name="Text78" Left="472.5" Top="85.05" Width="113.4" Height="18.9" Text=" Inclusive dates" Font="Arial, 9.75pt"/>
-        <TextObject Name="residency_txt" Left="179.55" Top="85.05" Width="274.05" Height="18.9" CanGrow="true" Font="Arial, 10pt"/>
-        <TextObject Name="residency_datesTxt" Left="585.9" Top="85.05" Width="113.4" Height="18.9" Font="Arial, 10pt"/>
-        <LineObject Name="Line21" Left="113.4" Top="75.6" Width="359.1"/>
-        <LineObject Name="Line22" Left="576.45" Top="75.6" Width="132.3"/>
-        <TextObject Name="Text75" Left="47.25" Top="47.25" Width="75.6" Height="18.9" Text="Internship" Font="Arial, 9.75pt"/>
-        <TextObject Name="Text76" Left="472.5" Top="47.25" Width="113.4" Height="18.9" Text=" Year Completed" Font="Arial, 9.75pt"/>
-        <TextObject Name="intern_txt" Left="122.85" Top="47.25" Width="330.75" Height="18.9" Font="Arial, 10pt"/>
-        <TextObject Name="intern_datesTxt" Left="585.9" Top="47.25" Width="113.4" Height="18.9" Font="Arial, 10pt"/>
-        <TextObject Name="Text74" Left="37.8" Top="28.35" Width="321.3" Height="18.9" Text="WORK EXPERIENCES/HOSPITAL AFFILIATIONS" Font="Arial, 9.75pt, style=Bold"/>
-      </DataBand>
+      <LineObject Name="Line20" Left="151.2" Top="264.6" Width="94.5"/>
+      <TableObject Name="Table1" Left="37.8" Top="633.15" Width="665.08" Height="94.5">
+        <TableColumn Name="Column1" Width="166.27"/>
+        <TableColumn Name="Column2" Width="166.27"/>
+        <TableColumn Name="Column3" Width="166.27"/>
+        <TableColumn Name="Column4" Width="166.27"/>
+        <TableRow Name="Row1">
+          <TableCell Name="Cell1" Border.Lines="All" Text="Level" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell2" Border.Lines="All" Text="Degree" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell3" Border.Lines="All" Text="Name of School" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+          <TableCell Name="Cell4" Border.Lines="All" Text="Year Graduated" HorzAlign="Center" Font="Arial, 10pt, style=Bold"/>
+        </TableRow>
+        <TableRow Name="Row2">
+          <TableCell Name="level_cell1" Border.Lines="All" Text="College (Pre-Med)" Font="Arial, 10pt"/>
+          <TableCell Name="deg_cell1" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="school_cell1" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="year_cell1" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row3">
+          <TableCell Name="level_cell2" Border.Lines="All" Text="Medicine" Font="Arial, 10pt"/>
+          <TableCell Name="deg_cell2" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="school_cell2" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="year_cell2" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row4">
+          <TableCell Name="level_cell3" Border.Lines="All" Text="Other Post-Graduate Studies" Font="Arial, 10pt"/>
+          <TableCell Name="deg_cell3" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="school_cell3" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="year_cell3" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+        </TableRow>
+        <TableRow Name="Row5">
+          <TableCell Name="Cell21" Font="Arial, 10pt"/>
+          <TableCell Name="Cell22" Font="Arial, 10pt"/>
+          <TableCell Name="Cell23" Font="Arial, 10pt"/>
+          <TableCell Name="Cell24" Font="Arial, 10pt"/>
+        </TableRow>
+      </TableObject>
+      <TextObject Name="Text74" Left="37.8" Top="727.65" Width="321.3" Height="18.9" Text="WORK EXPERIENCES/HOSPITAL AFFILIATIONS" Font="Arial, 9.75pt, style=Bold"/>
+      <TextObject Name="Text75" Left="47.25" Top="756" Width="75.6" Height="18.9" Text="Internship" Font="Arial, 9.75pt"/>
+      <LineObject Name="Line21" Left="113.4" Top="774.9" Width="359.1"/>
+      <TextObject Name="Text76" Left="472.5" Top="756" Width="113.4" Height="18.9" Text=" Year Completed" Font="Arial, 9.75pt"/>
+      <LineObject Name="Line22" Left="576.45" Top="774.9" Width="132.3"/>
+      <TextObject Name="Text77" Left="47.25" Top="784.35" Width="132.3" Height="18.9" Text="Residency (Specify)" Font="Arial, 9.75pt"/>
+      <LineObject Name="Line23" Left="170.1" Top="803.25" Width="302.4"/>
+      <TextObject Name="Text78" Left="472.5" Top="784.35" Width="113.4" Height="18.9" Text=" Inclusive dates" Font="Arial, 9.75pt"/>
+      <LineObject Name="Line24" Left="576.45" Top="803.25" Width="132.3"/>
+      <TextObject Name="Text79" Left="47.25" Top="812.7" Width="113.4" Height="18.9" Text="Others (Specify)" Font="Arial, 9.75pt"/>
+      <LineObject Name="Line25" Left="151.2" Top="831.6" Width="321.3"/>
+      <TextObject Name="Text80" Left="472.5" Top="812.7" Width="113.4" Height="18.9" Text=" Inclusive dates" Font="Arial, 9.75pt"/>
+      <LineObject Name="Line26" Left="576.45" Top="831.6" Width="132.3"/>
+      <TextObject Name="Text81" Left="37.8" Top="850.5" Width="321.3" Height="18.9" Text="HONORS/AWARDS/RECOGNITION RECEIVED:" Font="Arial, 9.75pt, style=Bold"/>
+      <LineObject Name="Line27" Left="47.25" Top="888.3" Width="661.5"/>
+      <TextObject Name="Text82" Left="47.25" Top="869.4" Width="652.05" Height="18.9" CanGrow="true" GrowToBottom="true" CanBreak="false" Text="N/A &#13;&#10;" Font="Arial, 10pt" TextRenderType="HtmlTags"/>
+      <TextObject Name="intern_txt" Left="122.85" Top="756" Width="330.75" Height="18.9" Font="Arial, 10pt"/>
+      <TextObject Name="residency_txt" Left="179.55" Top="784.35" Width="274.05" Height="18.9" Font="Arial, 10pt"/>
+      <TextObject Name="other_txt" Left="160.65" Top="812.7" Width="292.95" Height="18.9" Font="Arial, 10pt"/>
+      <TextObject Name="intern_datesTxt" Left="585.9" Top="756" Width="113.4" Height="18.9" Font="Arial, 10pt"/>
+      <TextObject Name="residency_datesTxt" Left="585.9" Top="784.35" Width="113.4" Height="18.9" Font="Arial, 10pt"/>
+      <TextObject Name="other_datesTxt" Left="585.9" Top="812.7" Width="113.4" Height="18.9" Font="Arial, 10pt"/>
     </DataBand>
-    <DataBand Name="Data2" Top="1186.01" Width="740.5" Height="189">
+    <DataBand Name="Data2" Top="1123.1" Width="740.5" Height="189">
       <LineObject Name="Line28" Left="103.95" Top="179.55" Width="264.6"/>
       <TextObject Name="Text83" Left="37.8" Top="160.65" Width="75.6" Height="18.9" Text="Signature" Font="Arial, 9.75pt, style=Bold"/>
       <PictureObject Name="Picture2" Left="170.1" Top="122.85" Width="103.95" Height="56.7" DataColumn="appForm.signature" SizeMode="StretchImage"/>
-      <TableObject Name="Table2" Left="37.8" Top="9.45" Width="674.53" Height="94.5">
+      <TableObject Name="Table2" Left="37.8" Top="9.45" Width="674.53" Height="113.4">
         <TableColumn Name="Column5" Width="109.57"/>
         <TableColumn Name="Column6" Width="166.27"/>
         <TableColumn Name="Column7" Width="166.27"/>
@@ -558,17 +578,17 @@ namespace FastReport
           <TableCell Name="Cell27" Text="(Address)" HorzAlign="Center" Font="Arial, 9pt"/>
           <TableCell Name="Cell28" Text="(Telephone)" HorzAlign="Center" Font="Arial, 9pt"/>
         </TableRow>
-        <TableRow Name="Row7">
-          <TableCell Name="Cell29" Text="1." HorzAlign="Right" Font="Arial, 10pt"/>
-          <TableCell Name="name_cell1" Border.Lines="Bottom" HorzAlign="Center" Font="Arial, 10pt"/>
-          <TableCell Name="address_cell1" Border.Lines="Bottom" HorzAlign="Center" Font="Arial, 10pt"/>
-          <TableCell Name="tel_cell1" Border.Lines="Bottom" HorzAlign="Center" Font="Arial, 10pt"/>
+        <TableRow Name="Row7" Height="28.35">
+          <TableCell Name="Cell29" Text="1." HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="name_cell1" Border.Lines="Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="address_cell1" Border.Lines="Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="tel_cell1" Border.Lines="Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
         </TableRow>
-        <TableRow Name="Row8">
-          <TableCell Name="Cell33" Text="2." HorzAlign="Right" Font="Arial, 10pt"/>
-          <TableCell Name="name_cell2" Border.Lines="Bottom" HorzAlign="Center" Font="Arial, 10pt"/>
-          <TableCell Name="address_cell2" Border.Lines="Bottom" HorzAlign="Center" Font="Arial, 10pt"/>
-          <TableCell Name="tel_cell2" Border.Lines="Bottom" HorzAlign="Center" Font="Arial, 10pt"/>
+        <TableRow Name="Row8" Height="28.35">
+          <TableCell Name="Cell33" Text="2." HorzAlign="Right" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="name_cell2" Border.Lines="Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="address_cell2" Border.Lines="Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+          <TableCell Name="tel_cell2" Border.Lines="Bottom" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
         </TableRow>
         <TableRow Name="Row9">
           <TableCell Name="Cell37" Font="Arial, 10pt"/>
@@ -583,8 +603,7 @@ namespace FastReport
           <TableCell Name="Cell44" Font="Arial, 10pt"/>
         </TableRow>
       </TableObject>
-      <LineObject Name="Line27" Left="37.8" Width="661.5"/>
     </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="1377.29" Width="740.5" Height="9.45"/>
+    <PageFooterBand Name="PageFooter1" Top="1314.77" Width="740.5" Height="9.45"/>
   </ReportPage>
 </Report>
