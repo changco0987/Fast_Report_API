@@ -19,13 +19,7 @@ public partial class StatusTbl
 
     public virtual ICollection<NoaTbl> NoaTbls { get; set; } = new List<NoaTbl>();
 
-    public virtual ICollection<PositionTbl> PositionTbls { get; set; } = new List<PositionTbl>();
-
     public virtual ICollection<PurchaseOrdersTbl> PurchaseOrdersTbls { get; set; } = new List<PurchaseOrdersTbl>();
-
-    public virtual ICollection<SeriesTbl> SeriesTbls { get; set; } = new List<SeriesTbl>();
-
-    public virtual ICollection<UomTbl> UomTbls { get; set; } = new List<UomTbl>();
 
     public virtual ICollection<UsersTbl> UsersTbls { get; set; } = new List<UsersTbl>();
 }

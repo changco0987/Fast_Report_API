@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" ReportInfo.Created="11/10/2023 09:28:23" ReportInfo.Modified="11/21/2023 16:03:36" ReportInfo.CreatorVersion="2023.2.0.0">
+<Report ScriptLanguage="CSharp" ReportInfo.Created="11/10/2023 09:28:23" ReportInfo.Modified="12/13/2023 12:46:38" ReportInfo.CreatorVersion="2023.2.0.0">
   <Dictionary>
     <BusinessObjectDataSource Name="Po" ReferenceName="PoRef" DataType="System.Int32" Enabled="true">
       <Column Name="noa_contract_ID" DataType="System.String"/>
@@ -65,7 +65,7 @@
   </Dictionary>
   <ReportPage Name="Page1" RawPaperSize="9" Watermark.Font="Arial, 60pt" LastPageSource="15" FirstPageSource="15">
     <ReportTitleBand Name="ReportTitle1" Width="718.2"/>
-    <PageHeaderBand Name="PageHeader1" Top="5.33" Width="718.2" Height="321.3">
+    <PageHeaderBand Name="PageHeader1" Top="4" Width="718.2" Height="321.3">
       <TextObject Name="Text1" Left="245.7" Top="9.45" Width="245.7" Height="18.9" Text="PURCHASE ORDER" HorzAlign="Center" Font="Times New Roman, 12pt, style=Bold"/>
       <TextObject Name="Text2" Left="207.9" Top="28.35" Width="311.85" Height="18.9" Text="UPM - PHILIPPINE GENERAL HOSPITAL" HorzAlign="Center" Font="Times New Roman, 10pt, style=Bold, Underline"/>
       <TextObject Name="Text3" Left="576.45" Width="151.2" Height="18.9" Text="Based on GAM Appendix 61" HorzAlign="Center" Font="Times New Roman, 9pt, style=Italic"/>
@@ -157,8 +157,8 @@
       <LineObject Name="Line47" Left="707.99" Top="283.5" Height="37.8" Border.Width="5" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
       <LineObject Name="Line48" Left="175.01" Top="283.5" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
     </PageHeaderBand>
-    <DataBand Name="Data3" Top="331.97" Width="718.2" Height="37.8" CanGrow="true" CanShrink="true" CanBreak="true" StartNewPage="true" Guides="37.8" DataSource="Noa_details">
-      <TextObject Name="Text31" Left="175.01" Width="367.04" Height="37.8" Border.Lines="Left, Right" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[Noa_details.description]" Padding="10, 0, 10, 140" HorzAlign="Justify" Font="Times New Roman, 8pt" TextRenderType="HtmlTags"/>
+    <DataBand Name="Data3" Top="329.3" Width="718.2" Height="37.8" CanGrow="true" CanShrink="true" CanBreak="true" StartNewPage="true" Guides="37.8" DataSource="Noa_details">
+      <TextObject Name="Text31" Left="175.01" Width="367.04" Height="37.8" Border.Lines="Left, Right" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[Noa_details.description]" HorzAlign="Justify" Font="Times New Roman, 9pt" TextRenderType="HtmlParagraph"/>
       <TextObject Name="Text32" Left="18.9" Top="9.45" Width="18.9" Height="18.9" Text="[Noa_details.stock_property_number]" HorzAlign="Center" Font="Times New Roman, 8pt"/>
       <TextObject Name="Text33" Left="56.7" Top="9.45" Width="47.25" Height="18.9" Text="[Noa_details.quantity]" HorzAlign="Center" Font="Times New Roman, 8pt"/>
       <TextObject Name="Text34" Left="113.4" Top="9.45" Width="56.7" Height="18.9" Text="[Noa_details.uom_name]" HorzAlign="Center" Font="Times New Roman, 8pt"/>
@@ -169,7 +169,7 @@
       <TextObject Name="Text63" Left="646.38" Width="62.37" Height="37.8" Border.Lines="Right" Border.Width="3" CanGrow="true" CanShrink="true" GrowToBottom="true" Padding="10, 0, 10, 150" HorzAlign="Justify" Font="Times New Roman, 8pt" TextRenderType="HtmlTags"/>
       <TextObject Name="Text64" Left="625.59" Width="62.37" Height="37.8" Border.Lines="Left" CanGrow="true" CanShrink="true" GrowToBottom="true" Padding="10, 0, 10, 150" HorzAlign="Justify" Font="Times New Roman, 8pt" TextRenderType="HtmlTags"/>
     </DataBand>
-    <ColumnFooterBand Name="ColumnFooter1" Top="375.1" Width="718.2" Height="141.75" Guides="151.2">
+    <ColumnFooterBand Name="ColumnFooter1" Top="371.1" Width="718.2" Height="481.99" Guides="141.75">
       <TextObject Name="Text100" Left="179.55" Width="359.1" Height="37.8" Text="Basis: [Po.mode_name]-[Po.mode_description]" HorzAlign="Center" Font="Times New Roman, 9pt, style=Bold"/>
       <LineObject Name="Line55" Left="624.83" Height="37.8"/>
       <LineObject Name="Line56" Left="541.67" Height="37.8"/>
@@ -195,7 +195,7 @@
                     <TableColumn Name="Column35" Width="699.68"/>
                     <TableRow Name="Row21" Height="37.8">
                       <TableCell Name="Cell76" Font="Arial, 10pt">
-                        <TextObject Name="Text107" Left="9.45" Width="680.4" Height="28.35" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[Noa_terms.description]" Padding="2, 0, 2, 100" HorzAlign="Justify" Font="Times New Roman, 9pt" TextRenderType="HtmlTags"/>
+                        <TextObject Name="Text107" Left="9.45" Width="680.4" Height="28.35" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[Noa_terms.description]" HorzAlign="Justify" Font="Times New Roman, 9pt" TextRenderType="HtmlParagraph"/>
                       </TableCell>
                     </TableRow>
                   </TableObject>
@@ -205,9 +205,7 @@
           </TableCell>
         </TableRow>
       </TableObject>
-    </ColumnFooterBand>
-    <PageFooterBand Name="PageFooter1" Top="522.18" Width="718.2" Height="340.24" Guides="9.45">
-      <TableObject Name="Table3" Left="9.45" Width="699.68" Height="340.24" Border.Lines="Left, Right, Bottom" Border.Width="3">
+      <TableObject Name="Table3" Left="9.45" Top="141.75" Width="699.68" Height="340.24" Border.Lines="Left, Right, Bottom" Border.Width="3">
         <TableColumn Name="Column13" Width="406.54"/>
         <TableColumn Name="Column14" Width="293.14"/>
         <TableRow Name="Row7" Height="222.1">
@@ -252,6 +250,6 @@
           </TableCell>
         </TableRow>
       </TableObject>
-    </PageFooterBand>
+    </ColumnFooterBand>
   </ReportPage>
 </Report>

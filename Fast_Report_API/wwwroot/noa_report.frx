@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="08/11/2023 08:41:06" ReportInfo.Modified="10/06/2023 08:20:50" ReportInfo.CreatorVersion="2023.2.0.0">
+<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="08/11/2023 08:41:06" ReportInfo.Modified="12/15/2023 13:03:43" ReportInfo.CreatorVersion="2023.2.0.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,8 +26,13 @@ namespace FastReport
 
     private void _StartReport(object sender, EventArgs e)
     {
-
+    ModeCheckbox();
+    noa_terms_description();
+    noa_List_description();
+    }
     
+    private void ModeCheckbox()
+    {
       string modeName = ((String)Report.GetColumnValue(&quot;Noa.mode_name&quot;));
 
       if (modeName == &quot;Negotiated Procurement&quot;)
@@ -48,10 +53,66 @@ namespace FastReport
         shoppingModes.Text = &quot;                   &quot;;
       }
         
-       negotiatedP.Text = &quot;&lt;span style=\&quot;font-family: 'Times New Roman'; font-size: 12px;\&quot;&gt;Negotiated Procurement ( &quot; + negotiatedP.Text + &quot; )&lt;/span&gt;&quot;;
-       shoppingModes.Text = &quot;&lt;span style=\&quot;font-family: 'Times New Roman'; font-size: 12px;\&quot;&gt;Shopping (Opened On &lt;u&gt;&quot; + shoppingModes.Text + &quot;&lt;/u&gt; )&lt;/span&gt;&quot;;
-       directContracting.Text = &quot;&lt;span style=\&quot;font-family: 'Times New Roman'; font-size: 12px;\&quot;&gt;Direct Contracting &quot; + directContracting.Text + &quot;&lt;/span&gt;&quot;;
+      negotiatedP.Text = &quot;&lt;span style=\&quot;font-family: 'Times New Roman'; font-size: 12px;\&quot;&gt;Negotiated Procurement ( &quot; + negotiatedP.Text + &quot; )&lt;/span&gt;&quot;;
+      shoppingModes.Text = &quot;&lt;span style=\&quot;font-family: 'Times New Roman'; font-size: 12px;\&quot;&gt;Shopping (Opened On &lt;u&gt;&quot; + shoppingModes.Text + &quot;&lt;/u&gt; )&lt;/span&gt;&quot;;
+      directContracting.Text = &quot;&lt;span style=\&quot;font-family: 'Times New Roman'; font-size: 12px;\&quot;&gt;Direct Contracting &quot; + directContracting.Text + &quot;&lt;/span&gt;&quot;;
 
+    }
+  
+    public void noa_List_description()
+    {
+      //terms and condition
+      TextObject textObject20 = Report.FindObject(&quot;Text20&quot;) as TextObject;
+
+      // Get the text content from the column value
+      DataSourceBase textContentList = Report.GetDataSource(&quot;Noa_details&quot;);
+
+      int index = 1;
+
+      textContentList.Init();
+
+      while (textContentList.HasMoreRows)
+      {
+        string textTermDescription = ((String)Report.GetColumnValue(&quot;Noa_details.description&quot;));
+        
+        // Replace table tags with inline styles for border formatting
+        string formattedContentList = textTermDescription.Replace(&quot;&lt;th&gt;&quot;, &quot;&lt;th style='border: 1px solid black;'&gt;&quot;)
+          .Replace(&quot;&lt;td&gt;&quot;, &quot;&lt;td style='border: 1px solid black;'&gt;&quot;);
+
+        // Append formatted content to Text131.Text
+        Text20.Text += formattedContentList;
+
+        index++;
+        textContentList.Next();
+      }
+    }
+    
+    public void noa_terms_description()
+    {
+      //terms and condition
+      TextObject textObject33 = Report.FindObject(&quot;Text33&quot;) as TextObject;
+
+      // Get the text content from the column value
+      DataSourceBase textContentTerm = Report.GetDataSource(&quot;Noa_terms&quot;);
+
+      int index = 1;
+
+      textContentTerm.Init();
+
+      while (textContentTerm.HasMoreRows)
+      {
+        string textTermDescription = ((string)Report.GetColumnValue(&quot;Noa_terms.description&quot;));
+        
+        // Replace table tags with inline styles for border formatting
+        string formattedContent = textTermDescription.Replace(&quot;&lt;th&gt;&quot;, &quot;&lt;th style='border: 1px solid black;'&gt;&quot;)
+          .Replace(&quot;&lt;td&gt;&quot;, &quot;&lt;td style='border: 1px solid black;'&gt;&quot;);
+
+        // Append formatted content to Text131.Text
+        Text33.Text += formattedContent;
+
+        index++;
+        textContentTerm.Next();
+      }
     }
   }
 }
@@ -98,7 +159,7 @@ namespace FastReport
     <Parameter Name="param2" DataType="System.String" AsString=""/>
     <Parameter Name="param3" DataType="System.String" AsString=""/>
   </Dictionary>
-  <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
+  <ReportPage Name="Page1" RawPaperSize="9" Watermark.Font="Arial, 60pt" LastPageSource="15" FirstPageSource="15" OtherPageSource="15">
     <ReportTitleBand Name="ReportTitle1" Width="718.2" Height="217.35">
       <TextObject Name="Text1" Left="264.6" Top="9.45" Width="245.7" Height="18.9" CanGrow="true" Text="PHILIPPINE GENERAL HOSPITAL" AutoWidth="true" HorzAlign="Center" Font="Times New Roman, 10pt, style=Bold"/>
       <TextObject Name="Text2" Width="94.5" Height="18.9" CanGrow="true" Text="PGH Form No. Q-250006&#13;&#10;Rev.00 Eff. 16 Sept. 2019&#13;&#10;" Font="Arial, 5pt, style=Bold"/>
@@ -154,8 +215,8 @@ namespace FastReport
         </TableRow>
       </TableObject>
     </DataBand>
-    <DataBand Name="Data4" Top="732.53" Width="718.2" Height="37.8" CanGrow="true" CanShrink="true" CanBreak="true" Guides="0,0,0" DataSource="Noa_details">
-      <TextObject Name="Text20" Left="175.01" Width="370.06" Height="37.8" Border.Lines="Left, Right" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[Noa_details.description]" Padding="10, 0, 10, 150" HorzAlign="Justify" Font="Times New Roman, 8pt" TextRenderType="HtmlTags"/>
+    <DataBand Name="Data4" Top="732.53" Width="718.2" Height="37.8" CanGrow="true" Guides="0,0,0" DataSource="Noa_details">
+      <TextObject Name="Text20" Left="175.01" Width="370.06" Height="37.8" Border.Lines="Left, Right" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[Noa_details.description]" HorzAlign="Justify" Font="Times New Roman, 8pt" TextRenderType="HtmlTags"/>
       <LineObject Name="Line1" Left="38.93" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
       <LineObject Name="Line2" Left="106.97" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
       <LineObject Name="Line3" Left="631.64" Height="37.8" CanGrow="true" CanShrink="true" GrowToBottom="true"/>
@@ -182,9 +243,9 @@ namespace FastReport
     </DataBand>
     <DataBand Name="Data7" Top="857.93" Width="718.2" Height="18.9" CanGrow="true" CanShrink="true" CanBreak="true" DataSource="Noa_terms">
       <TextObject Name="Text33" Left="37.8" Width="680.4" Height="18.9" CanGrow="true" CanShrink="true" GrowToBottom="true" Text="[Noa_terms.description]" Padding="2, 0, 2, 30" HorzAlign="Justify" Font="Times New Roman, 9pt" TextRenderType="HtmlTags"/>
-      <TextObject Name="Text32" Left="18.9" Width="37.8" Height="18.9" CanBreak="false" Text="[Noa_terms.number]" Font="Times New Roman, 9pt"/>
+      <TextObject Name="Text32" Left="18.9" Width="37.8" Height="18.9" CanBreak="false" Text="[Noa_terms.number]" VertAlign="Bottom" Font="Times New Roman, 9pt"/>
     </DataBand>
-    <DataBand Name="Data8" Top="880.83" Width="718.2" Height="699.3">
+    <DataBand Name="Data8" Top="880.83" Width="718.2" Height="841.05">
       <TextObject Name="Text34" Width="633.15" Height="28.35" CanGrow="true" Text="You are hereby required to provide the performance security and shall be submitted to Purchasing Office, UPM-PGH in the form of the following&#13;&#10;" Padding="2, 0, 2, 10" Font="Times New Roman, 9pt"/>
       <TableObject Name="Table2" Top="37.8" Width="721.94" Height="143.64" Border.Lines="All">
         <TableColumn Name="Column7" Width="497.95"/>
@@ -214,13 +275,13 @@ namespace FastReport
       <TextObject Name="Text38" Top="236.25" Width="217.35" Height="18.9" CanGrow="true" Text="Please be guided accordingly." Font="Times New Roman, 9pt"/>
       <TextObject Name="Text39" Top="274.05" Width="217.35" Height="18.9" CanGrow="true" Text="Very truly yours," Font="Times New Roman, 9pt"/>
       <TextObject Name="Text40" Top="330.75" Width="217.35" Height="18.9" CanGrow="true" Text="[Noa.first_name] [Noa.last_name]" Font="Times New Roman, 9pt, style=Bold"/>
-      <TextObject Name="Text41" Top="349.65" Width="217.35" Height="18.9" CanGrow="true" Text="[Noa.department_name]" Font="Times New Roman, 9pt, style=Italic"/>
+      <TextObject Name="Text41" Left="66.15" Top="349.65" Width="217.35" Height="18.9" CanGrow="true" Text="[Noa.department_name]" Font="Times New Roman, 9pt, style=Italic"/>
       <TextObject Name="Text42" Top="567" Width="198.45" Height="132.3" CanGrow="true" Text="(Signiture over Printed Name)&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;(Designation)&#13;&#10;&#13;&#10;&#13;&#10;&#13;&#10;(Date)&#13;&#10;" Font="Times New Roman, 9pt, style=Italic"/>
       <TextObject Name="Text43" Top="510.3" Width="217.35" Height="18.9" CanGrow="true" Text="Conforme:" Font="Times New Roman, 9pt, style=Bold"/>
       <LineObject Name="Line13" Top="565.87" Width="217.35"/>
       <LineObject Name="Line14" Top="620.3" Width="217.35"/>
       <LineObject Name="Line15" Top="675.49" Width="217.35"/>
     </DataBand>
-    <PageFooterBand Name="PageFooter1" Top="1584.13" Width="718.2" Height="18.9" Guides="0,0"/>
+    <PageFooterBand Name="PageFooter1" Top="1725.88" Width="718.2" Height="18.9" Guides="0,0"/>
   </ReportPage>
 </Report>

@@ -27,6 +27,7 @@ namespace Fast_Report_API.Controllers
         private IWebHostEnvironment _env;
         private List<Noa> noa_list;
         private List<Po> po_list;
+      
         private List<Noa_terms> noa_terms_list;
         private List<Noa_details> noa_detail_list;
 
@@ -258,8 +259,6 @@ namespace Fast_Report_API.Controllers
                 UserWebReport.Report.RegisterData(recognition_list, "recognitions_ref");
                 UserWebReport.Report.RegisterData(references_list, "references_ref");
             }
-
-
             else if (title.ToLower().Equals("po"))
             {
                 var noa_details = Base64Decode(response2);//base64 to string
@@ -555,7 +554,7 @@ namespace Fast_Report_API.Controllers
             UserWebReport.Toolbar.ShowLastButton = true;
             UserWebReport.Toolbar.ShowFirstButton = true;
             UserWebReport.Toolbar.ShowZoomButton = true;
-            UserWebReport.Toolbar.ShowPrint = false;
+            UserWebReport.Toolbar.ShowPrint = true;
             UserWebReport.ReportPrepared = false;
 
 
@@ -593,6 +592,7 @@ namespace Fast_Report_API.Controllers
                 noa_title = noa_data.NoaTitle,
                 grand_total = noa_data.GrandTotal.ToString(),
                 grand_total_amount_in_words = noa_data.GrandTotalAmountInWords,
+                type = noa_data.Type,
                 date_needed = ((DateTime)noa_data.DateNeeded).ToString("yyyy-MM-dd"),
                 supplier_name = noa_data.Supplier.SupplierName,
                 delivery_address = noa_data.Supplier.DeliveryAddress,
@@ -608,7 +608,9 @@ namespace Fast_Report_API.Controllers
                 mode_name = noa_data.ModeOfPrecurement.ModeName,
                 mode_description = noa_data.ModeOfPrecurement.ModeDescription,
                 perf_sec_30 = noa_data.PerfSec30.ToString(),
+                Perf_sec_30_word = noa_data.PerfSec30.ToString(),
                 perf_sec_5 = noa_data.PerfSec5.ToString(),
+                Perf_sec_5_word = noa_data.PerfSec5.ToString(),
             });
 
             //This will assign list of noa_details separately
@@ -677,6 +679,159 @@ namespace Fast_Report_API.Controllers
                 return null;
             }
         }
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> Nefa(string title, int Id, string logo)
+        {
+
+            FastReport.Utils.Config.WebMode = true;
+            WebReport UserWebReport = new WebReport();
+            //MapPath mapPath = new MapPath(_env);
+
+            //rep.Report.SetParameterValue("param1", noa_list[0].noa_title);
+            //rep.Report.SetParameterValue("param2","2nd parameter");
+            //rep.Report.SetParameterValue("param3","3rd parameter");
+            UserWebReport.Toolbar.Exports = new ExportMenuSettings()
+            {
+                ExportTypes = Exports.All
+            };
+
+            UserWebReport.Toolbar.ShowPrevButton = true;
+            UserWebReport.Toolbar.ShowNextButton = true;
+            UserWebReport.Toolbar.ShowLastButton = true;
+            UserWebReport.Toolbar.ShowFirstButton = true;
+            UserWebReport.Toolbar.ShowZoomButton = true;
+            UserWebReport.Toolbar.ShowPrint = true;
+            UserWebReport.ReportPrepared = false;
+
+
+            //rep.Toolba
+
+
+
+            logo = Base64Decode(logo);
+
+            noa_list = new List<Noa>();
+            leave_list = new List<LeaveAppPrint>();
+
+
+            var noa_data = await _context.NoaTbls.Where(x => x.NoaId == (ulong)Id)
+             .Include(x => x.NoaDetailsTbls)
+             .Include(x => x.TermsAndConditionTbls)
+             .Include(x => x.Supplier)
+             .Include(x => x.ModeOfPrecurement)
+             .Include(x => x.AppAuthUser)
+             .Include(x => x.AppAuthUser.Department).FirstOrDefaultAsync();
+
+
+
+
+
+            fileName = "/" + title + "_report.frx";
+            string path = Path.Combine(_env.WebRootPath + fileName);
+            //string path = mapPath.MapVirtualPathToPhysical("~/noa_report.frx");
+            UserWebReport.Report.Load(path);
+
+
+
+            noa_list.Add(new Noa()
+            {
+                noa_contract_ID = noa_data.NoaContractId,
+                noa_title = noa_data.NoaTitle,
+                grand_total = noa_data.GrandTotal.ToString(),
+                grand_total_amount_in_words = noa_data.GrandTotalAmountInWords,
+                type = noa_data.Type,
+                date_needed = ((DateTime)noa_data.DateNeeded).ToString("yyyy-MM-dd"),
+                date_bid = ((DateTime)noa_data.DateBid).ToString("yyyy-MM-dd"),
+                date_awarded = ((DateTime)noa_data.DateAwarded).ToString("yyyy-MM-dd"),
+                supplier_name = noa_data.Supplier.SupplierName,
+                delivery_address = noa_data.Supplier.DeliveryAddress,
+                contact = noa_data.Supplier.Contact,
+                position = noa_data.Supplier.Position,
+                fax_number = noa_data.Supplier.FaxNumber,
+                pur_tbl = noa_data.PurTbl,
+                committee_type = noa_data.CommitteeType,
+                attention_title = noa_data.Supplier.AttentionTitle,
+                contact_person = noa_data.Supplier.ContactPerson,
+                first_name = noa_data.AppAuthUser.FirstName,
+                last_name = noa_data.AppAuthUser.LastName,
+                department_name = noa_data.AppAuthUser.Department.DepartmentName,
+                mode_name = noa_data.ModeOfPrecurement.ModeName,
+                mode_description = noa_data.ModeOfPrecurement.ModeDescription,
+                perf_sec_30 = noa_data.PerfSec30.ToString(),
+                Perf_sec_30_word = noa_data.PerfSec30.ToString(),
+                perf_sec_5 = noa_data.PerfSec5.ToString(),
+                Perf_sec_5_word = noa_data.PerfSec5.ToString(),
+                logo = logo,
+            }); 
+
+            //This will assign list of noa_details separately
+            noa_detail_list = new List<Noa_details>();
+            if (noa_data.NoaDetailsTbls != null)
+            {
+                foreach (var data in noa_data.NoaDetailsTbls)
+                {
+                    var uomName = await _context.UomTbls.Where(x => x.UomId == data.UomId).Select(x => x.UomName).FirstOrDefaultAsync();
+
+                    noa_detail_list.Add(new Noa_details
+                    {
+                        quantity = data.Quantity.ToString(),
+                        item_number = data.ItemNumber,
+                        uom_name = uomName,
+                        unit_cost = data.UnitCost.ToString(),
+                        total_cost = data.TotalCost.ToString(),
+                        description = data.Description,
+                        stock_property_number = data.StockPropertyNumber,
+                    });
+                }
+            }
+
+            noa_terms_list = new List<Noa_terms>();
+            if (noa_data.TermsAndConditionTbls != null)
+            {
+                foreach (var datas in noa_data.TermsAndConditionTbls)
+                {
+                    noa_terms_list.Add(new Noa_terms
+                    {
+                        number = (int)datas.Number,
+                        description = datas.Description,
+                    });
+                }
+            }
+
+            UserWebReport.Report.RegisterData(noa_list, "NoaRef");//pass the data to fast report
+            UserWebReport.Report.RegisterData(noa_terms_list, "NoaRefTerm");//pass the data to fast report
+            UserWebReport.Report.RegisterData(noa_detail_list, "NoaDetailsRef");//pass the data to fast report
+
+            ViewBag.WebReport = UserWebReport;
+            //ViewBag.Message = decode;
+            //ViewBag.base64 = Base64Decode("aGVsbG8=");
+            if (UserWebReport.Report.Prepare())
+            {
+
+
+                //FastReport.Export.PdfSimple.PDFSimpleExport pdfExport = new FastReport.Export.PdfSimple.PDFSimpleExport();
+                //pdfExport.ShowProgress = false;
+                //pdfExport.Subject = "Subject Report";
+                //pdfExport.Title = "Report Report";
+                //MemoryStream ms = new MemoryStream();
+                //rep.Report.Export(pdfExport, ms);
+                //rep.Report.Dispose();
+                //pdfExport.Dispose();
+                //ms.Position = 0;
+
+                //ReportModel reportModel = new ReportModel();
+                //reportModel.webReport = rep;
+                //ViewBag.reportModel = reportModel;
+                //return View("Views/Home/ReportView.cshtml", reportModel);
+                return View("Views/Home/ReportView.cshtml");
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         [HttpGet("[action]")]
         public async Task<IActionResult> Purchasing(string title,int Id)
         {

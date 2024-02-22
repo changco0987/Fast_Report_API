@@ -59,9 +59,9 @@ public partial class PghContext : DbContext
 
     public virtual DbSet<UsersTbl> UsersTbls { get; set; }
 
-//    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-//        => optionsBuilder.UseMySQL("Server=localhost;User ID=root;Password=123123;Database=pgh");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+        => optionsBuilder.UseMySQL("Server=localhost;Port=3306;Database=pgh;User Id=root;Password=");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -323,6 +323,15 @@ public partial class PghContext : DbContext
 
             entity.Property(e => e.NoaId).HasColumnName("noa_ID");
             entity.Property(e => e.AppAuthUserId).HasColumnName("app_auth_user_ID");
+            entity.Property(e => e.CommitteeType)
+                .HasMaxLength(100)
+                .HasColumnName("committee_type");
+            entity.Property(e => e.DateAwarded)
+                .HasColumnType("date")
+                .HasColumnName("date_awarded");
+            entity.Property(e => e.DateBid)
+                .HasColumnType("date")
+                .HasColumnName("date_bid");
             entity.Property(e => e.DateNeeded)
                 .HasColumnType("date")
                 .HasColumnName("date_needed");
@@ -360,6 +369,9 @@ public partial class PghContext : DbContext
                 .HasColumnName("pur_tbl");
             entity.Property(e => e.StatusId).HasColumnName("status_ID");
             entity.Property(e => e.SupplierId).HasColumnName("supplier_ID");
+            entity.Property(e => e.Type)
+                .HasMaxLength(50)
+                .HasColumnName("type");
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
             entity.Property(e => e.UpdatedDate)
                 .HasColumnType("datetime")
@@ -462,11 +474,6 @@ public partial class PghContext : DbContext
                 .HasMaxLength(255)
                 .HasColumnName("position_name");
             entity.Property(e => e.StatusId).HasColumnName("status_ID");
-
-            entity.HasOne(d => d.Status).WithMany(p => p.PositionTbls)
-                .HasForeignKey(d => d.StatusId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("position_tbl_status_id_foreign");
         });
 
         modelBuilder.Entity<PurchaseOrdersTbl>(entity =>
@@ -576,11 +583,6 @@ public partial class PghContext : DbContext
             entity.Property(e => e.ReceiptNumber)
                 .HasMaxLength(50)
                 .HasColumnName("receipt_number");
-
-            entity.HasOne(d => d.Noa).WithMany(p => p.ReceiptTbls)
-                .HasForeignKey(d => d.NoaId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("receipt_tbl_noa_id_foreign");
         });
 
         modelBuilder.Entity<SeriesTbl>(entity =>
@@ -602,11 +604,6 @@ public partial class PghContext : DbContext
                 .HasMaxLength(50)
                 .HasColumnName("screen");
             entity.Property(e => e.StatusId).HasColumnName("status_ID");
-
-            entity.HasOne(d => d.Status).WithMany(p => p.SeriesTbls)
-                .HasForeignKey(d => d.StatusId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("series_tbl_status_id_foreign");
         });
 
         modelBuilder.Entity<StatusTbl>(entity =>
@@ -717,11 +714,6 @@ public partial class PghContext : DbContext
             entity.Property(e => e.UomName)
                 .HasMaxLength(50)
                 .HasColumnName("uom_name");
-
-            entity.HasOne(d => d.Status).WithMany(p => p.UomTbls)
-                .HasForeignKey(d => d.StatusId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("uom_tbl_status_id_foreign");
         });
 
         modelBuilder.Entity<UsersTbl>(entity =>
