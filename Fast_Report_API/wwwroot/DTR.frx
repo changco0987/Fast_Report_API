@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="12/11/2023 10:00:55" ReportInfo.Modified="02/06/2024 08:56:03" ReportInfo.CreatorVersion="2023.2.0.0">
+<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="12/11/2023 10:00:55" ReportInfo.Modified="03/05/2024 14:43:20" ReportInfo.CreatorVersion="2023.2.0.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -54,323 +54,493 @@ namespace FastReport
                             
       
       int indexOfColon = time_in.IndexOf(':');
+        int indexOfColonOut = time_out.IndexOf(':');
       int hour = 0;
+        int hour_timeout = 0;
       if (indexOfColon != -1)
       {
           
         // Extract the substring before the first colon
         string result = time_in.Substring(0, indexOfColon);  
         hour = Convert.ToInt32(result);
+         
       }
+        if (indexOfColonOut != -1)
+        {
+          
+          // Extract the substring before the first colon  
+          string result_timeout = time_out.Substring(0, indexOfColonOut);  
+          hour_timeout = Convert.ToInt32(result_timeout);
+        }
      
         if( day == 01){
-         Cell29.Text = time_out;  
+          
           Cell30.Text = tardiness; 
           Cell51.Text = undertime;
-          if(hour &lt; 12 ){
+          
+          if(hour &lt; 12 ){              
             Cell26.Text =time_in;
-          }else{
+          }else{                     
             Cell28.Text =time_in;
           }
+          if(hour_timeout &lt; 12 ){
+            Cell27.Text = time_out;  
+          }else{
+            Cell29.Text = time_out;  
+          }
         }else if( day == 02){
-          Cell34.Text = time_out;
+          
           Cell35.Text = tardiness; 
           Cell52.Text = undertime;
           if(hour &lt; 12 ){
-           Cell31.Text = time_in; 
-          }else{
-            Cell33.Text =time_in;
+         
+           Cell31.Text = time_in;
+          }else{      
+            Cell33.Text = time_in;
+          }
+          if(hour_timeout &lt; 12 ){
+           
+            Cell32.Text = time_out;
+          }else{        
+     
+            Cell34.Text = time_out;
           }
         }else if ( day == 03){
           
-          Cell39.Text = time_out;
+          
           Cell40.Text = tardiness; 
           Cell53.Text = undertime;
           if(hour &lt; 12 ){
-           Cell36.Text = time_in;  
+           Cell36.Text = time_in;   
           }else{
-            Cell38.Text =time_in;
+            Cell38.Text =time_in;      
+          }
+          if(hour_timeout &lt; 12 ){   
+            Cell37.Text = time_out;
+          }else{                    
+            Cell39.Text = time_out;
           }
         }else if ( day == 04){ 
-          Cell44.Text = time_out;
+          
           Cell45.Text = tardiness; 
           Cell54.Text = undertime;
           if(hour &lt; 12 ){
-           Cell41.Text = time_in;  
+           Cell41.Text = time_in;   
           }else{
-            Cell43.Text =time_in;
+            Cell43.Text =time_in;   
+          }
+          if(hour_timeout &lt; 12 ){   
+            Cell42.Text = time_out;
+          }else{                    
+            Cell44.Text = time_out;
           }
         }
         else if ( day == 05){ 
-          Cell49.Text = time_out;
+          
           Cell50.Text = tardiness; 
           Cell55.Text = undertime;
           if(hour &lt; 12 ){
-            Cell46.Text = time_in; 
+            Cell46.Text = time_in;  
           }else{
-            Cell48.Text =time_in;
+            Cell48.Text =time_in;    
+          }
+          if(hour_timeout &lt; 12 ){     
+            Cell47.Text = time_out;
+          }else{                     
+            Cell49.Text = time_out;
           }
         
         }
         else if ( day == 06){ 
           Cell60.Text = tardiness; 
           Cell61.Text = undertime;
-          Cell59.Text = time_out;
+          
           if(hour &lt; 12 ){
-             Cell56.Text = time_in; 
+             Cell56.Text = time_in;  
           }else{
-            Cell58.Text =time_in;
+            Cell58.Text =time_in;  
+          }
+          if(hour_timeout &lt; 12 ){          
+            Cell57.Text = time_out;
+          }else{                   
+            Cell59.Text = time_out;
           }
         }
         else if ( day == 07){
           Cell66.Text = tardiness; 
           Cell67.Text = undertime;
-          Cell65.Text = time_out;
+          
           if(hour &lt; 12 ){
-          Cell62.Text = time_in;  
+          Cell62.Text = time_in;     
           }else{
-           Cell64.Text = time_in; 
+           Cell64.Text = time_in;   
+          }
+          if(hour_timeout &lt; 12 ){   
+            Cell63.Text = time_out;
+          }else{                     
+            Cell65.Text = time_out;
           }
         }
         else if ( day == 08){
           Cell72.Text = tardiness; 
           Cell73.Text = undertime;
-          Cell71.Text = time_out;
+          
           if(hour &lt; 12 ){
-            Cell68.Text = time_in;   
+            Cell68.Text = time_in;  
           }else{
-            Cell70.Text = time_in;  
+            Cell70.Text = time_in;   
+          }
+          if(hour_timeout &lt; 12 ){   
+            Cell69.Text = time_out;
+          }else{                    
+            Cell71.Text = time_out;
           }
         }
         else if ( day == 09){
           Cell78.Text = tardiness; 
           Cell79.Text = undertime;
-          Cell77.Text = time_out;
+          
           if(hour &lt; 12 ){
             Cell74.Text = time_in;   
           }else{
-            Cell76.Text = time_in;  
+            Cell76.Text = time_in;    
+          }
+          if(hour_timeout &lt; 12 ){   
+            Cell75.Text = time_out;
+          }else{                    
+            Cell77.Text = time_out;
           }
         }
         else if ( day == 10){
           Cell84.Text = tardiness; 
           Cell85.Text = undertime;
-          Cell83.Text = time_out;
+          
           if(hour &lt; 12 ){
-            Cell80.Text = time_in;  
+            Cell80.Text = time_in;   
           }else{
-            Cell82.Text = time_in; 
+            Cell82.Text = time_in;  
+          }
+          if(hour_timeout &lt; 12 ){     
+            Cell81.Text = time_out;
+          }else{                      
+            Cell83.Text = time_out;
           }
         }
         else if ( day == 11){
           Cell90.Text = tardiness; 
           Cell91.Text = undertime;
-          Cell89.Text = time_out;
+          
           if(hour &lt; 12 ){
-            Cell86.Text =time_in;
+            Cell86.Text =time_in;     
           }else{
-            Cell88.Text =time_in;
+            Cell88.Text =time_in;   
+          }
+          if(hour_timeout &lt; 12 ){   
+            Cell87.Text = time_out;
+          }else{                   
+            Cell89.Text = time_out;
           }
         }
         else if ( day == 12){
           Cell96.Text = tardiness; 
           Cell97.Text = undertime;
-          Cell95.Text = time_out;
+          
           if(hour &lt; 12 ){
             Cell92.Text = time_in;  
           }else{
-            Cell94.Text = time_in;
+            Cell94.Text = time_in;   
+          }
+          if(hour_timeout &lt; 12 ){   
+            Cell93.Text = time_out;
+          }else{                    
+            Cell95.Text = time_out;
           }
         }
         else if ( day == 13){
           Cell102.Text = tardiness; 
           Cell103.Text = undertime; 
-          Cell101.Text = time_out;
+          
           if(hour &lt; 12 ){
-            Cell98.Text = time_in;  
+            Cell98.Text = time_in;   
           }else{
-            Cell100.Text = time_in;
+            Cell100.Text = time_in;  
+          }
+          if(hour_timeout &lt; 12 ){      
+            Cell99.Text = time_out;
+          }else{                    
+            Cell101.Text = time_out;
           }
         }
         else if ( day == 14){
           Cell108.Text = tardiness; 
           Cell109.Text = undertime; 
-          Cell107.Text = time_out;
+          
           if(hour &lt; 12 ){
-           Cell104.Text = time_in; 
+           Cell104.Text = time_in;    
           }else{
-           Cell106.Text = time_in; 
+           Cell106.Text = time_in;   
+          }
+          if(hour_timeout &lt; 12 ){   
+            Cell105.Text = time_out;
+          }else{                     
+            Cell107.Text = time_out;
           }
         }
         else if ( day == 15){
           Cell114.Text = tardiness; 
           Cell115.Text = undertime; 
-          Cell113.Text = time_out;
+          
           if(hour &lt; 12 ){
-           Cell110.Text = time_in; 
+           Cell110.Text = time_in;    
           }else{
             Cell112.Text = time_in; 
+          }
+          if(hour_timeout &lt; 12 ){   
+            Cell111.Text = time_out;
+          }else{                    
+            Cell113.Text = time_out;
           }
         }
       
         else if ( day == 16){
           Cell126.Text = tardiness; 
           Cell127.Text = undertime;
-          Cell125.Text = time_out;
+          
           if(hour &lt; 12 ){
-            Cell122.Text = time_in;
+            Cell122.Text = time_in;   
           }else{
-            Cell124.Text = time_in;
+            Cell124.Text = time_in;  
+          }
+          if(hour_timeout &lt; 12 ){          
+            Cell123.Text = time_out;
+          }else{                    
+            Cell125.Text = time_out;
           }
         }
         else if (day == 17){
           Cell132.Text = tardiness; 
           Cell133.Text = undertime;
-          Cell131.Text = time_out;
+          
           if(hour &lt; 12 ){
-           Cell128.Text = time_in; 
+           Cell128.Text = time_in;   
           }else{
-           Cell130.Text = time_in; 
+           Cell130.Text = time_in;    
+          }
+          if(hour_timeout &lt; 12 ){   
+            Cell129.Text = time_out;
+          }else{                     
+            Cell131.Text = time_out;
           }
         }
         else if ( day == 18){
           Cell138.Text = tardiness; 
           Cell139.Text = undertime; 
-          Cell137.Text = time_out;
+          
           if(hour &lt; 12 ){
-            Cell134.Text = time_in; 
-          }else{
+            Cell134.Text = time_in;   
+          }else{                     
            Cell136.Text = time_in;  
+          }
+          if(hour_timeout &lt; 12 ){     
+            Cell135.Text = time_out;
+          }else{                      
+            Cell137.Text = time_out;
           }
         }
         else if ( day == 19){
           Cell144.Text = tardiness; 
           Cell145.Text = undertime; 
-          Cell143.Text = time_out;
+          
           if(hour &lt; 12 ){
-            Cell140.Text = time_in;  
+            Cell140.Text = time_in;   
           }else{
-            Cell142.Text = time_in;   
+            Cell142.Text = time_in; 
+          }
+          if(hour_timeout &lt; 12 ){    
+            Cell141.Text = time_out;
+          }else{                    
+            Cell143.Text = time_out;
           }
         }
         else if ( day == 20){
           Cell150.Text = tardiness; 
           Cell151.Text = undertime;
-          Cell149.Text = time_out;
+          
           if(hour &lt; 12 ){
-           Cell146.Text = time_in; 
+           Cell146.Text = time_in;   
           }else{
-           Cell148.Text = time_in;  
+           Cell148.Text = time_in;   
+          }
+          if(hour_timeout &lt; 12 ){           
+            Cell147.Text = time_out;
+          }else{                    
+            Cell149.Text = time_out;
           }
         }
         else if ( day == 21){
           Cell156.Text = tardiness; 
           Cell157.Text = undertime;
-          Cell155.Text = time_out;
+          
           if(hour &lt; 12 ){
-           Cell152.Text = time_in; 
+           Cell152.Text = time_in;    
           }else{
             Cell154.Text = time_in;  
+          }
+          if(hour_timeout &lt; 12 ){     
+            Cell153.Text = time_out;
+          }else{                     
+            Cell155.Text = time_out;
           }
         }
         else if ( day == 22){
           Cell162.Text = tardiness; 
           Cell163.Text = undertime;
-          Cell161.Text = time_out;
+          
           if(hour &lt; 12 ){
-           Cell158.Text = time_in;  
+           Cell158.Text = time_in;   
           }else{
-            Cell160.Text = time_in; 
+            Cell160.Text = time_in;  
+          }
+           
+          if(hour_timeout &lt; 12 ){    
+            Cell159.Text = time_out;
+          }else{                     
+            Cell161.Text = time_out;
           }
         }
         else if ( day == 23){
           Cell168.Text = tardiness; 
           Cell169.Text = undertime;
-          Cell167.Text = time_out;
+          
           if(hour &lt; 12 ){
-           Cell164.Text = time_in;   
+           Cell164.Text = time_in;  
           }else{
-          Cell166.Text = time_in; 
+          Cell166.Text = time_in;   
+          }
+          if(hour_timeout &lt; 12 ){            
+            Cell165.Text = time_out;
+          }else{                     
+            Cell167.Text = time_out;
           }
         }
         else if ( day == 24){
           Cell174.Text = tardiness; 
           Cell175.Text = undertime;
-          Cell173.Text = time_out;
+          
           if(hour &lt; 12 ){
             Cell170.Text = time_in;   
           }else{
-            Cell172.Text = time_in; 
+            Cell172.Text = time_in;   
+          }
+          if(hour_timeout &lt; 12 ){     
+            Cell171.Text = time_out;
+          }else{                      
+            Cell173.Text = time_out;
           }
         }
         else if ( day == 25){
           Cell180.Text = tardiness; 
           Cell181.Text = undertime; 
-          Cell179.Text = time_out;
+          
           if(hour &lt; 12 ){
-            Cell176.Text = time_in; 
+            Cell176.Text = time_in;  
           }else{
-            Cell178.Text = time_in;
+            Cell178.Text = time_in;  
+          }
+          if(hour_timeout &lt; 12 ){            
+            Cell177.Text = time_out;
+          }else{                    
+            Cell179.Text = time_out;
           }
         }
         else if ( day == 26){
           Cell186.Text = tardiness; 
           Cell187.Text = undertime;
-          Cell185.Text = time_out;
+          
           if(hour &lt; 12 ){
-             Cell182.Text = time_in; 
+             Cell182.Text = time_in;    
           }else{
-             Cell184.Text = time_in; 
+             Cell184.Text = time_in;    
+          }
+          if(hour_timeout &lt; 12 ){    
+            Cell183.Text = time_out;
+          }else{                    
+            Cell185.Text = time_out;
           }
         }
         else if ( day == 27){
           Cell192.Text = tardiness; 
           Cell193.Text = undertime;
-          Cell191.Text = time_out;
+          
           if(hour &lt; 12 ){
-            Cell188.Text = time_in;  
-          }else{
-            Cell190.Text = time_in; 
+            Cell188.Text = time_in;    
+          }else{                    
+            Cell190.Text = time_in;    
+          }
+          if(hour_timeout &lt; 12 ){   
+            Cell189.Text = time_out;
+          }else{                     
+            Cell191.Text = time_out;
           }
         }
         else if ( day == 28){
           Cell198.Text = tardiness; 
           Cell199.Text = undertime;
-          Cell197.Text = time_out;
+          
           if(hour &lt; 12 ){
             Cell194.Text = time_in;   
           }else{
             Cell196.Text = time_in;  
           }
+          if(hour_timeout &lt; 12 ){    
+            Cell195.Text = time_out;
+          }else{                     
+            Cell197.Text = time_out;
+          }
         }
         else if ( day == 29){
           Cell204.Text = tardiness; 
           Cell205.Text = undertime;
-          Cell203.Text = time_out;
+          
           if(hour &lt; 12 ){
-             Cell200.Text = time_in;   
+             Cell200.Text = time_in; 
           }else{
             Cell202.Text = time_in;  
+          }
+          if(hour_timeout &lt; 12 ){   
+            Cell201.Text = time_out;
+          }else{                    
+            Cell203.Text = time_out;
           }
         }
         else if ( day == 30){
           Cell210.Text = tardiness; 
           Cell211.Text = undertime;
-          Cell209.Text = time_out;
+          
           if(hour &lt; 12 ){
-           Cell206.Text = time_in;    
+           Cell206.Text = time_in;   
           }else{
-             Cell208.Text = time_in;  
+             Cell208.Text = time_in;   
+          }
+          if(hour_timeout &lt; 12 ){    
+            Cell207.Text = time_out;
+          }else{                     
+            Cell209.Text = time_out;
           }
         }
         else if ( day == 31){
           Cell216.Text = tardiness; 
           Cell217.Text = undertime;
-          Cell215.Text = time_out;
+          
           if(hour &lt; 12 ){
-            Cell212.Text = time_in;    
+            Cell212.Text = time_in;      
           }else{
-            Cell214.Text = time_in;  
+            Cell214.Text = time_in;   
+          }
+          if(hour_timeout &lt; 12 ){            
+            Cell213.Text = time_out;
+          }else{                     
+            Cell215.Text = time_out;
           }
         }
         if (index == 1 ){
