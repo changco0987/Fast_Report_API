@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="12/11/2023 10:00:55" ReportInfo.Modified="03/05/2024 14:43:20" ReportInfo.CreatorVersion="2023.2.0.0">
+<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="12/11/2023 10:00:55" ReportInfo.Modified="04/11/2024 09:25:04" ReportInfo.CreatorVersion="2023.2.0.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -593,7 +593,7 @@ namespace FastReport
   <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
     <DataBand Name="Data1" Width="718.2" Height="831.6">
       <TextObject Name="Text1" Left="28.35" Top="37.8" Width="85.05" Height="37.8" Border.Lines="All" Text="NO." Font="Arial, 10pt"/>
-      <TextObject Name="Text2" Left="113.4" Top="37.8" Width="221.13" Height="37.8" Border.Lines="All" Text="NAME :" Font="Arial, 10pt"/>
+      <TextObject Name="Text2" Left="113.4" Top="37.8" Width="221.13" Height="37.8" Border.Lines="All" Text="NAME :" Font="Arial, 10pt, style=Bold"/>
       <TextObject Name="Text3" Left="28.35" Top="75.6" Width="306.18" Height="18.9" Border.Lines="All" Text="DIV./DEPT. " Font="Arial, 10pt"/>
       <TextObject Name="Text4" Left="56.7" Width="170.1" Height="18.9" Text="PGH Form No. Q-073002" Font="Arial, 8pt"/>
       <TextObject Name="Text5" Left="28.35" Width="306.18" Height="37.8" Border.Lines="All" Text="UP-PHILIPPINE GENERAL HOSPITAL&#13;&#10;" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 10pt"/>
@@ -603,7 +603,7 @@ namespace FastReport
       <TextObject Name="Text9" Left="189" Top="113.4" Width="189" Height="18.9" Text="OFFICIAL: " Font="Arial, 8pt"/>
       <TextObject Name="Text10" Left="189" Top="132.3" Width="189" Height="18.9" Text="TIME: " Font="Arial, 8pt"/>
       <TextObject Name="Text11" Left="359.1" Width="85.05" Height="37.8" Border.Lines="All" Text="NO." Font="Arial, 10pt"/>
-      <TextObject Name="Text12" Left="444.15" Width="221.13" Height="37.8" Border.Lines="All" Text="NAME : " Font="Arial, 10pt"/>
+      <TextObject Name="Text12" Left="444.15" Width="221.13" Height="37.8" Border.Lines="All" Text="NAME : " Font="Arial, 10pt, style=Bold"/>
       <TextObject Name="Text13" Left="359.1" Top="37.8" Width="132.3" Height="18.9" Border.Lines="All" Text="SEC." Font="Arial, 10pt"/>
       <TextObject Name="Text14" Left="359.1" Top="56.7" Width="132.3" Height="18.9" Border.Lines="All" Text="DEPT. " Font="Arial, 10pt"/>
       <TextObject Name="Text15" Left="491.4" Top="37.8" Width="173.88" Height="37.8" Border.Lines="All" Font="Arial, 10pt"/>
