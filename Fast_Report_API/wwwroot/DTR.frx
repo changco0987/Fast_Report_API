@@ -1,989 +1,1226 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="12/11/2023 10:00:55" ReportInfo.Modified="03/05/2024 14:43:20" ReportInfo.CreatorVersion="2023.2.0.0">
-  <ScriptText>using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Windows.Forms;
-using System.Drawing;
-using System.Data;
-using FastReport;
-using FastReport.Data;
-using FastReport.Dialog;
-using FastReport.Barcode;
-using FastReport.Table;
-using FastReport.Utils;
+﻿﻿<?xml version="1.0" encoding="utf-8"?>
+<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="12/11/2023 10:00:55" ReportInfo.Modified="09/27/2024 09:48:39" ReportInfo.CreatorVersion="2023.2.0.0">
+	<ScriptText>
+		using System;
+		using System.Collections;
+		using System.Collections.Generic;
+		using System.ComponentModel;
+		using System.Windows.Forms;
+		using System.Drawing;
+		using System.Data;
+		using FastReport;
+		using FastReport.Data;
+		using FastReport.Dialog;
+		using FastReport.Barcode;
+		using FastReport.Table;
+		using FastReport.Utils;
 
-namespace FastReport
-{
-  public class ReportScript
-  { 
-        
-    private void _StartReport(object sender, EventArgs e)
-    {
-               Records();
-    }
-    
-    private void Records ()
-    {
+		namespace FastReport
+		{
+		public class ReportScript
+		{
 
-           
-      // get a reference to the data source
-      DataSourceBase ds = Report.GetDataSource(&quot;TimeAttendance_record&quot;);
-                                                                      
-      int index = 1;
- 
+		private void _StartReport(object sender, EventArgs e)
+		{
+		Records();
+		}
 
-      // initialize it
-      ds.Init();    
-      
-      
-      while (ds.HasMoreRows)
-      {
-        string name = ((String)Report.GetColumnValue(&quot;TimeAttendance_record.name&quot;));
-        string department =((String)Report.GetColumnValue(&quot;TimeAttendance_record.department&quot;)) ;
-        DateTime date =((DateTime)Report.GetColumnValue(&quot;TimeAttendance_record.date&quot;));
-        string time_in =((String)Report.GetColumnValue(&quot;TimeAttendance_record.time_in&quot;));
-        string time_out = ((String)Report.GetColumnValue(&quot;TimeAttendance_record.time_out&quot;));
-        string tardiness =((String)Report.GetColumnValue(&quot;TimeAttendance_record.tardiness&quot;));
-        string undertime =((String)Report.GetColumnValue(&quot;TimeAttendance_record.undertime&quot;));
-        string schedule =((String)Report.GetColumnValue(&quot;TimeAttendance_record.schedule&quot;));
-       
-        int day = Day(date); 
-      
-                            
-      
-      int indexOfColon = time_in.IndexOf(':');
-        int indexOfColonOut = time_out.IndexOf(':');
-      int hour = 0;
-        int hour_timeout = 0;
-      if (indexOfColon != -1)
-      {
-          
-        // Extract the substring before the first colon
-        string result = time_in.Substring(0, indexOfColon);  
-        hour = Convert.ToInt32(result);
-         
-      }
-        if (indexOfColonOut != -1)
-        {
-          
-          // Extract the substring before the first colon  
-          string result_timeout = time_out.Substring(0, indexOfColonOut);  
-          hour_timeout = Convert.ToInt32(result_timeout);
-        }
-     
-        if( day == 01){
-          
-          Cell30.Text = tardiness; 
-          Cell51.Text = undertime;
-          
-          if(hour &lt; 12 ){              
-            Cell26.Text =time_in;
-          }else{                     
-            Cell28.Text =time_in;
-          }
-          if(hour_timeout &lt; 12 ){
-            Cell27.Text = time_out;  
-          }else{
-            Cell29.Text = time_out;  
-          }
-        }else if( day == 02){
-          
-          Cell35.Text = tardiness; 
-          Cell52.Text = undertime;
-          if(hour &lt; 12 ){
-         
-           Cell31.Text = time_in;
-          }else{      
-            Cell33.Text = time_in;
-          }
-          if(hour_timeout &lt; 12 ){
-           
-            Cell32.Text = time_out;
-          }else{        
-     
-            Cell34.Text = time_out;
-          }
-        }else if ( day == 03){
-          
-          
-          Cell40.Text = tardiness; 
-          Cell53.Text = undertime;
-          if(hour &lt; 12 ){
-           Cell36.Text = time_in;   
-          }else{
-            Cell38.Text =time_in;      
-          }
-          if(hour_timeout &lt; 12 ){   
-            Cell37.Text = time_out;
-          }else{                    
-            Cell39.Text = time_out;
-          }
-        }else if ( day == 04){ 
-          
-          Cell45.Text = tardiness; 
-          Cell54.Text = undertime;
-          if(hour &lt; 12 ){
-           Cell41.Text = time_in;   
-          }else{
-            Cell43.Text =time_in;   
-          }
-          if(hour_timeout &lt; 12 ){   
-            Cell42.Text = time_out;
-          }else{                    
-            Cell44.Text = time_out;
-          }
-        }
-        else if ( day == 05){ 
-          
-          Cell50.Text = tardiness; 
-          Cell55.Text = undertime;
-          if(hour &lt; 12 ){
-            Cell46.Text = time_in;  
-          }else{
-            Cell48.Text =time_in;    
-          }
-          if(hour_timeout &lt; 12 ){     
-            Cell47.Text = time_out;
-          }else{                     
-            Cell49.Text = time_out;
-          }
-        
-        }
-        else if ( day == 06){ 
-          Cell60.Text = tardiness; 
-          Cell61.Text = undertime;
-          
-          if(hour &lt; 12 ){
-             Cell56.Text = time_in;  
-          }else{
-            Cell58.Text =time_in;  
-          }
-          if(hour_timeout &lt; 12 ){          
-            Cell57.Text = time_out;
-          }else{                   
-            Cell59.Text = time_out;
-          }
-        }
-        else if ( day == 07){
-          Cell66.Text = tardiness; 
-          Cell67.Text = undertime;
-          
-          if(hour &lt; 12 ){
-          Cell62.Text = time_in;     
-          }else{
-           Cell64.Text = time_in;   
-          }
-          if(hour_timeout &lt; 12 ){   
-            Cell63.Text = time_out;
-          }else{                     
-            Cell65.Text = time_out;
-          }
-        }
-        else if ( day == 08){
-          Cell72.Text = tardiness; 
-          Cell73.Text = undertime;
-          
-          if(hour &lt; 12 ){
-            Cell68.Text = time_in;  
-          }else{
-            Cell70.Text = time_in;   
-          }
-          if(hour_timeout &lt; 12 ){   
-            Cell69.Text = time_out;
-          }else{                    
-            Cell71.Text = time_out;
-          }
-        }
-        else if ( day == 09){
-          Cell78.Text = tardiness; 
-          Cell79.Text = undertime;
-          
-          if(hour &lt; 12 ){
-            Cell74.Text = time_in;   
-          }else{
-            Cell76.Text = time_in;    
-          }
-          if(hour_timeout &lt; 12 ){   
-            Cell75.Text = time_out;
-          }else{                    
-            Cell77.Text = time_out;
-          }
-        }
-        else if ( day == 10){
-          Cell84.Text = tardiness; 
-          Cell85.Text = undertime;
-          
-          if(hour &lt; 12 ){
-            Cell80.Text = time_in;   
-          }else{
-            Cell82.Text = time_in;  
-          }
-          if(hour_timeout &lt; 12 ){     
-            Cell81.Text = time_out;
-          }else{                      
-            Cell83.Text = time_out;
-          }
-        }
-        else if ( day == 11){
-          Cell90.Text = tardiness; 
-          Cell91.Text = undertime;
-          
-          if(hour &lt; 12 ){
-            Cell86.Text =time_in;     
-          }else{
-            Cell88.Text =time_in;   
-          }
-          if(hour_timeout &lt; 12 ){   
-            Cell87.Text = time_out;
-          }else{                   
-            Cell89.Text = time_out;
-          }
-        }
-        else if ( day == 12){
-          Cell96.Text = tardiness; 
-          Cell97.Text = undertime;
-          
-          if(hour &lt; 12 ){
-            Cell92.Text = time_in;  
-          }else{
-            Cell94.Text = time_in;   
-          }
-          if(hour_timeout &lt; 12 ){   
-            Cell93.Text = time_out;
-          }else{                    
-            Cell95.Text = time_out;
-          }
-        }
-        else if ( day == 13){
-          Cell102.Text = tardiness; 
-          Cell103.Text = undertime; 
-          
-          if(hour &lt; 12 ){
-            Cell98.Text = time_in;   
-          }else{
-            Cell100.Text = time_in;  
-          }
-          if(hour_timeout &lt; 12 ){      
-            Cell99.Text = time_out;
-          }else{                    
-            Cell101.Text = time_out;
-          }
-        }
-        else if ( day == 14){
-          Cell108.Text = tardiness; 
-          Cell109.Text = undertime; 
-          
-          if(hour &lt; 12 ){
-           Cell104.Text = time_in;    
-          }else{
-           Cell106.Text = time_in;   
-          }
-          if(hour_timeout &lt; 12 ){   
-            Cell105.Text = time_out;
-          }else{                     
-            Cell107.Text = time_out;
-          }
-        }
-        else if ( day == 15){
-          Cell114.Text = tardiness; 
-          Cell115.Text = undertime; 
-          
-          if(hour &lt; 12 ){
-           Cell110.Text = time_in;    
-          }else{
-            Cell112.Text = time_in; 
-          }
-          if(hour_timeout &lt; 12 ){   
-            Cell111.Text = time_out;
-          }else{                    
-            Cell113.Text = time_out;
-          }
-        }
-      
-        else if ( day == 16){
-          Cell126.Text = tardiness; 
-          Cell127.Text = undertime;
-          
-          if(hour &lt; 12 ){
-            Cell122.Text = time_in;   
-          }else{
-            Cell124.Text = time_in;  
-          }
-          if(hour_timeout &lt; 12 ){          
-            Cell123.Text = time_out;
-          }else{                    
-            Cell125.Text = time_out;
-          }
-        }
-        else if (day == 17){
-          Cell132.Text = tardiness; 
-          Cell133.Text = undertime;
-          
-          if(hour &lt; 12 ){
-           Cell128.Text = time_in;   
-          }else{
-           Cell130.Text = time_in;    
-          }
-          if(hour_timeout &lt; 12 ){   
-            Cell129.Text = time_out;
-          }else{                     
-            Cell131.Text = time_out;
-          }
-        }
-        else if ( day == 18){
-          Cell138.Text = tardiness; 
-          Cell139.Text = undertime; 
-          
-          if(hour &lt; 12 ){
-            Cell134.Text = time_in;   
-          }else{                     
-           Cell136.Text = time_in;  
-          }
-          if(hour_timeout &lt; 12 ){     
-            Cell135.Text = time_out;
-          }else{                      
-            Cell137.Text = time_out;
-          }
-        }
-        else if ( day == 19){
-          Cell144.Text = tardiness; 
-          Cell145.Text = undertime; 
-          
-          if(hour &lt; 12 ){
-            Cell140.Text = time_in;   
-          }else{
-            Cell142.Text = time_in; 
-          }
-          if(hour_timeout &lt; 12 ){    
-            Cell141.Text = time_out;
-          }else{                    
-            Cell143.Text = time_out;
-          }
-        }
-        else if ( day == 20){
-          Cell150.Text = tardiness; 
-          Cell151.Text = undertime;
-          
-          if(hour &lt; 12 ){
-           Cell146.Text = time_in;   
-          }else{
-           Cell148.Text = time_in;   
-          }
-          if(hour_timeout &lt; 12 ){           
-            Cell147.Text = time_out;
-          }else{                    
-            Cell149.Text = time_out;
-          }
-        }
-        else if ( day == 21){
-          Cell156.Text = tardiness; 
-          Cell157.Text = undertime;
-          
-          if(hour &lt; 12 ){
-           Cell152.Text = time_in;    
-          }else{
-            Cell154.Text = time_in;  
-          }
-          if(hour_timeout &lt; 12 ){     
-            Cell153.Text = time_out;
-          }else{                     
-            Cell155.Text = time_out;
-          }
-        }
-        else if ( day == 22){
-          Cell162.Text = tardiness; 
-          Cell163.Text = undertime;
-          
-          if(hour &lt; 12 ){
-           Cell158.Text = time_in;   
-          }else{
-            Cell160.Text = time_in;  
-          }
-           
-          if(hour_timeout &lt; 12 ){    
-            Cell159.Text = time_out;
-          }else{                     
-            Cell161.Text = time_out;
-          }
-        }
-        else if ( day == 23){
-          Cell168.Text = tardiness; 
-          Cell169.Text = undertime;
-          
-          if(hour &lt; 12 ){
-           Cell164.Text = time_in;  
-          }else{
-          Cell166.Text = time_in;   
-          }
-          if(hour_timeout &lt; 12 ){            
-            Cell165.Text = time_out;
-          }else{                     
-            Cell167.Text = time_out;
-          }
-        }
-        else if ( day == 24){
-          Cell174.Text = tardiness; 
-          Cell175.Text = undertime;
-          
-          if(hour &lt; 12 ){
-            Cell170.Text = time_in;   
-          }else{
-            Cell172.Text = time_in;   
-          }
-          if(hour_timeout &lt; 12 ){     
-            Cell171.Text = time_out;
-          }else{                      
-            Cell173.Text = time_out;
-          }
-        }
-        else if ( day == 25){
-          Cell180.Text = tardiness; 
-          Cell181.Text = undertime; 
-          
-          if(hour &lt; 12 ){
-            Cell176.Text = time_in;  
-          }else{
-            Cell178.Text = time_in;  
-          }
-          if(hour_timeout &lt; 12 ){            
-            Cell177.Text = time_out;
-          }else{                    
-            Cell179.Text = time_out;
-          }
-        }
-        else if ( day == 26){
-          Cell186.Text = tardiness; 
-          Cell187.Text = undertime;
-          
-          if(hour &lt; 12 ){
-             Cell182.Text = time_in;    
-          }else{
-             Cell184.Text = time_in;    
-          }
-          if(hour_timeout &lt; 12 ){    
-            Cell183.Text = time_out;
-          }else{                    
-            Cell185.Text = time_out;
-          }
-        }
-        else if ( day == 27){
-          Cell192.Text = tardiness; 
-          Cell193.Text = undertime;
-          
-          if(hour &lt; 12 ){
-            Cell188.Text = time_in;    
-          }else{                    
-            Cell190.Text = time_in;    
-          }
-          if(hour_timeout &lt; 12 ){   
-            Cell189.Text = time_out;
-          }else{                     
-            Cell191.Text = time_out;
-          }
-        }
-        else if ( day == 28){
-          Cell198.Text = tardiness; 
-          Cell199.Text = undertime;
-          
-          if(hour &lt; 12 ){
-            Cell194.Text = time_in;   
-          }else{
-            Cell196.Text = time_in;  
-          }
-          if(hour_timeout &lt; 12 ){    
-            Cell195.Text = time_out;
-          }else{                     
-            Cell197.Text = time_out;
-          }
-        }
-        else if ( day == 29){
-          Cell204.Text = tardiness; 
-          Cell205.Text = undertime;
-          
-          if(hour &lt; 12 ){
-             Cell200.Text = time_in; 
-          }else{
-            Cell202.Text = time_in;  
-          }
-          if(hour_timeout &lt; 12 ){   
-            Cell201.Text = time_out;
-          }else{                    
-            Cell203.Text = time_out;
-          }
-        }
-        else if ( day == 30){
-          Cell210.Text = tardiness; 
-          Cell211.Text = undertime;
-          
-          if(hour &lt; 12 ){
-           Cell206.Text = time_in;   
-          }else{
-             Cell208.Text = time_in;   
-          }
-          if(hour_timeout &lt; 12 ){    
-            Cell207.Text = time_out;
-          }else{                     
-            Cell209.Text = time_out;
-          }
-        }
-        else if ( day == 31){
-          Cell216.Text = tardiness; 
-          Cell217.Text = undertime;
-          
-          if(hour &lt; 12 ){
-            Cell212.Text = time_in;      
-          }else{
-            Cell214.Text = time_in;   
-          }
-          if(hour_timeout &lt; 12 ){            
-            Cell213.Text = time_out;
-          }else{                     
-            Cell215.Text = time_out;
-          }
-        }
-        if (index == 1 ){
-          Text2.Text += name;      
-          Text12.Text += name;
-          Text3.Text += department;
-          Text15.Text += department;
-          Text10.Text += schedule;
-          Text7.Text +=  ((String)Report.GetColumnValue(&quot;TimeAttendance_record.monthName&quot;));
-          Text8.Text +=   ((String)Report.GetColumnValue(&quot;TimeAttendance_record.year&quot;));
-          
-        }
-        
-        
-        
-        
-        
-        
-        
+		private void Records ()
+		{
 
-        index++;
- 
 
-        // go next data row
-        ds.Next();
-        
-      }
-      
-     
-      
-    }
-       
-  }
-}
-</ScriptText>
-  <Dictionary>
-    <BusinessObjectDataSource Name="TimeAttendance_record" ReferenceName="TimeAttendance_ref" DataType="System.Int32" Enabled="true">
-      <Column Name="name" DataType="System.String"/>
-      <Column Name="department" DataType="System.String"/>
-      <Column Name="schedule" DataType="System.String"/>
-      <Column Name="time_in" DataType="System.String"/>
-      <Column Name="time_out" DataType="System.String"/>
-      <Column Name="tardiness" DataType="System.String"/>
-      <Column Name="undertime" DataType="System.String"/>
-      <Column Name="date" DataType="System.String"/>
-      <Column Name="year" DataType="System.String"/>
-      <Column Name="monthName" DataType="System.String"/>
-    </BusinessObjectDataSource>
-  </Dictionary>
-  <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
-    <DataBand Name="Data1" Width="718.2" Height="831.6">
-      <TextObject Name="Text1" Left="28.35" Top="37.8" Width="85.05" Height="37.8" Border.Lines="All" Text="NO." Font="Arial, 10pt"/>
-      <TextObject Name="Text2" Left="113.4" Top="37.8" Width="221.13" Height="37.8" Border.Lines="All" Text="NAME :" Font="Arial, 10pt"/>
-      <TextObject Name="Text3" Left="28.35" Top="75.6" Width="306.18" Height="18.9" Border.Lines="All" Text="DIV./DEPT. " Font="Arial, 10pt"/>
-      <TextObject Name="Text4" Left="56.7" Width="170.1" Height="18.9" Text="PGH Form No. Q-073002" Font="Arial, 8pt"/>
-      <TextObject Name="Text5" Left="28.35" Width="306.18" Height="37.8" Border.Lines="All" Text="UP-PHILIPPINE GENERAL HOSPITAL&#13;&#10;" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 10pt"/>
-      <TextObject Name="Text6" Left="28.35" Top="94.5" Width="306.18" Height="66.15" Border.Lines="All" Text="PGH TIME CARD&#13;&#10;" HorzAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text7" Left="96.98" Top="101.14" Width="264.6" Height="28.35" Text="[TimeAttendance_record.monthName]&#13;&#10;" Font="Arial, 8pt"/>
-      <TextObject Name="Text8" Left="94.5" Top="132.3" Width="170.1" Height="18.9" Text=" [TimeAttendance_record.year]" Font="Arial, 8pt"/>
-      <TextObject Name="Text9" Left="189" Top="113.4" Width="189" Height="18.9" Text="OFFICIAL: " Font="Arial, 8pt"/>
-      <TextObject Name="Text10" Left="189" Top="132.3" Width="189" Height="18.9" Text="TIME: " Font="Arial, 8pt"/>
-      <TextObject Name="Text11" Left="359.1" Width="85.05" Height="37.8" Border.Lines="All" Text="NO." Font="Arial, 10pt"/>
-      <TextObject Name="Text12" Left="444.15" Width="221.13" Height="37.8" Border.Lines="All" Text="NAME : " Font="Arial, 10pt"/>
-      <TextObject Name="Text13" Left="359.1" Top="37.8" Width="132.3" Height="18.9" Border.Lines="All" Text="SEC." Font="Arial, 10pt"/>
-      <TextObject Name="Text14" Left="359.1" Top="56.7" Width="132.3" Height="18.9" Border.Lines="All" Text="DEPT. " Font="Arial, 10pt"/>
-      <TextObject Name="Text15" Left="491.4" Top="37.8" Width="173.88" Height="37.8" Border.Lines="All" Font="Arial, 10pt"/>
-      <TableObject Name="Table1" Left="368.55" Top="75.6" Width="296.75" Height="85.05" Border.Lines="All">
-        <TableColumn Name="Column1" Width="59.35"/>
-        <TableColumn Name="Column2" Width="59.35"/>
-        <TableColumn Name="Column3" Width="59.35"/>
-        <TableColumn Name="Column4" Width="59.35"/>
-        <TableColumn Name="Column5" Width="59.35"/>
-        <TableRow Name="Row1" Height="17.01">
-          <TableCell Name="Cell1" Border.Lines="All" Font="Arial, 10pt"/>
-          <TableCell Name="Cell2" Border.Lines="All" Font="Arial, 10pt"/>
-          <TableCell Name="Cell3" Border.Lines="All" Font="Arial, 10pt"/>
-          <TableCell Name="Cell4" Border.Lines="All" Font="Arial, 10pt"/>
-          <TableCell Name="Cell5" Border.Lines="All" Font="Arial, 10pt"/>
-        </TableRow>
-        <TableRow Name="Row2" Height="17.01">
-          <TableCell Name="Cell6" Border.Lines="All" Font="Arial, 10pt"/>
-          <TableCell Name="Cell7" Border.Lines="All" Font="Arial, 10pt"/>
-          <TableCell Name="Cell8" Border.Lines="All" Font="Arial, 10pt"/>
-          <TableCell Name="Cell9" Border.Lines="All" Font="Arial, 10pt"/>
-          <TableCell Name="Cell10" Border.Lines="All" Font="Arial, 10pt"/>
-        </TableRow>
-        <TableRow Name="Row3" Height="17.01">
-          <TableCell Name="Cell11" Border.Lines="All" Font="Arial, 10pt"/>
-          <TableCell Name="Cell12" Border.Lines="All" Font="Arial, 10pt"/>
-          <TableCell Name="Cell13" Border.Lines="All" Font="Arial, 10pt"/>
-          <TableCell Name="Cell14" Border.Lines="All" Font="Arial, 10pt"/>
-          <TableCell Name="Cell15" Border.Lines="All" Font="Arial, 10pt"/>
-        </TableRow>
-        <TableRow Name="Row4" Height="17.01">
-          <TableCell Name="Cell16" Border.Lines="All" Font="Arial, 10pt"/>
-          <TableCell Name="Cell17" Border.Lines="All" Font="Arial, 10pt"/>
-          <TableCell Name="Cell18" Border.Lines="All" Font="Arial, 10pt"/>
-          <TableCell Name="Cell19" Border.Lines="All" Font="Arial, 10pt"/>
-          <TableCell Name="Cell20" Border.Lines="All" Font="Arial, 10pt"/>
-        </TableRow>
-        <TableRow Name="Row5" Height="17.01">
-          <TableCell Name="Cell21" Border.Lines="All" Font="Arial, 10pt"/>
-          <TableCell Name="Cell22" Border.Lines="All" Font="Arial, 10pt"/>
-          <TableCell Name="Cell23" Border.Lines="All" Font="Arial, 10pt"/>
-          <TableCell Name="Cell24" Border.Lines="All" Font="Arial, 10pt"/>
-          <TableCell Name="Cell25" Border.Lines="All" Font="Arial, 10pt"/>
-        </TableRow>
-      </TableObject>
-      <TextObject Name="Text16" Left="47.25" Top="160.65" Width="95.63" Height="18.9" Border.Lines="All" Text="MORNING" HorzAlign="Center" VertAlign="Center" Font="Arial, 6pt"/>
-      <TextObject Name="Text21" Left="143.64" Top="160.65" Width="95.63" Height="18.9" Border.Lines="All" Text="AFTERNOON" HorzAlign="Center" VertAlign="Center" Font="Arial, 6pt"/>
-      <TextObject Name="Text22" Left="238.9" Top="160.65" Width="95.63" Height="18.9" Border.Lines="All" Text="UNDERTIME" HorzAlign="Center" VertAlign="Center" Font="Arial, 6pt"/>
-      <TextObject Name="Text23" Left="47.63" Top="179.55" Width="47.63" Height="18.9" Border.Lines="All" Text="IN" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text24" Left="94.5" Top="179.55" Width="47.63" Height="18.9" Border.Lines="All" Text="OUT" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text25" Left="142.88" Top="179.55" Width="47.63" Height="18.9" Border.Lines="All" Text="IN" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text26" Left="191.27" Top="179.55" Width="47.63" Height="18.9" Border.Lines="All" Text="OUT" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text27" Left="238.14" Top="179.55" Width="48.01" Height="18.9" Border.Lines="All" Text="IN&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text28" Left="286.9" Top="179.55" Width="48.01" Height="18.9" Border.Lines="All" Text="OUT" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
-      <TableObject Name="Table2" Left="47.25" Top="198.45" Width="287.28" Height="462.88" Border.Lines="All">
-        <TableColumn Name="Column6" Width="47.88"/>
-        <TableColumn Name="Column7" Width="47.88"/>
-        <TableColumn Name="Column8" Width="47.88"/>
-        <TableColumn Name="Column9" Width="47.88"/>
-        <TableColumn Name="Column10" Width="47.88"/>
-        <TableColumn Name="Column11" Width="47.88"/>
-        <TableRow Name="Row6" Height="28.93">
-          <TableCell Name="Cell26" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell27" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell28" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell29" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell30" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell51" Border.Lines="All" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row7" Height="28.93">
-          <TableCell Name="Cell31" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell32" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell33" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell34" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell35" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell52" Border.Lines="All" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row8" Height="28.93">
-          <TableCell Name="Cell36" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell37" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell38" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell39" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell40" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell53" Border.Lines="All" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row9" Height="28.93">
-          <TableCell Name="Cell41" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell42" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell43" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell44" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell45" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell54" Border.Lines="All" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row10" Height="28.93">
-          <TableCell Name="Cell46" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell47" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell48" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell49" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell50" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell55" Border.Lines="All" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row11" Height="28.93">
-          <TableCell Name="Cell56" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell57" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell58" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell59" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell60" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell61" Border.Lines="All" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row12" Height="28.93">
-          <TableCell Name="Cell62" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell63" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell64" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell65" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell66" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell67" Border.Lines="All" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row13" Height="28.93">
-          <TableCell Name="Cell68" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell69" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell70" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell71" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell72" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell73" Border.Lines="All" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row14" Height="28.93">
-          <TableCell Name="Cell74" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell75" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell76" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell77" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell78" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell79" Border.Lines="All" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row15" Height="28.93">
-          <TableCell Name="Cell80" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell81" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell82" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell83" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell84" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell85" Border.Lines="All" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row16" Height="28.93">
-          <TableCell Name="Cell86" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell87" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell88" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell89" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell90" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell91" Border.Lines="All" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row17" Height="28.93">
-          <TableCell Name="Cell92" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell93" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell94" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell95" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell96" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell97" Border.Lines="All" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row18" Height="28.93">
-          <TableCell Name="Cell98" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell99" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell100" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell101" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell102" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell103" Border.Lines="All" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row19" Height="28.93">
-          <TableCell Name="Cell104" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell105" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell106" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell107" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell108" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell109" Border.Lines="All" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row20" Height="28.93">
-          <TableCell Name="Cell110" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell111" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell112" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell113" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell114" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell115" Border.Lines="All" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row21" Height="28.93">
-          <TableCell Name="Cell116" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell117" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell118" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell119" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell120" Border.Lines="All" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell121" Border.Lines="All" Font="Arial Black, 9pt"/>
-        </TableRow>
-      </TableObject>
-      <TextObject Name="Text32" Left="378" Top="160.65" Width="95.63" Height="18.9" Border.Lines="All" Text="MORNING" HorzAlign="Center" VertAlign="Center" Font="Arial, 6pt"/>
-      <TextObject Name="Text33" Left="473.63" Top="160.65" Width="95.63" Height="18.9" Border.Lines="All" Text="AFTERNOON" HorzAlign="Center" VertAlign="Center" Font="Arial, 6pt"/>
-      <TextObject Name="Text34" Left="569.27" Top="160.65" Width="96.01" Height="18.9" Border.Lines="All" Text="UNDERTIME" HorzAlign="Center" VertAlign="Center" Font="Arial, 6pt"/>
-      <TableObject Name="Table3" Left="378" Top="198.45" Width="287.28" Height="462.88" Border.Lines="All">
-        <TableColumn Name="Column12" Width="47.88"/>
-        <TableColumn Name="Column13" Width="47.88"/>
-        <TableColumn Name="Column14" Width="47.88"/>
-        <TableColumn Name="Column15" Width="47.88"/>
-        <TableColumn Name="Column16" Width="47.88"/>
-        <TableColumn Name="Column17" Width="47.88"/>
-        <TableRow Name="Row22" Height="28.93">
-          <TableCell Name="Cell122" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell123" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell124" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell125" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell126" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell127" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row23" Height="28.93">
-          <TableCell Name="Cell128" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell129" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell130" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell131" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell132" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell133" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row24" Height="28.93">
-          <TableCell Name="Cell134" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell135" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell136" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell137" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell138" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell139" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row25" Height="28.93">
-          <TableCell Name="Cell140" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell141" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell142" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell143" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell144" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell145" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row26" Height="28.93">
-          <TableCell Name="Cell146" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell147" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell148" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell149" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell150" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell151" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row27" Height="28.93">
-          <TableCell Name="Cell152" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell153" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell154" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell155" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell156" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell157" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row28" Height="28.93">
-          <TableCell Name="Cell158" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell159" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell160" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell161" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell162" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell163" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row29" Height="28.93">
-          <TableCell Name="Cell164" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell165" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell166" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell167" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell168" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell169" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row30" Height="28.93">
-          <TableCell Name="Cell170" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell171" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell172" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell173" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell174" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell175" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row31" Height="28.93">
-          <TableCell Name="Cell176" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell177" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell178" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell179" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell180" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell181" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row32" Height="28.93">
-          <TableCell Name="Cell182" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell183" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell184" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell185" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell186" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell187" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row33" Height="28.93">
-          <TableCell Name="Cell188" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell189" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell190" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell191" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell192" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell193" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row34" Height="28.93">
-          <TableCell Name="Cell194" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell195" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell196" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell197" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell198" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell199" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row35" Height="28.93">
-          <TableCell Name="Cell200" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell201" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell202" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell203" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell204" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell205" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row36" Height="28.93">
-          <TableCell Name="Cell206" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell207" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell208" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell209" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell210" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell211" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-        </TableRow>
-        <TableRow Name="Row37" Height="28.93">
-          <TableCell Name="Cell212" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell213" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell214" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell215" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell216" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-          <TableCell Name="Cell217" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
-        </TableRow>
-      </TableObject>
-      <TextObject Name="Text42" Left="28.35" Top="661.5" Width="306.18" Height="56.7" Border.Lines="All" Text="I CERTIFY on my honor that the above is true and correct report of the hours of work performed, record of which was made daily at the time of arrival and departure from office&#13;&#10;" Font="Arial, 6pt"/>
-      <TextObject Name="Text43" Left="359.1" Top="661.5" Width="306.18" Height="56.7" Border.Lines="All" Text="VERIFIED as to the prescribed office hours.&#13;&#10;" HorzAlign="Center" Font="Arial, 6pt"/>
-      <TextObject Name="Text44" Left="179.55" Top="680.4" Width="122.85" Height="18.9" Border.Lines="Bottom" HorzAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text45" Left="179.55" Top="699.3" Width="122.85" Height="18.9" Anchor="Bottom, Right" Text="EMPLOYEE'S SIGNATURE&#13;&#10;" HorzAlign="Center" Font="Arial, 6pt"/>
-      <TextObject Name="Text46" Left="510.3" Top="680.4" Width="122.85" Height="18.9" Border.Lines="Bottom" HorzAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text47" Left="510.3" Top="699.3" Width="122.85" Height="18.9" Text="In-Charge" HorzAlign="Center" Font="Arial, 6pt"/>
-      <TextObject Name="Text85" Left="28.35" Top="179.55" Width="18.9" Height="18.9" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text86" Left="28.35" Top="160.65" Width="18.9" Height="18.9" Border.Lines="All" Font="Arial, 10pt"/>
-      <TextObject Name="Text102" Left="359.1" Top="160.65" Width="18.9" Height="18.9" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 6pt"/>
-      <TextObject Name="Text103" Left="359.1" Top="179.55" Width="18.9" Height="18.9" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 6pt"/>
-      <TextObject Name="Text120" Left="359.1" Top="75.6" Width="9.45" Height="85.05" Border.Lines="All" HorzAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text122" Left="378" Top="179.55" Width="48.01" Height="18.9" Border.Lines="All" Text="IN" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text123" Left="473.26" Top="179.55" Width="48.01" Height="18.9" Border.Lines="All" Text="IN" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text124" Left="568.89" Top="179.55" Width="48.01" Height="18.9" Border.Lines="All" Text="IN" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text125" Left="425.25" Top="179.55" Width="48.01" Height="18.9" Border.Lines="All" Text="OUT" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text126" Left="521.64" Top="179.55" Width="48.01" Height="18.9" Border.Lines="All" Text="OUT" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text127" Left="616.9" Top="179.55" Width="48.38" Height="18.9" Border.Lines="All" Text="OUT" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text128" Left="28.35" Top="227.18" Width="18.9" Height="29.11" Border.Lines="All" Text="02" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text129" Left="28.35" Top="256.28" Width="18.9" Height="29.11" Border.Lines="All" Text="03&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text130" Left="28.35" Top="285.01" Width="18.9" Height="29.11" Border.Lines="All" Text="04" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text131" Left="28.35" Top="314.12" Width="18.9" Height="29.11" Border.Lines="All" Text="05" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text132" Left="28.35" Top="342.85" Width="18.9" Height="29.11" Border.Lines="All" Text="06" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text133" Left="28.35" Top="371.95" Width="18.9" Height="29.11" Border.Lines="All" Text="07" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text134" Left="28.35" Top="400.68" Width="18.9" Height="29.11" Border.Lines="All" Text="08" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text135" Left="28.35" Top="429.79" Width="18.9" Height="29.11" Border.Lines="All" Text="09" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text136" Left="28.34" Top="459.56" Width="18.91" Height="28.06" Border.Lines="All" Text="10" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text137" Left="28.35" Top="487.62" Width="18.9" Height="29.11" Border.Lines="All" Text="11" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text138" Left="28.35" Top="516.35" Width="18.9" Height="29.11" Border.Lines="All" Text="12" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text139" Left="28.35" Top="545.45" Width="18.9" Height="29.11" Border.Lines="All" Text="13" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text140" Left="28.35" Top="574.56" Width="18.9" Height="29.11" Border.Lines="All" Text="14" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text141" Left="28.35" Top="603.29" Width="18.9" Height="29.11" Border.Lines="All" Text="15" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text142" Left="28.35" Top="632.39" Width="18.9" Height="29.11" Border.Lines="All" Text="&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text143" Left="28.35" Top="198.45" Width="18.9" Height="29.11" Border.Lines="All" Text="01" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text144" Left="359.1" Top="227.18" Width="18.9" Height="29.11" Border.Lines="All" Text="17&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text145" Left="359.1" Top="256.28" Width="18.9" Height="29.11" Border.Lines="All" Text="18" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text146" Left="359.1" Top="285.01" Width="18.9" Height="29.11" Border.Lines="All" Text="19" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text147" Left="359.1" Top="314.12" Width="18.9" Height="29.11" Border.Lines="All" Text="20" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text148" Left="359.1" Top="342.85" Width="18.9" Height="29.11" Border.Lines="All" Text="21" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text149" Left="359.1" Top="371.95" Width="18.9" Height="29.11" Border.Lines="All" Text="22" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text150" Left="359.1" Top="400.68" Width="18.9" Height="29.11" Border.Lines="All" Text="23" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text151" Left="359.1" Top="429.79" Width="18.9" Height="29.11" Border.Lines="All" Text="24" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text152" Left="359.1" Top="458.51" Width="18.9" Height="29.11" Border.Lines="All" Text="25" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text153" Left="359.1" Top="487.62" Width="18.9" Height="29.11" Border.Lines="All" Text="26" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text154" Left="359.1" Top="516.35" Width="18.9" Height="29.11" Border.Lines="All" Text="27" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text155" Left="359.1" Top="545.45" Width="18.9" Height="29.11" Border.Lines="All" Text="28" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text156" Left="359.1" Top="574.56" Width="18.9" Height="29.11" Border.Lines="All" Text="29" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text157" Left="359.1" Top="603.29" Width="18.9" Height="29.11" Border.Lines="All" Text="30" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text158" Left="359.1" Top="632.39" Width="18.9" Height="29.11" Border.Lines="All" Text="31" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text159" Left="359.1" Top="198.45" Width="18.9" Height="29.11" Border.Lines="All" Text="16" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
-      <TextObject Name="Text160" Left="47.25" Top="113.4" Width="94.5" Height="18.9" Text="MONTH :" Font="Arial, 8pt"/>
-      <TextObject Name="Text161" Left="47.25" Top="132.3" Width="94.5" Height="18.9" Text="YEAR :" Font="Arial, 8pt"/>
-    </DataBand>
-  </ReportPage>
+		// get a reference to the data source
+		DataSourceBase ds = Report.GetDataSource(&quot;TimeAttendance_record&quot;);
+
+		int index = 1;
+
+
+		// initialize it
+		ds.Init();
+
+
+		while (ds.HasMoreRows)
+		{
+		string name = ((String)Report.GetColumnValue(&quot;TimeAttendance_record.name&quot;));
+		string department =((String)Report.GetColumnValue(&quot;TimeAttendance_record.department&quot;)) ;
+		DateTime date =((DateTime)Report.GetColumnValue(&quot;TimeAttendance_record.date&quot;));
+		string time_in =((String)Report.GetColumnValue(&quot;TimeAttendance_record.time_in&quot;));
+		string time_out = ((String)Report.GetColumnValue(&quot;TimeAttendance_record.time_out&quot;));
+		string tardiness =((String)Report.GetColumnValue(&quot;TimeAttendance_record.tardiness&quot;));
+		string undertime =((String)Report.GetColumnValue(&quot;TimeAttendance_record.undertime&quot;));
+		string schedule =((String)Report.GetColumnValue(&quot;TimeAttendance_record.schedule&quot;));
+
+		string first_time_in =((String)Report.GetColumnValue(&quot;TimeAttendance_record.first_time_in&quot;));
+		string last_time_in =((String)Report.GetColumnValue(&quot;TimeAttendance_record.last_time_in&quot;));
+		string first_time_out = ((String)Report.GetColumnValue(&quot;TimeAttendance_record.first_time_out&quot;));
+		string last_time_out = ((String)Report.GetColumnValue(&quot;TimeAttendance_record.last_time_out&quot;));
+
+		int day = Day(date);
+
+
+
+		int indexOfColon = time_in.IndexOf(':');
+		int indexOfColonOut = time_out.IndexOf(':');
+
+
+
+		int hour = 0;
+
+		int hour_timeout = 0;
+
+
+
+
+		if (indexOfColon != -1)
+		{
+		// Extract the substring before the first colon
+		string result = time_in.Substring(0, indexOfColon);
+		hour = Convert.ToInt32(result);
+
+
+		}
+
+
+		if (indexOfColonOut != -1)
+		{
+		// Extract the substring before the first colon
+		string result_timeout = time_out.Substring(0, indexOfColonOut);
+		hour_timeout = Convert.ToInt32(result_timeout);
+
+
+		}
+
+
+		if( day == 01){
+
+		Cell30.Text = tardiness;
+		Cell51.Text = undertime;
+
+
+
+		if(hour &lt; 12 ){
+		Cell26.Text =time_in;
+		}else{
+		Cell28.Text =time_in;
+		}
+
+		if(hour_timeout &lt; 12 ){
+		Cell27.Text = time_out;
+		}else{
+		Cell29.Text = time_out;
+		}
+
+		Cell26.Text = first_time_in;
+		Cell28.Text = last_time_in;
+
+		Cell27.Text = first_time_out;
+		Cell29.Text = last_time_out;
+
+
+
+		}else if( day == 02){
+
+		Cell35.Text = tardiness;
+		Cell52.Text = undertime;
+
+
+		if(hour &lt; 12 ){
+
+		Cell31.Text = time_in;
+		}else{
+		Cell33.Text = time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+
+		Cell32.Text = time_out;
+		}else{
+
+		Cell34.Text = time_out;
+		}
+
+		Cell31.Text = first_time_in;
+		Cell33.Text = last_time_in;
+
+		Cell32.Text = first_time_out;
+		Cell34.Text = last_time_out;
+
+
+		}else if ( day == 03){
+
+
+		Cell40.Text = tardiness;
+		Cell53.Text = undertime;
+
+
+		if(hour != 0){
+		if(hour &lt; 12 ){
+		Cell36.Text = time_in;
+		}else{
+		Cell38.Text =time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell37.Text = time_out;
+		}else{
+		Cell39.Text = time_out;
+		}
+		}
+
+
+		Cell36.Text = first_time_in;
+		Cell38.Text = last_time_in;
+
+		Cell37.Text = first_time_out;
+		Cell39.Text = last_time_out;
+
+
+		}else if ( day == 04){
+
+		Cell45.Text = tardiness;
+		Cell54.Text = undertime;
+		if(hour &lt; 12 ){
+		Cell41.Text = time_in;
+		}else{
+		Cell43.Text =time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell42.Text = time_out;
+		}else{
+		Cell44.Text = time_out;
+		}
+
+		Cell41.Text = first_time_in;
+		Cell43.Text = last_time_in;
+
+		Cell42.Text = first_time_out;
+		Cell44.Text = last_time_out;
+
+		}
+		else if ( day == 05){
+
+		Cell50.Text = tardiness;
+		Cell55.Text = undertime;
+		if(hour &lt; 12 ){
+		Cell46.Text = time_in;
+		}else{
+		Cell48.Text =time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell47.Text = time_out;
+		}else{
+		Cell49.Text = time_out;
+		}
+
+		Cell46.Text = first_time_in;
+		Cell48.Text = last_time_in;
+
+		Cell47.Text = first_time_out;
+		Cell49.Text = last_time_out;
+
+		}
+		else if ( day == 06){
+		Cell60.Text = tardiness;
+		Cell61.Text = undertime;
+
+		if(hour &lt; 12 ){
+		Cell56.Text = time_in;
+		}else{
+		Cell58.Text =time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell57.Text = time_out;
+		}else{
+		Cell59.Text = time_out;
+		}
+
+		Cell56.Text = first_time_in;
+		Cell58.Text = last_time_in;
+
+		Cell57.Text = first_time_out;
+		Cell59.Text = last_time_out;
+		}
+		else if ( day == 07){
+		Cell66.Text = tardiness;
+		Cell67.Text = undertime;
+
+		if(hour &lt; 12 ){
+		Cell62.Text = time_in;
+		}else{
+		Cell64.Text = time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell63.Text = time_out;
+		}else{
+		Cell65.Text = time_out;
+		}
+		Cell62.Text = first_time_in;
+		Cell64.Text = last_time_in;
+
+		Cell63.Text = first_time_out;
+		Cell65.Text = last_time_out;
+
+		}
+		else if ( day == 08){
+		Cell72.Text = tardiness;
+		Cell73.Text = undertime;
+
+		if(hour &lt; 12 ){
+		Cell68.Text = time_in;
+		}else{
+		Cell70.Text = time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell69.Text = time_out;
+		}else{
+		Cell71.Text = time_out;
+		}
+
+		Cell68.Text = first_time_in;
+		Cell70.Text = last_time_in;
+
+		Cell69.Text = first_time_out;
+		Cell71.Text = last_time_out;
+
+		}
+		else if ( day == 09){
+		Cell78.Text = tardiness;
+		Cell79.Text = undertime;
+
+		if(hour &lt; 12 ){
+		Cell74.Text = time_in;
+		}else{
+		Cell76.Text = time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell75.Text = time_out;
+		}else{
+		Cell77.Text = time_out;
+		}
+
+		Cell74.Text = first_time_in;
+		Cell76.Text = last_time_in;
+
+		Cell75.Text = first_time_out;
+		Cell77.Text = last_time_out;
+		}
+		else if ( day == 10){
+		Cell84.Text = tardiness;
+		Cell85.Text = undertime;
+
+		if(hour &lt; 12 ){
+		Cell80.Text = time_in;
+		}else{
+		Cell82.Text = time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell81.Text = time_out;
+		}else{
+		Cell83.Text = time_out;
+		}
+
+
+		Cell80.Text = first_time_in;
+		Cell82.Text = last_time_in;
+
+		Cell81.Text = first_time_out;
+		Cell83.Text = last_time_out;
+		}
+		else if ( day == 11){
+		Cell90.Text = tardiness;
+		Cell91.Text = undertime;
+
+		if(hour &lt; 12 ){
+		Cell86.Text =time_in;
+		}else{
+		Cell88.Text =time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell87.Text = time_out;
+		}else{
+		Cell89.Text = time_out;
+		}
+
+		Cell86.Text = first_time_in;
+		Cell88.Text = last_time_in;
+
+		Cell87.Text = first_time_out;
+		Cell89.Text = last_time_out;
+
+		}
+		else if ( day == 12){
+		Cell96.Text = tardiness;
+		Cell97.Text = undertime;
+
+		if(hour &lt; 12 ){
+		Cell92.Text = time_in;
+		}else{
+		Cell94.Text = time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell93.Text = time_out;
+		}else{
+		Cell95.Text = time_out;
+		}
+
+
+		Cell92.Text = first_time_in;
+		Cell94.Text = last_time_in;
+
+		Cell93.Text = first_time_out;
+		Cell95.Text = last_time_out;
+
+		}
+		else if ( day == 13){
+		Cell102.Text = tardiness;
+		Cell103.Text = undertime;
+
+		if(hour &lt; 12 ){
+		Cell98.Text = time_in;
+		}else{
+		Cell100.Text = time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell99.Text = time_out;
+		}else{
+		Cell101.Text = time_out;
+		}
+
+
+		Cell98.Text = first_time_in;
+		Cell100.Text = last_time_in;
+
+		Cell99.Text = first_time_out;
+		Cell101.Text = last_time_out;
+
+		}
+		else if ( day == 14){
+		Cell108.Text = tardiness;
+		Cell109.Text = undertime;
+
+		if(hour &lt; 12 ){
+		Cell104.Text = time_in;
+		}else{
+		Cell106.Text = time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell105.Text = time_out;
+		}else{
+		Cell107.Text = time_out;
+		}
+
+		Cell104.Text = first_time_in;
+		Cell106.Text = last_time_in;
+
+		Cell105.Text = first_time_out;
+		Cell107.Text = last_time_out;
+
+		}
+		else if ( day == 15){
+		Cell114.Text = tardiness;
+		Cell115.Text = undertime;
+
+		if(hour &lt; 12 ){
+		Cell110.Text = time_in;
+		}else{
+		Cell112.Text = time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell111.Text = time_out;
+		}else{
+		Cell113.Text = time_out;
+		}
+
+		Cell110.Text = first_time_in;
+		Cell112.Text = last_time_in;
+
+		Cell111.Text = first_time_out;
+		Cell113.Text = last_time_out;
+
+		}
+
+		else if ( day == 16){
+		Cell126.Text = tardiness;
+		Cell127.Text = undertime;
+
+		if(hour &lt; 12 ){
+		Cell122.Text = time_in;
+		}else{
+		Cell124.Text = time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell123.Text = time_out;
+		}else{
+		Cell125.Text = time_out;
+		}
+
+		Cell122.Text = first_time_in;
+		Cell124.Text = last_time_in;
+
+		Cell123.Text = first_time_out;
+		Cell125.Text = last_time_out;
+		}
+		else if (day == 17){
+		Cell132.Text = tardiness;
+		Cell133.Text = undertime;
+
+		if(hour &lt; 12 ){
+		Cell128.Text = time_in;
+		}else{
+		Cell130.Text = time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell129.Text = time_out;
+		}else{
+		Cell131.Text = time_out;
+		}
+
+		Cell128.Text = first_time_in;
+		Cell130.Text = last_time_in;
+
+		Cell129.Text = first_time_out;
+		Cell131.Text = last_time_out;
+		}
+		else if ( day == 18){
+		Cell138.Text = tardiness;
+		Cell139.Text = undertime;
+
+		if(hour &lt; 12 ){
+		Cell134.Text = time_in;
+		}else{
+		Cell136.Text = time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell135.Text = time_out;
+		}else{
+		Cell137.Text = time_out;
+		}
+
+		Cell134.Text = first_time_in;
+		Cell136.Text = last_time_in;
+
+		Cell135.Text = first_time_out;
+		Cell137.Text = last_time_out;
+		}
+		else if ( day == 19){
+		Cell144.Text = tardiness;
+		Cell145.Text = undertime;
+
+		if(hour &lt; 12 ){
+		Cell140.Text = time_in;
+		}else{
+		Cell142.Text = time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell141.Text = time_out;
+		}else{
+		Cell143.Text = time_out;
+		}
+
+		Cell140.Text = first_time_in;
+		Cell142.Text = last_time_in;
+
+		Cell141.Text = first_time_out;
+		Cell143.Text = last_time_out;
+		}
+		else if ( day == 20){
+		Cell150.Text = tardiness;
+		Cell151.Text = undertime;
+
+		if(hour &lt; 12 ){
+		Cell146.Text = time_in;
+		}else{
+		Cell148.Text = time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell147.Text = time_out;
+		}else{
+		Cell149.Text = time_out;
+		}
+
+		Cell146.Text = first_time_in;
+		Cell148.Text = last_time_in;
+
+		Cell147.Text = first_time_out;
+		Cell149.Text = last_time_out;
+		}
+		else if ( day == 21){
+		Cell156.Text = tardiness;
+		Cell157.Text = undertime;
+
+		if(hour &lt; 12 ){
+		Cell152.Text = time_in;
+		}else{
+		Cell154.Text = time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell153.Text = time_out;
+		}else{
+		Cell155.Text = time_out;
+		}
+
+		Cell152.Text = first_time_in;
+		Cell154.Text = last_time_in;
+
+		Cell153.Text = first_time_out;
+		Cell155.Text = last_time_out;
+		}
+		else if ( day == 22){
+		Cell162.Text = tardiness;
+		Cell163.Text = undertime;
+
+		if(hour &lt; 12 ){
+		Cell158.Text = time_in;
+		}else{
+		Cell160.Text = time_in;
+		}
+
+		if(hour_timeout &lt; 12 ){
+		Cell159.Text = time_out;
+		}else{
+		Cell161.Text = time_out;
+		}
+
+		Cell158.Text = first_time_in;
+		Cell160.Text = last_time_in;
+
+		Cell159.Text = first_time_out;
+		Cell161.Text = last_time_out;
+		}
+		else if ( day == 23){
+		Cell168.Text = tardiness;
+		Cell169.Text = undertime;
+
+		if(hour &lt; 12 ){
+		Cell164.Text = time_in;
+		}else{
+		Cell166.Text = time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell165.Text = time_out;
+		}else{
+		Cell167.Text = time_out;
+		}
+
+		Cell164.Text = first_time_in;
+		Cell166.Text = last_time_in;
+
+		Cell165.Text = first_time_out;
+		Cell167.Text = last_time_out;
+		}
+		else if ( day == 24){
+		Cell174.Text = tardiness;
+		Cell175.Text = undertime;
+
+		if(hour &lt; 12 ){
+		Cell170.Text = time_in;
+		}else{
+		Cell172.Text = time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell171.Text = time_out;
+		}else{
+		Cell173.Text = time_out;
+		}
+
+		Cell170.Text = first_time_in;
+		Cell172.Text = last_time_in;
+
+		Cell171.Text = first_time_out;
+		Cell173.Text = last_time_out;
+		}
+		else if ( day == 25){
+		Cell180.Text = tardiness;
+		Cell181.Text = undertime;
+
+		if(hour &lt; 12 ){
+		Cell176.Text = time_in;
+		}else{
+		Cell178.Text = time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell177.Text = time_out;
+		}else{
+		Cell179.Text = time_out;
+		}
+
+
+		Cell176.Text = first_time_in;
+		Cell178.Text = last_time_in;
+
+		Cell177.Text = first_time_out;
+		Cell179.Text = last_time_out;
+		}
+		else if ( day == 26){
+		Cell186.Text = tardiness;
+		Cell187.Text = undertime;
+
+		if(hour &lt; 12 ){
+		Cell182.Text = time_in;
+		}else{
+		Cell184.Text = time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell183.Text = time_out;
+		}else{
+		Cell185.Text = time_out;
+		}
+
+		Cell182.Text = first_time_in;
+		Cell184.Text = last_time_in;
+
+		Cell183.Text = first_time_out;
+		Cell185.Text = last_time_out;
+		}
+		else if ( day == 27){
+		Cell192.Text = tardiness;
+		Cell193.Text = undertime;
+
+		if(hour &lt; 12 ){
+		Cell188.Text = time_in;
+		}else{
+		Cell190.Text = time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell189.Text = time_out;
+		}else{
+		Cell191.Text = time_out;
+		}
+
+
+		Cell188.Text = first_time_in;
+		Cell190.Text = last_time_in;
+
+		Cell189.Text = first_time_out;
+		Cell191.Text = last_time_out;
+		}
+		else if ( day == 28){
+		Cell198.Text = tardiness;
+		Cell199.Text = undertime;
+
+		if(hour &lt; 12 ){
+		Cell194.Text = time_in;
+		}else{
+		Cell196.Text = time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell195.Text = time_out;
+		}else{
+		Cell197.Text = time_out;
+		}
+
+		Cell194.Text = first_time_in;
+		Cell196.Text = last_time_in;
+
+		Cell195.Text = first_time_out;
+		Cell197.Text = last_time_out;
+		}
+		else if ( day == 29){
+		Cell204.Text = tardiness;
+		Cell205.Text = undertime;
+
+		if(hour &lt; 12 ){
+		Cell200.Text = time_in;
+		}else{
+		Cell202.Text = time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell201.Text = time_out;
+		}else{
+		Cell203.Text = time_out;
+		}
+
+		Cell200.Text = first_time_in;
+		Cell202.Text = last_time_in;
+
+		Cell201.Text = first_time_out;
+		Cell203.Text = last_time_out;
+		}
+		else if ( day == 30){
+		Cell210.Text = tardiness;
+		Cell211.Text = undertime;
+
+		if(hour &lt; 12 ){
+		Cell206.Text = time_in;
+		}else{
+		Cell208.Text = time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell207.Text = time_out;
+		}else{
+		Cell209.Text = time_out;
+		}
+
+		Cell206.Text = first_time_in;
+		Cell208.Text = last_time_in;
+
+		Cell207.Text = first_time_out;
+		Cell209.Text = last_time_out;
+		}
+		else if ( day == 31){
+		Cell216.Text = tardiness;
+		Cell217.Text = undertime;
+
+		if(hour &lt; 12 ){
+		Cell212.Text = time_in;
+		}else{
+		Cell214.Text = time_in;
+		}
+		if(hour_timeout &lt; 12 ){
+		Cell213.Text = time_out;
+		}else{
+		Cell215.Text = time_out;
+		}
+
+		Cell212.Text = first_time_in;
+		Cell214.Text = last_time_in;
+
+		Cell213.Text = first_time_out;
+		Cell215.Text = last_time_out;
+		}
+		if (index == 1 ){
+		Text2.Text += name;
+		Text12.Text += name;
+		Text3.Text += department;
+		Text15.Text += department;
+		Text10.Text += schedule;
+		Text7.Text +=  ((String)Report.GetColumnValue(&quot;TimeAttendance_record.monthName&quot;));
+		Text8.Text +=   ((String)Report.GetColumnValue(&quot;TimeAttendance_record.year&quot;));
+
+		}
+
+
+
+
+
+
+
+
+		index++;
+
+
+		// go next data row
+		ds.Next();
+
+		}
+
+
+
+		}
+
+		}
+		}
+	</ScriptText>
+	<Dictionary>
+		<BusinessObjectDataSource Name="TimeAttendance_record" ReferenceName="TimeAttendance_ref" DataType="System.Int32" Enabled="true">
+			<Column Name="name" DataType="System.String"/>
+			<Column Name="department" DataType="System.String"/>
+			<Column Name="schedule" DataType="System.String"/>
+			<Column Name="time_in" DataType="System.String"/>
+			<Column Name="time_out" DataType="System.String"/>
+			<Column Name="tardiness" DataType="System.String"/>
+			<Column Name="undertime" DataType="System.String"/>
+			<Column Name="date" DataType="System.String"/>
+			<Column Name="year" DataType="System.String"/>
+			<Column Name="monthName" DataType="System.String"/>
+			<Column Name="first_time_in" DataType="System.String"/>
+			<Column Name="last_time_in" DataType="System.String"/>
+			<Column Name="first_time_out" DataType="System.String"/>
+			<Column Name="last_time_out" DataType="System.String"/>
+		</BusinessObjectDataSource>
+	</Dictionary>
+	<ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
+		<DataBand Name="Data1" Width="718.2" Height="831.6">
+			<TextObject Name="Text1" Left="28.35" Top="37.8" Width="85.05" Height="37.8" Border.Lines="All" Text="NO." Font="Arial, 10pt"/>
+			<TextObject Name="Text2" Left="113.4" Top="37.8" Width="221.13" Height="37.8" Border.Lines="All" Text="NAME :" Font="Arial, 10pt, style=Bold"/>
+			<TextObject Name="Text3" Left="28.35" Top="75.6" Width="306.18" Height="18.9" Border.Lines="All" Text="DIV./DEPT. " Font="Arial, 10pt"/>
+			<TextObject Name="Text4" Left="56.7" Width="170.1" Height="18.9" Text="PGH Form No. Q-073002" Font="Arial, 8pt"/>
+			<TextObject Name="Text5" Left="28.35" Width="306.18" Height="37.8" Border.Lines="All" Text="UP-PHILIPPINE GENERAL HOSPITAL&#13;&#10;" HorzAlign="Center" VertAlign="Bottom" Font="Arial, 10pt"/>
+			<TextObject Name="Text6" Left="28.35" Top="94.5" Width="306.18" Height="66.15" Border.Lines="All" Text="PGH TIME CARD&#13;&#10;" HorzAlign="Center" Font="Arial, 10pt"/>
+			<TextObject Name="Text7" Left="96.98" Top="101.14" Width="264.6" Height="28.35" Text="[TimeAttendance_record.monthName]&#13;&#10;" Font="Arial, 8pt"/>
+			<TextObject Name="Text8" Left="94.5" Top="132.3" Width="170.1" Height="18.9" Text=" [TimeAttendance_record.year]" Font="Arial, 8pt"/>
+			<TextObject Name="Text9" Left="189" Top="113.4" Width="189" Height="18.9" Text="OFFICIAL: " Font="Arial, 8pt"/>
+			<TextObject Name="Text10" Left="189" Top="132.3" Width="189" Height="18.9" Text="TIME: " Font="Arial, 8pt"/>
+			<TextObject Name="Text11" Left="359.1" Width="85.05" Height="37.8" Border.Lines="All" Text="NO." Font="Arial, 10pt"/>
+			<TextObject Name="Text12" Left="444.15" Width="221.13" Height="37.8" Border.Lines="All" Text="NAME : " Font="Arial, 10pt, style=Bold"/>
+			<TextObject Name="Text13" Left="359.1" Top="37.8" Width="132.3" Height="18.9" Border.Lines="All" Text="SEC." Font="Arial, 10pt"/>
+			<TextObject Name="Text14" Left="359.1" Top="56.7" Width="132.3" Height="18.9" Border.Lines="All" Text="DEPT. " Font="Arial, 10pt"/>
+			<TextObject Name="Text15" Left="491.4" Top="37.8" Width="173.88" Height="37.8" Border.Lines="All" Font="Arial, 10pt"/>
+			<TableObject Name="Table1" Left="368.55" Top="75.6" Width="296.75" Height="85.05" Border.Lines="All">
+				<TableColumn Name="Column1" Width="59.35"/>
+				<TableColumn Name="Column2" Width="59.35"/>
+				<TableColumn Name="Column3" Width="59.35"/>
+				<TableColumn Name="Column4" Width="59.35"/>
+				<TableColumn Name="Column5" Width="59.35"/>
+				<TableRow Name="Row1" Height="17.01">
+					<TableCell Name="Cell1" Border.Lines="All" Font="Arial, 10pt"/>
+					<TableCell Name="Cell2" Border.Lines="All" Font="Arial, 10pt"/>
+					<TableCell Name="Cell3" Border.Lines="All" Font="Arial, 10pt"/>
+					<TableCell Name="Cell4" Border.Lines="All" Font="Arial, 10pt"/>
+					<TableCell Name="Cell5" Border.Lines="All" Font="Arial, 10pt"/>
+				</TableRow>
+				<TableRow Name="Row2" Height="17.01">
+					<TableCell Name="Cell6" Border.Lines="All" Font="Arial, 10pt"/>
+					<TableCell Name="Cell7" Border.Lines="All" Font="Arial, 10pt"/>
+					<TableCell Name="Cell8" Border.Lines="All" Font="Arial, 10pt"/>
+					<TableCell Name="Cell9" Border.Lines="All" Font="Arial, 10pt"/>
+					<TableCell Name="Cell10" Border.Lines="All" Font="Arial, 10pt"/>
+				</TableRow>
+				<TableRow Name="Row3" Height="17.01">
+					<TableCell Name="Cell11" Border.Lines="All" Font="Arial, 10pt"/>
+					<TableCell Name="Cell12" Border.Lines="All" Font="Arial, 10pt"/>
+					<TableCell Name="Cell13" Border.Lines="All" Font="Arial, 10pt"/>
+					<TableCell Name="Cell14" Border.Lines="All" Font="Arial, 10pt"/>
+					<TableCell Name="Cell15" Border.Lines="All" Font="Arial, 10pt"/>
+				</TableRow>
+				<TableRow Name="Row4" Height="17.01">
+					<TableCell Name="Cell16" Border.Lines="All" Font="Arial, 10pt"/>
+					<TableCell Name="Cell17" Border.Lines="All" Font="Arial, 10pt"/>
+					<TableCell Name="Cell18" Border.Lines="All" Font="Arial, 10pt"/>
+					<TableCell Name="Cell19" Border.Lines="All" Font="Arial, 10pt"/>
+					<TableCell Name="Cell20" Border.Lines="All" Font="Arial, 10pt"/>
+				</TableRow>
+				<TableRow Name="Row5" Height="17.01">
+					<TableCell Name="Cell21" Border.Lines="All" Font="Arial, 10pt"/>
+					<TableCell Name="Cell22" Border.Lines="All" Font="Arial, 10pt"/>
+					<TableCell Name="Cell23" Border.Lines="All" Font="Arial, 10pt"/>
+					<TableCell Name="Cell24" Border.Lines="All" Font="Arial, 10pt"/>
+					<TableCell Name="Cell25" Border.Lines="All" Font="Arial, 10pt"/>
+				</TableRow>
+			</TableObject>
+			<TextObject Name="Text16" Left="47.25" Top="160.65" Width="95.63" Height="18.9" Border.Lines="All" Text="MORNING" HorzAlign="Center" VertAlign="Center" Font="Arial, 6pt"/>
+			<TextObject Name="Text21" Left="143.64" Top="160.65" Width="95.63" Height="18.9" Border.Lines="All" Text="AFTERNOON" HorzAlign="Center" VertAlign="Center" Font="Arial, 6pt"/>
+			<TextObject Name="Text22" Left="238.9" Top="160.65" Width="95.63" Height="18.9" Border.Lines="All" Text="UNDERTIME" HorzAlign="Center" VertAlign="Center" Font="Arial, 6pt"/>
+			<TextObject Name="Text23" Left="47.63" Top="179.55" Width="47.63" Height="18.9" Border.Lines="All" Text="IN" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+			<TextObject Name="Text24" Left="94.5" Top="179.55" Width="47.63" Height="18.9" Border.Lines="All" Text="OUT" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+			<TextObject Name="Text25" Left="142.88" Top="179.55" Width="47.63" Height="18.9" Border.Lines="All" Text="IN" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+			<TextObject Name="Text26" Left="191.27" Top="179.55" Width="47.63" Height="18.9" Border.Lines="All" Text="OUT" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+			<TextObject Name="Text27" Left="238.14" Top="179.55" Width="48.01" Height="18.9" Border.Lines="All" Text="IN&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+			<TextObject Name="Text28" Left="286.9" Top="179.55" Width="48.01" Height="18.9" Border.Lines="All" Text="OUT" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+			<TableObject Name="Table2" Left="47.25" Top="198.45" Width="287.28" Height="462.88" Border.Lines="All">
+				<TableColumn Name="Column6" Width="47.88"/>
+				<TableColumn Name="Column7" Width="47.88"/>
+				<TableColumn Name="Column8" Width="47.88"/>
+				<TableColumn Name="Column9" Width="47.88"/>
+				<TableColumn Name="Column10" Width="47.88"/>
+				<TableColumn Name="Column11" Width="47.88"/>
+				<TableRow Name="Row6" Height="28.93">
+					<TableCell Name="Cell26" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell27" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell28" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell29" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell30" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell51" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row7" Height="28.93">
+					<TableCell Name="Cell31" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell32" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell33" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell34" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell35" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell52" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row8" Height="28.93">
+					<TableCell Name="Cell36" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell37" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell38" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell39" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell40" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell53" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row9" Height="28.93">
+					<TableCell Name="Cell41" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell42" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell43" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell44" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell45" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell54" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row10" Height="28.93">
+					<TableCell Name="Cell46" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell47" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell48" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell49" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell50" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell55" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row11" Height="28.93">
+					<TableCell Name="Cell56" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell57" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell58" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell59" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell60" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell61" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row12" Height="28.93">
+					<TableCell Name="Cell62" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell63" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell64" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell65" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell66" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell67" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row13" Height="28.93">
+					<TableCell Name="Cell68" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell69" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell70" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell71" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell72" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell73" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row14" Height="28.93">
+					<TableCell Name="Cell74" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell75" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell76" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell77" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell78" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell79" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row15" Height="28.93">
+					<TableCell Name="Cell80" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell81" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell82" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell83" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell84" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell85" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row16" Height="28.93">
+					<TableCell Name="Cell86" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell87" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell88" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell89" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell90" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell91" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row17" Height="28.93">
+					<TableCell Name="Cell92" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell93" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell94" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell95" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell96" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell97" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row18" Height="28.93">
+					<TableCell Name="Cell98" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell99" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell100" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell101" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell102" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell103" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row19" Height="28.93">
+					<TableCell Name="Cell104" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell105" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell106" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell107" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell108" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell109" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row20" Height="28.93">
+					<TableCell Name="Cell110" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell111" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell112" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell113" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell114" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell115" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row21" Height="28.93">
+					<TableCell Name="Cell116" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell117" Border.Lines="All" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell118" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell119" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell120" Border.Lines="All" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell121" Border.Lines="All" Font="Arial Black, 9pt"/>
+				</TableRow>
+			</TableObject>
+			<TextObject Name="Text32" Left="378" Top="160.65" Width="95.63" Height="18.9" Border.Lines="All" Text="MORNING" HorzAlign="Center" VertAlign="Center" Font="Arial, 6pt"/>
+			<TextObject Name="Text33" Left="473.63" Top="160.65" Width="95.63" Height="18.9" Border.Lines="All" Text="AFTERNOON" HorzAlign="Center" VertAlign="Center" Font="Arial, 6pt"/>
+			<TextObject Name="Text34" Left="569.27" Top="160.65" Width="96.01" Height="18.9" Border.Lines="All" Text="UNDERTIME" HorzAlign="Center" VertAlign="Center" Font="Arial, 6pt"/>
+			<TableObject Name="Table3" Left="378" Top="198.45" Width="287.28" Height="462.88" Border.Lines="All">
+				<TableColumn Name="Column12" Width="47.88"/>
+				<TableColumn Name="Column13" Width="47.88"/>
+				<TableColumn Name="Column14" Width="47.88"/>
+				<TableColumn Name="Column15" Width="47.88"/>
+				<TableColumn Name="Column16" Width="47.88"/>
+				<TableColumn Name="Column17" Width="47.88"/>
+				<TableRow Name="Row22" Height="28.93">
+					<TableCell Name="Cell122" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell123" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell124" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell125" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell126" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell127" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row23" Height="28.93">
+					<TableCell Name="Cell128" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell129" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell130" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell131" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell132" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell133" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row24" Height="28.93">
+					<TableCell Name="Cell134" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell135" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell136" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell137" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell138" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell139" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row25" Height="28.93">
+					<TableCell Name="Cell140" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell141" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell142" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell143" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell144" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell145" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row26" Height="28.93">
+					<TableCell Name="Cell146" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell147" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell148" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell149" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell150" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell151" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row27" Height="28.93">
+					<TableCell Name="Cell152" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell153" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell154" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell155" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell156" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell157" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row28" Height="28.93">
+					<TableCell Name="Cell158" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell159" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell160" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell161" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell162" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell163" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row29" Height="28.93">
+					<TableCell Name="Cell164" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell165" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell166" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell167" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell168" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell169" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row30" Height="28.93">
+					<TableCell Name="Cell170" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell171" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell172" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell173" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell174" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell175" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row31" Height="28.93">
+					<TableCell Name="Cell176" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell177" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell178" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell179" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell180" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell181" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row32" Height="28.93">
+					<TableCell Name="Cell182" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell183" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell184" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell185" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell186" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell187" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row33" Height="28.93">
+					<TableCell Name="Cell188" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell189" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell190" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell191" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell192" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell193" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row34" Height="28.93">
+					<TableCell Name="Cell194" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell195" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell196" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell197" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell198" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell199" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row35" Height="28.93">
+					<TableCell Name="Cell200" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell201" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell202" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell203" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell204" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell205" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row36" Height="28.93">
+					<TableCell Name="Cell206" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell207" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell208" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell209" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell210" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell211" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+				<TableRow Name="Row37" Height="28.93">
+					<TableCell Name="Cell212" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell213" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell214" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell215" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell216" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+					<TableCell Name="Cell217" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 9pt"/>
+				</TableRow>
+			</TableObject>
+			<TextObject Name="Text42" Left="28.35" Top="661.5" Width="306.18" Height="56.7" Border.Lines="All" Text="I CERTIFY on my honor that the above is true and correct report of the hours of work performed, record of which was made daily at the time of arrival and departure from office&#13;&#10;" Font="Arial, 6pt"/>
+			<TextObject Name="Text43" Left="359.1" Top="661.5" Width="306.18" Height="56.7" Border.Lines="All" Text="VERIFIED as to the prescribed office hours.&#13;&#10;" HorzAlign="Center" Font="Arial, 6pt"/>
+			<TextObject Name="Text44" Left="179.55" Top="680.4" Width="122.85" Height="18.9" Border.Lines="Bottom" HorzAlign="Center" Font="Arial, 10pt"/>
+			<TextObject Name="Text45" Left="179.55" Top="699.3" Width="122.85" Height="18.9" Anchor="Bottom, Right" Text="EMPLOYEE'S SIGNATURE&#13;&#10;" HorzAlign="Center" Font="Arial, 6pt"/>
+			<TextObject Name="Text46" Left="510.3" Top="680.4" Width="122.85" Height="18.9" Border.Lines="Bottom" HorzAlign="Center" Font="Arial, 10pt"/>
+			<TextObject Name="Text47" Left="510.3" Top="699.3" Width="122.85" Height="18.9" Text="In-Charge" HorzAlign="Center" Font="Arial, 6pt"/>
+			<TextObject Name="Text85" Left="28.35" Top="179.55" Width="18.9" Height="18.9" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text86" Left="28.35" Top="160.65" Width="18.9" Height="18.9" Border.Lines="All" Font="Arial, 10pt"/>
+			<TextObject Name="Text102" Left="359.1" Top="160.65" Width="18.9" Height="18.9" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 6pt"/>
+			<TextObject Name="Text103" Left="359.1" Top="179.55" Width="18.9" Height="18.9" Border.Lines="All" HorzAlign="Center" VertAlign="Center" Font="Arial, 6pt"/>
+			<TextObject Name="Text120" Left="359.1" Top="75.6" Width="9.45" Height="85.05" Border.Lines="All" HorzAlign="Center" Font="Arial, 10pt"/>
+			<TextObject Name="Text122" Left="378" Top="179.55" Width="48.01" Height="18.9" Border.Lines="All" Text="IN" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+			<TextObject Name="Text123" Left="473.26" Top="179.55" Width="48.01" Height="18.9" Border.Lines="All" Text="IN" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+			<TextObject Name="Text124" Left="568.89" Top="179.55" Width="48.01" Height="18.9" Border.Lines="All" Text="IN" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+			<TextObject Name="Text125" Left="425.25" Top="179.55" Width="48.01" Height="18.9" Border.Lines="All" Text="OUT" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+			<TextObject Name="Text126" Left="521.64" Top="179.55" Width="48.01" Height="18.9" Border.Lines="All" Text="OUT" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+			<TextObject Name="Text127" Left="616.9" Top="179.55" Width="48.38" Height="18.9" Border.Lines="All" Text="OUT" HorzAlign="Center" VertAlign="Center" Font="Arial, 10pt"/>
+			<TextObject Name="Text128" Left="28.35" Top="227.18" Width="18.9" Height="29.11" Border.Lines="All" Text="02" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text129" Left="28.35" Top="256.28" Width="18.9" Height="29.11" Border.Lines="All" Text="03&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text130" Left="28.35" Top="285.01" Width="18.9" Height="29.11" Border.Lines="All" Text="04" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text131" Left="28.35" Top="314.12" Width="18.9" Height="29.11" Border.Lines="All" Text="05" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text132" Left="28.35" Top="342.85" Width="18.9" Height="29.11" Border.Lines="All" Text="06" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text133" Left="28.35" Top="371.95" Width="18.9" Height="29.11" Border.Lines="All" Text="07" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text134" Left="28.35" Top="400.68" Width="18.9" Height="29.11" Border.Lines="All" Text="08" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text135" Left="28.35" Top="429.79" Width="18.9" Height="29.11" Border.Lines="All" Text="09" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text136" Left="28.34" Top="459.56" Width="18.91" Height="28.06" Border.Lines="All" Text="10" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text137" Left="28.35" Top="487.62" Width="18.9" Height="29.11" Border.Lines="All" Text="11" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text138" Left="28.35" Top="516.35" Width="18.9" Height="29.11" Border.Lines="All" Text="12" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text139" Left="28.35" Top="545.45" Width="18.9" Height="29.11" Border.Lines="All" Text="13" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text140" Left="28.35" Top="574.56" Width="18.9" Height="29.11" Border.Lines="All" Text="14" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text141" Left="28.35" Top="603.29" Width="18.9" Height="29.11" Border.Lines="All" Text="15" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text142" Left="28.35" Top="632.39" Width="18.9" Height="29.11" Border.Lines="All" Text="&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text143" Left="28.35" Top="198.45" Width="18.9" Height="29.11" Border.Lines="All" Text="01" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text144" Left="359.1" Top="227.18" Width="18.9" Height="29.11" Border.Lines="All" Text="17&#13;&#10;" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text145" Left="359.1" Top="256.28" Width="18.9" Height="29.11" Border.Lines="All" Text="18" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text146" Left="359.1" Top="285.01" Width="18.9" Height="29.11" Border.Lines="All" Text="19" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text147" Left="359.1" Top="314.12" Width="18.9" Height="29.11" Border.Lines="All" Text="20" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text148" Left="359.1" Top="342.85" Width="18.9" Height="29.11" Border.Lines="All" Text="21" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text149" Left="359.1" Top="371.95" Width="18.9" Height="29.11" Border.Lines="All" Text="22" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text150" Left="359.1" Top="400.68" Width="18.9" Height="29.11" Border.Lines="All" Text="23" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text151" Left="359.1" Top="429.79" Width="18.9" Height="29.11" Border.Lines="All" Text="24" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text152" Left="359.1" Top="458.51" Width="18.9" Height="29.11" Border.Lines="All" Text="25" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text153" Left="359.1" Top="487.62" Width="18.9" Height="29.11" Border.Lines="All" Text="26" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text154" Left="359.1" Top="516.35" Width="18.9" Height="29.11" Border.Lines="All" Text="27" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text155" Left="359.1" Top="545.45" Width="18.9" Height="29.11" Border.Lines="All" Text="28" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text156" Left="359.1" Top="574.56" Width="18.9" Height="29.11" Border.Lines="All" Text="29" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text157" Left="359.1" Top="603.29" Width="18.9" Height="29.11" Border.Lines="All" Text="30" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text158" Left="359.1" Top="632.39" Width="18.9" Height="29.11" Border.Lines="All" Text="31" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text159" Left="359.1" Top="198.45" Width="18.9" Height="29.11" Border.Lines="All" Text="16" HorzAlign="Center" VertAlign="Center" Font="Arial Black, 6pt"/>
+			<TextObject Name="Text160" Left="47.25" Top="113.4" Width="94.5" Height="18.9" Text="MONTH :" Font="Arial, 8pt"/>
+			<TextObject Name="Text161" Left="47.25" Top="132.3" Width="94.5" Height="18.9" Text="YEAR :" Font="Arial, 8pt"/>
+		</DataBand>
+	</ReportPage>
 </Report>
