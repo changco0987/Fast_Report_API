@@ -13,6 +13,11 @@
         public string tardiness { get; set; }
         public string undertime { get; set; }
         public string schedule { get; set; }
+        public string first_time_in { get; set; }
+
+        public string last_time_in { get; set; }
+        public string first_time_out { get; set; }
+        public string last_time_out { get; set; }
     }
 
     public class Record
