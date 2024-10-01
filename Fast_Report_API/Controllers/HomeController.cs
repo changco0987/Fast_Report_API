@@ -73,9 +73,17 @@ namespace Fast_Report_API.Controllers
         }
         public static string Base64Decode(string base64EncodedData)
         {
+            // Replace spaces with '+' if necessary, as spaces are not valid in Base64 encoding
             string replaced = base64EncodedData.Replace(" ", "+");
-            var base64EncodedBytes = System.Convert.FromBase64String(replaced);
-            return System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+
+            // Decode the Base64 string
+            byte[] base64EncodedBytes = System.Convert.FromBase64String(replaced);
+
+            // Get the decoded string in UTF-8
+            string utf8String = System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+
+            // DecodeURIComponent equivalent in C#
+            return System.Uri.UnescapeDataString(utf8String);
         }
 
 
@@ -997,7 +1005,7 @@ namespace Fast_Report_API.Controllers
             UserWebReport.Toolbar.ShowLastButton = true;
             UserWebReport.Toolbar.ShowFirstButton = true;
             UserWebReport.Toolbar.ShowZoomButton = true;
-            UserWebReport.Toolbar.ShowPrint = false;
+            UserWebReport.Toolbar.ShowPrint = true;
             UserWebReport.ReportPrepared = false;
 
 
