@@ -16,6 +16,18 @@ using System.Data;
 using FastReport.DataVisualization.Charting;
 using Microsoft.EntityFrameworkCore;
 using Fast_Report_API.Models.PrintOutModels;
+using Spire.Pdf;
+using FastReport.Export.PdfSimple;
+using Spire.Pdf.Conversion;
+using Microsoft.AspNetCore.Components.Forms;
+using System.Windows.Forms;
+using Spire.Pdf.Graphics;
+using System.Drawing.Imaging;
+using System.IO;
+using Spire.Pdf.Print;
+using System.Net;
+using System.Net.Http.Headers;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace Fast_Report_API.Controllers
 {
@@ -1086,8 +1098,58 @@ namespace Fast_Report_API.Controllers
         [HttpGet("[action]")]
         public async Task<IActionResult> TimeAttendance(string response, string title)
         {
+            #region old code
+            //FastReport.Utils.Config.WebMode = true;
+            //WebReport UserWebReport = new WebReport();
 
-            FastReport.Utils.Config.WebMode = true;
+            //UserWebReport.Toolbar.Exports = new ExportMenuSettings()
+            //{
+            //    ExportTypes = Exports.All
+            //};
+
+            //UserWebReport.Toolbar.ShowPrevButton = true;
+            //UserWebReport.Toolbar.ShowNextButton = true;
+            //UserWebReport.Toolbar.ShowLastButton = true;
+            //UserWebReport.Toolbar.ShowFirstButton = true;
+            //UserWebReport.Toolbar.ShowZoomButton = true;
+            //UserWebReport.Toolbar.ShowPrint = true;
+            //UserWebReport.Toolbar.Exports.Show = false;
+            //UserWebReport.ReportPrepared = false;
+
+
+
+
+            //Time_Record = new List<TimeAttendance>();
+            ////leave_name_desc_list = new List<leave_names_desc>();
+            //string decode = Base64Decode(response);//base64 to string
+
+            //List<TimeAttendance> record = System.Text.Json.JsonSerializer.Deserialize<List<TimeAttendance>>(decode);
+            ////var record = Newtonsoft.Json.JsonConvert.DeserializeObject<TimeAttendance>(decode);
+            //fileName = "/" + title + ".frx";
+            //string path = Path.Combine(_env.WebRootPath + fileName);
+            ////string path = mapPath.MapVirtualPathToPhysical("~/noa_report.frx");
+            //UserWebReport.Report.Load(path);
+
+            //Time_Record = record;
+           
+
+            //UserWebReport.Report.RegisterData(Time_Record, "TimeAttendance_ref");
+
+          
+
+            //ViewBag.WebReport = UserWebReport;
+            ////ViewBag.Message = decode;
+            ////ViewBag.base64 = Base64Decode("aGVsbG8=");
+            //if (UserWebReport.Report.Prepare())
+            //{
+            //    return View("Views/Home/ReportView.cshtml");
+            //}
+            //else
+            //{
+            //    return null;
+            //}
+            #endregion
+                FastReport.Utils.Config.WebMode = true;
             WebReport UserWebReport = new WebReport();
 
             UserWebReport.Toolbar.Exports = new ExportMenuSettings()
@@ -1104,38 +1166,89 @@ namespace Fast_Report_API.Controllers
             UserWebReport.Toolbar.Exports.Show = false;
             UserWebReport.ReportPrepared = false;
 
-
-
-
             Time_Record = new List<TimeAttendance>();
-            //leave_name_desc_list = new List<leave_names_desc>();
-            string decode = Base64Decode(response);//base64 to string
+            string decode = Base64Decode(response); // base64 to string
 
             List<TimeAttendance> record = System.Text.Json.JsonSerializer.Deserialize<List<TimeAttendance>>(decode);
-            //var record = Newtonsoft.Json.JsonConvert.DeserializeObject<TimeAttendance>(decode);
             fileName = "/" + title + ".frx";
             string path = Path.Combine(_env.WebRootPath + fileName);
-            //string path = mapPath.MapVirtualPathToPhysical("~/noa_report.frx");
             UserWebReport.Report.Load(path);
 
             Time_Record = record;
-           
-
             UserWebReport.Report.RegisterData(Time_Record, "TimeAttendance_ref");
 
-          
+            // Export FastReport to PDF
+            string pdfPath = Path.Combine(_env.WebRootPath, title + ".pdf");
+            using (var pdfExport = new FastReport.Export.PdfSimple.PDFSimpleExport())
+            {
+                using (FileStream fs = new FileStream(pdfPath, FileMode.Create))
+                {
+                    UserWebReport.Report.Export(pdfExport, fs);
+                }
+            }
 
-            ViewBag.WebReport = UserWebReport;
-            //ViewBag.Message = decode;
-            //ViewBag.base64 = Base64Decode("aGVsbG8=");
-            if (UserWebReport.Report.Prepare())
+            // Convert PDF to PDF/A using Spire.PDF
+            string userProfile = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            string downloadsFolder = Path.Combine(userProfile, "Downloads");
+
+            string pdfAPath = Path.Combine(downloadsFolder + "\\asd.pdf");
+
+
+            //Create a PdfDocument instance
+         
+            PdfDocument pdf = new PdfDocument();
+            //Load a sample PDF document
+
+            pdf.LoadFromFile(pdfAPath);
+    
+            //Convert the first page to an image and set the image Dpi
+
+            Image image = pdf.SaveAsImage(1, PdfImageType.Bitmap, 500, 500);
+            //Save the image as a JPG file
+
+
+            string pathfolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+
+            image.Save(pathfolder + "ToJPG.jpg", ImageFormat.Jpeg);
+
+            //PdfStandardsConverter converter = new PdfStandardsConverter(pdfAPath);
+
+            // Call the non-static method on the instance
+            //converter.ToPdfX1A2001(pathfolder + "ToPdfX1A2001.pdf");
+
+
+            PdfDocument doc = new PdfDocument();
+            doc.PageSettings.SetMargins(0);
+            Image images = Image.FromFile(pathfolder + "ToJPG.jpg");
+
+            float width = image.PhysicalDimension.Width;
+            float height = image.PhysicalDimension.Height;
+            PdfPageBase page = doc.Pages.Add(new SizeF(width, height));
+            PdfImage pdfImage = PdfImage.FromImage(image);
+            page.Canvas.DrawImage(pdfImage, 0, 0, pdfImage.Width, pdfImage.Height);
+            doc.SaveToFile(pathfolder + "\\ConvertPdfWithSameSize.pdf");
+            pdf.Close();
+            doc.Close();
+            var filePath = Path.Combine(pathfolder + "\\ConvertPdfWithSameSize.pdf");
+            var provider = new FileExtensionContentTypeProvider();
+            if(!provider.TryGetContentType(filePath, out var contentType))
             {
-                return View("Views/Home/ReportView.cshtml");
+                contentType = "application/ocetet-stream";
             }
-            else
-            {
-                return null;
-            }
+            var bytes = await System.IO.File.ReadAllBytesAsync(filePath);
+            return File(bytes, contentType,Path.GetFileName(filePath));
+            //return File(stream  + "\\ConvertPdfWithSameSize.pdf", "application/pdf", "ConvertPdfWithSameSiz11e.pdf");
+            // Prepare the report
+            //if (UserWebReport.Report.Prepare())
+            //{
+            //    ViewBag.PdfAPath = "/" + title + "_pdfa.pdf";
+            //    return View("Views/Home/ReportView.cshtml");
+            //}
+            //else
+            //{
+            //    return null; // Handle report preparation failure
+            //}
+
         }
 
 
