@@ -1091,63 +1091,6 @@ namespace Fast_Report_API.Controllers
             }
         }
 
-
-
-        [HttpGet("[action]")]
-        //public async Task<IActionResult> TimeAttendance(string response, string title)
-        //{
-
-        //    FastReport.Utils.Config.WebMode = true;
-        //    WebReport UserWebReport = new WebReport();
-
-        //    UserWebReport.Toolbar.Exports = new ExportMenuSettings()
-        //    {
-        //        ExportTypes = Exports.All
-        //    };
-
-        //    UserWebReport.Toolbar.ShowPrevButton = true;
-        //    UserWebReport.Toolbar.ShowNextButton = true;
-        //    UserWebReport.Toolbar.ShowLastButton = true;
-        //    UserWebReport.Toolbar.ShowFirstButton = true;
-        //    UserWebReport.Toolbar.ShowZoomButton = true;
-        //    UserWebReport.Toolbar.ShowPrint = true;
-        //    UserWebReport.Toolbar.Exports.Show = false;
-        //    UserWebReport.ReportPrepared = false;
-
-
-
-
-        //    Time_Record = new List<TimeAttendance>();
-        //    //leave_name_desc_list = new List<leave_names_desc>();
-        //    string decode = Base64Decode(response);//base64 to string
-
-        //    List<TimeAttendance> record = System.Text.Json.JsonSerializer.Deserialize<List<TimeAttendance>>(decode);
-        //    //var record = Newtonsoft.Json.JsonConvert.DeserializeObject<TimeAttendance>(decode);
-        //    fileName = "/" + title + ".frx";
-        //    string path = Path.Combine(_env.WebRootPath + fileName);
-        //    //string path = mapPath.MapVirtualPathToPhysical("~/noa_report.frx");
-        //    UserWebReport.Report.Load(path);
-
-        //    Time_Record = record;
-
-
-        //    UserWebReport.Report.RegisterData(Time_Record, "TimeAttendance_ref");
-
-
-
-        //    ViewBag.WebReport = UserWebReport;
-        //    //ViewBag.Message = decode;
-        //    //ViewBag.base64 = Base64Decode("aGVsbG8=");
-        //    if (UserWebReport.Report.Prepare())
-        //    {
-        //        return View("Views/Home/ReportView.cshtml");
-        //    }
-        //    else
-        //    {
-        //        return null;
-        //    }
-        //}
-
         public async Task<IActionResult>TimeAttendance(string response, string title)
         {
             FastReport.Utils.Config.WebMode = true;
@@ -1191,38 +1134,22 @@ namespace Fast_Report_API.Controllers
                     UserWebReport.Report.Export(pdfExport, fs);
                 }
             }
-
-    
-
             //Create a PdfDocument instance
-
             PdfDocument pdf = new PdfDocument();
             //Load a sample PDF document
-
             pdf.LoadFromFile(pdfPath);
-
             //Convert the first page to an image and set the image Dpi
-
             Image image = pdf.SaveAsImage(0, PdfImageType.Bitmap, 500, 500);
             //Save the image as a JPG file
-
-
-            string pathfolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string pathfolderForImage = @"C:\Users\Fast_ReportDTROfEmployee\DTRImage";
+            string pathfolderForPdf = @"C:\Users\Fast_ReportDTROfEmployee\DTRPdf";
             string sanitizedFullName = string.Join("_", FullName.Split(Path.GetInvalidFileNameChars()));
-            string sanitizedMonth = string.Join("_", Month.Split(Path.GetInvalidFileNameChars()));
-
-          
-            image.Save(pathfolder + $"{sanitizedFullName}_{sanitizedMonth}.jpg", ImageFormat.Jpeg);
-
-            //PdfStandardsConverter converter = new PdfStandardsConverter(pdfAPath);
-
-            // Call the non-static method on the instance
-            //converter.ToPdfX1A2001(pathfolder + "ToPdfX1A2001.pdf");
-
+            string sanitizedMonth = string.Join("_", Month.Split(Path.GetInvalidFileNameChars()));        
+            image.Save(pathfolderForImage + $"{sanitizedFullName}_{sanitizedMonth}.jpg", ImageFormat.Jpeg);
 
             PdfDocument doc = new PdfDocument();
             doc.PageSettings.SetMargins(0);
-            Image images = Image.FromFile(pathfolder + "ToJPG.jpg");
+            Image images = Image.FromFile(pathfolderForImage + "ToJPG.jpg");
 
             float width = image.PhysicalDimension.Width;
             float height = image.PhysicalDimension.Height;
@@ -1230,22 +1157,15 @@ namespace Fast_Report_API.Controllers
             PdfImage pdfImage = PdfImage.FromImage(image);
             page.Canvas.DrawImage(pdfImage, 0, 0, pdfImage.Width, pdfImage.Height);
             if (string.IsNullOrEmpty(FullName))
-            {
-                Console.WriteLine("Full Name is null or empty. Cannot create PDF file.");
                 return BadRequest();
-
-            }
-           
-            string filePath = Path.Combine(pathfolder, $"{sanitizedFullName}_{sanitizedMonth}.pdf");
+            string filePath = Path.Combine(pathfolderForPdf, $"{sanitizedFullName}_{sanitizedMonth}.pdf");
             if (System.IO.File.Exists(filePath))
             {
                 System.IO.File.Delete(filePath);
             }
-            //System.IO.File.WriteAllBytesAsync(filePath, bytes);
             doc.SaveToFile(filePath);
             pdf.Close();
             doc.Close();
-            // Delete existing file to avoid file access issues
             var provider = new Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider();
             if (!provider.TryGetContentType(filePath, out var contentType))
             {
@@ -1253,17 +1173,6 @@ namespace Fast_Report_API.Controllers
             }
             var bytes = await System.IO.File.ReadAllBytesAsync(filePath);
             return File(bytes, contentType, Path.GetFileName(filePath));
-            //return File(stream  + "\\ConvertPdfWithSameSize.pdf", "application/pdf", "ConvertPdfWithSameSiz11e.pdf");
-            // Prepare the report
-            //if (UserWebReport.Report.Prepare())
-            //{
-            //    ViewBag.PdfAPath = "/" + title + "_pdfa.pdf";
-            //    return View("Views/Home/ReportView.cshtml");
-            //}
-            //else
-            //{
-            //    return null; // Handle report preparation failure
-            //}
         }
 
 
