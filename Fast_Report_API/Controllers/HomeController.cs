@@ -1091,6 +1091,7 @@ namespace Fast_Report_API.Controllers
             }
         }
 
+        [HttpGet("[action]")]
         public async Task<IActionResult>TimeAttendance(string response, string title)
         {
             FastReport.Utils.Config.WebMode = true;
@@ -1141,15 +1142,28 @@ namespace Fast_Report_API.Controllers
             //Convert the first page to an image and set the image Dpi
             Image image = pdf.SaveAsImage(0, PdfImageType.Bitmap, 500, 500);
             //Save the image as a JPG file
-            string pathfolderForImage = @"C:\Users\Fast_ReportDTROfEmployee\DTRImage";
-            string pathfolderForPdf = @"C:\Users\Fast_ReportDTROfEmployee\DTRPdf";
+            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string imageFolderName = "DTRImage";
+            string dtrFolderName = "DTRPdf";
+            string pathfolderForImage = Path.Combine(documentsPath, imageFolderName);
+            string pathfolderForPdf = Path.Combine(documentsPath, dtrFolderName);
+
+            if (!Directory.Exists(pathfolderForImage))
+            {
+                Directory.CreateDirectory(pathfolderForImage);
+            }
+            if (!Directory.Exists(pathfolderForPdf))
+            {
+                Directory.CreateDirectory(pathfolderForPdf);
+            }
             string sanitizedFullName = string.Join("_", FullName.Split(Path.GetInvalidFileNameChars()));
-            string sanitizedMonth = string.Join("_", Month.Split(Path.GetInvalidFileNameChars()));        
-            image.Save(pathfolderForImage + $"{sanitizedFullName}_{sanitizedMonth}.jpg", ImageFormat.Jpeg);
+            string sanitizedMonth = string.Join("_", Month.Split(Path.GetInvalidFileNameChars()));
+            string filePathForSavingImg = Path.Combine(pathfolderForImage, $"{sanitizedFullName}_{sanitizedMonth}.jpg");
+            image.Save(filePathForSavingImg, ImageFormat.Jpeg);
 
             PdfDocument doc = new PdfDocument();
             doc.PageSettings.SetMargins(0);
-            Image images = Image.FromFile(pathfolderForImage + "ToJPG.jpg");
+            //Image images = Image.FromFile(pathfolderForImage + "ToJPG.jpg");
 
             float width = image.PhysicalDimension.Width;
             float height = image.PhysicalDimension.Height;
