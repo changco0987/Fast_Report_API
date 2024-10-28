@@ -1121,32 +1121,18 @@ namespace Fast_Report_API.Controllers
             fileName = "/" + title + ".frx";
             string path = Path.Combine(_env.WebRootPath + fileName);
             UserWebReport.Report.Load(path);
-
+            string sanitizedFullName = string.Join("_", FullName.Split(Path.GetInvalidFileNameChars()));
+            string sanitizedMonth = string.Join("_", Month.Split(Path.GetInvalidFileNameChars()));
             Time_Record = record;
             UserWebReport.Report.RegisterData(Time_Record, "TimeAttendance_ref");
 
             // Export FastReport to PDF
-            string pdfPath = Path.Combine(_env.WebRootPath, title + ".pdf");
-            UserWebReport.Report.Prepare();
-            using (var pdfExport = new FastReport.Export.PdfSimple.PDFSimpleExport())
-            {
-                using (FileStream fs = new FileStream(pdfPath, FileMode.Create))
-                {
-                    UserWebReport.Report.Export(pdfExport, fs);
-                }
-            }
-            //Create a PdfDocument instance
-            PdfDocument pdf = new PdfDocument();
-            //Load a sample PDF document
-            pdf.LoadFromFile(pdfPath);
-            //Convert the first page to an image and set the image Dpi
-            Image image = pdf.SaveAsImage(0, PdfImageType.Bitmap, 500, 500);
-            //Save the image as a JPG file
             string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             string imageFolderName = "DTRImage";
             string dtrFolderName = "DTRPdf";
-            string pathfolderForImage = Path.Combine(documentsPath, imageFolderName);
-            string pathfolderForPdf = Path.Combine(documentsPath, dtrFolderName);
+            string pathfolderForImage = Path.Combine(_env.WebRootPath, imageFolderName);
+            string pathfolderForPdf = Path.Combine(_env.WebRootPath, dtrFolderName);
+            string pdfpath = Path.Combine(pathfolderForPdf, $"{sanitizedFullName}_{sanitizedMonth}" + ".pdf");
 
             if (!Directory.Exists(pathfolderForImage))
             {
@@ -1156,8 +1142,23 @@ namespace Fast_Report_API.Controllers
             {
                 Directory.CreateDirectory(pathfolderForPdf);
             }
-            string sanitizedFullName = string.Join("_", FullName.Split(Path.GetInvalidFileNameChars()));
-            string sanitizedMonth = string.Join("_", Month.Split(Path.GetInvalidFileNameChars()));
+            UserWebReport.Report.Prepare();
+            using (var pdfExport = new FastReport.Export.PdfSimple.PDFSimpleExport())
+            {
+                using (FileStream fs = new FileStream(pdfpath, FileMode.Create))
+                {
+                    UserWebReport.Report.Export(pdfExport, fs);
+                }
+            }
+            //Create a PdfDocument instance
+            PdfDocument pdf = new PdfDocument();
+            //Load a sample PDF document
+            pdf.LoadFromFile(pdfpath);
+            //Convert the first page to an image and set the image Dpi
+            Image image = pdf.SaveAsImage(0, PdfImageType.Bitmap, 500, 500);
+            //Save the image as a JPG file
+            //string sanitizedFullName = string.Join("_", FullName.Split(Path.GetInvalidFileNameChars()));
+            //string sanitizedMonth = string.Join("_", Month.Split(Path.GetInvalidFileNameChars()));
             string filePathForSavingImg = Path.Combine(pathfolderForImage, $"{sanitizedFullName}_{sanitizedMonth}.jpg");
             image.Save(filePathForSavingImg, ImageFormat.Jpeg);
 
