@@ -16,6 +16,16 @@ using System.Data;
 using FastReport.DataVisualization.Charting;
 using Microsoft.EntityFrameworkCore;
 using Fast_Report_API.Models.PrintOutModels;
+using Spire.Pdf;
+using FastReport.Export.PdfSimple;
+using Spire.Pdf.Conversion;
+using Microsoft.AspNetCore.Components.Forms;
+using System.Windows.Forms;
+using Spire.Pdf.Graphics;
+using System.Drawing.Imaging;
+using System.IO;
+using Spire.Pdf.Print;
+using Microsoft.AspNetCore.StaticFiles;
 
 namespace Fast_Report_API.Controllers
 {
@@ -1084,9 +1094,62 @@ namespace Fast_Report_API.Controllers
 
 
         [HttpGet("[action]")]
-        public async Task<IActionResult> TimeAttendance(string response, string title)
-        {
+        //public async Task<IActionResult> TimeAttendance(string response, string title)
+        //{
 
+        //    FastReport.Utils.Config.WebMode = true;
+        //    WebReport UserWebReport = new WebReport();
+
+        //    UserWebReport.Toolbar.Exports = new ExportMenuSettings()
+        //    {
+        //        ExportTypes = Exports.All
+        //    };
+
+        //    UserWebReport.Toolbar.ShowPrevButton = true;
+        //    UserWebReport.Toolbar.ShowNextButton = true;
+        //    UserWebReport.Toolbar.ShowLastButton = true;
+        //    UserWebReport.Toolbar.ShowFirstButton = true;
+        //    UserWebReport.Toolbar.ShowZoomButton = true;
+        //    UserWebReport.Toolbar.ShowPrint = true;
+        //    UserWebReport.Toolbar.Exports.Show = false;
+        //    UserWebReport.ReportPrepared = false;
+
+
+
+
+        //    Time_Record = new List<TimeAttendance>();
+        //    //leave_name_desc_list = new List<leave_names_desc>();
+        //    string decode = Base64Decode(response);//base64 to string
+
+        //    List<TimeAttendance> record = System.Text.Json.JsonSerializer.Deserialize<List<TimeAttendance>>(decode);
+        //    //var record = Newtonsoft.Json.JsonConvert.DeserializeObject<TimeAttendance>(decode);
+        //    fileName = "/" + title + ".frx";
+        //    string path = Path.Combine(_env.WebRootPath + fileName);
+        //    //string path = mapPath.MapVirtualPathToPhysical("~/noa_report.frx");
+        //    UserWebReport.Report.Load(path);
+
+        //    Time_Record = record;
+
+
+        //    UserWebReport.Report.RegisterData(Time_Record, "TimeAttendance_ref");
+
+
+
+        //    ViewBag.WebReport = UserWebReport;
+        //    //ViewBag.Message = decode;
+        //    //ViewBag.base64 = Base64Decode("aGVsbG8=");
+        //    if (UserWebReport.Report.Prepare())
+        //    {
+        //        return View("Views/Home/ReportView.cshtml");
+        //    }
+        //    else
+        //    {
+        //        return null;
+        //    }
+        //}
+
+        public async Task<IActionResult>TimeAttendance(string response, string title)
+        {
             FastReport.Utils.Config.WebMode = true;
             WebReport UserWebReport = new WebReport();
 
@@ -1104,102 +1167,104 @@ namespace Fast_Report_API.Controllers
             UserWebReport.Toolbar.Exports.Show = false;
             UserWebReport.ReportPrepared = false;
 
-
-
-
             Time_Record = new List<TimeAttendance>();
-            //leave_name_desc_list = new List<leave_names_desc>();
-            string decode = Base64Decode(response);//base64 to string
+            string decode = Base64Decode(response); // base64 to string
 
             List<TimeAttendance> record = System.Text.Json.JsonSerializer.Deserialize<List<TimeAttendance>>(decode);
-            //var record = Newtonsoft.Json.JsonConvert.DeserializeObject<TimeAttendance>(decode);
+
+            string FullName = record.FirstOrDefault()?.name;
+            string Month = record.FirstOrDefault()?.monthName;
             fileName = "/" + title + ".frx";
             string path = Path.Combine(_env.WebRootPath + fileName);
-            //string path = mapPath.MapVirtualPathToPhysical("~/noa_report.frx");
             UserWebReport.Report.Load(path);
 
             Time_Record = record;
-           
-
             UserWebReport.Report.RegisterData(Time_Record, "TimeAttendance_ref");
 
+            // Export FastReport to PDF
+            string pdfPath = Path.Combine(_env.WebRootPath, title + ".pdf");
+            UserWebReport.Report.Prepare();
+            using (var pdfExport = new FastReport.Export.PdfSimple.PDFSimpleExport())
+            {
+                using (FileStream fs = new FileStream(pdfPath, FileMode.Create))
+                {
+                    UserWebReport.Report.Export(pdfExport, fs);
+                }
+            }
+
+    
+
+            //Create a PdfDocument instance
+
+            PdfDocument pdf = new PdfDocument();
+            //Load a sample PDF document
+
+            pdf.LoadFromFile(pdfPath);
+
+            //Convert the first page to an image and set the image Dpi
+
+            Image image = pdf.SaveAsImage(0, PdfImageType.Bitmap, 500, 500);
+            //Save the image as a JPG file
+
+
+            string pathfolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string sanitizedFullName = string.Join("_", FullName.Split(Path.GetInvalidFileNameChars()));
+            string sanitizedMonth = string.Join("_", Month.Split(Path.GetInvalidFileNameChars()));
+
           
+            image.Save(pathfolder + $"{sanitizedFullName}_{sanitizedMonth}.jpg", ImageFormat.Jpeg);
 
-            ViewBag.WebReport = UserWebReport;
-            //ViewBag.Message = decode;
-            //ViewBag.base64 = Base64Decode("aGVsbG8=");
-            if (UserWebReport.Report.Prepare())
+            //PdfStandardsConverter converter = new PdfStandardsConverter(pdfAPath);
+
+            // Call the non-static method on the instance
+            //converter.ToPdfX1A2001(pathfolder + "ToPdfX1A2001.pdf");
+
+
+            PdfDocument doc = new PdfDocument();
+            doc.PageSettings.SetMargins(0);
+            Image images = Image.FromFile(pathfolder + "ToJPG.jpg");
+
+            float width = image.PhysicalDimension.Width;
+            float height = image.PhysicalDimension.Height;
+            PdfPageBase page = doc.Pages.Add(new SizeF(width, height));
+            PdfImage pdfImage = PdfImage.FromImage(image);
+            page.Canvas.DrawImage(pdfImage, 0, 0, pdfImage.Width, pdfImage.Height);
+            if (string.IsNullOrEmpty(FullName))
             {
-                return View("Views/Home/ReportView.cshtml");
+                Console.WriteLine("Full Name is null or empty. Cannot create PDF file.");
+                return BadRequest();
+
             }
-            else
+           
+            string filePath = Path.Combine(pathfolder, $"{sanitizedFullName}_{sanitizedMonth}.pdf");
+            if (System.IO.File.Exists(filePath))
             {
-                return null;
+                System.IO.File.Delete(filePath);
             }
+            //System.IO.File.WriteAllBytesAsync(filePath, bytes);
+            doc.SaveToFile(filePath);
+            pdf.Close();
+            doc.Close();
+            // Delete existing file to avoid file access issues
+            var provider = new Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider();
+            if (!provider.TryGetContentType(filePath, out var contentType))
+            {
+                contentType = "application/ocetet-stream";
+            }
+            var bytes = await System.IO.File.ReadAllBytesAsync(filePath);
+            return File(bytes, contentType, Path.GetFileName(filePath));
+            //return File(stream  + "\\ConvertPdfWithSameSize.pdf", "application/pdf", "ConvertPdfWithSameSiz11e.pdf");
+            // Prepare the report
+            //if (UserWebReport.Report.Prepare())
+            //{
+            //    ViewBag.PdfAPath = "/" + title + "_pdfa.pdf";
+            //    return View("Views/Home/ReportView.cshtml");
+            //}
+            //else
+            //{
+            //    return null; // Handle report preparation failure
+            //}
         }
-
-
-        [HttpGet("[action]")]
-        //residency method parameters(filename, form data, signature filepath)
-        public async Task<IActionResult> Residency(string title, string response, string signature)
-        {
-
-            FastReport.Utils.Config.WebMode = true;
-            WebReport UserWebReport = new WebReport();
-
-            UserWebReport.Toolbar.Exports = new ExportMenuSettings()
-            {
-                ExportTypes = Exports.All
-            };
-
-            UserWebReport.Toolbar.ShowPrevButton = true;
-            UserWebReport.Toolbar.ShowNextButton = true;
-            UserWebReport.Toolbar.ShowLastButton = true;
-            UserWebReport.Toolbar.ShowFirstButton = true;
-            UserWebReport.Toolbar.ShowZoomButton = true;
-            UserWebReport.Toolbar.ShowPrint = true;
-            UserWebReport.Toolbar.Exports.Show = false;
-            UserWebReport.ReportPrepared = false;
-
-
-            string decode = Base64Decode(response);//base64 to string
-            signature = Base64Decode(signature);
-       
-
-            ApplicationForm_model application_details = Newtonsoft.Json.JsonConvert.DeserializeObject<ApplicationForm_model>(decode);
-            fileName = "/" + title + "_report.frx";
-            string path = Path.Combine(_env.WebRootPath + fileName);
-            //string path = mapPath.MapVirtualPathToPhysical("~/noa_report.frx");
-            UserWebReport.Report.Load(path);
-
-            application_details.signature = signature + "/" + application_details.signature; //Path + / + file name
-            application_form_list.Add(application_details);
-            educational_Backgrounds_list = application_details.educational_background;
-            work_experience_list = application_details.work_experiences;
-            recognition_list = application_details.recognitions;
-            references_list = application_details.references;
-
-            UserWebReport.Report.RegisterData(application_form_list, "appForm_ref");
-            UserWebReport.Report.RegisterData(educational_Backgrounds_list, "education_ref");
-            UserWebReport.Report.RegisterData(work_experience_list, "work_exp_ref");
-            UserWebReport.Report.RegisterData(recognition_list, "recognitions_ref");
-            UserWebReport.Report.RegisterData(references_list, "references_ref");
-            
-
-
-            ViewBag.WebReport = UserWebReport;
-
-            if (UserWebReport.Report.Prepare())
-            {
-                return View("Views/Home/ReportView.cshtml");
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-
 
 
         public IActionResult saveFile(string title, string response, string response2, string response3)

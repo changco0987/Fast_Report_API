@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="12/11/2023 10:00:55" ReportInfo.Modified="09/27/2024 09:48:39" ReportInfo.CreatorVersion="2023.2.0.0">
+<Report ScriptLanguage="CSharp" StartReportEvent="_StartReport" ReportInfo.Created="12/11/2023 10:00:55" ReportInfo.Modified="10/28/2024 10:32:56" ReportInfo.CreatorVersion="2023.2.0.0">
   <ScriptText>using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -827,7 +827,7 @@ namespace FastReport
     </BusinessObjectDataSource>
   </Dictionary>
   <ReportPage Name="Page1" Watermark.Font="Arial, 60pt">
-    <DataBand Name="Data1" Width="718.2" Height="831.6">
+    <DataBand Name="Data1" Width="718.2" Height="852.2">
       <TextObject Name="Text1" Left="28.35" Top="37.8" Width="85.05" Height="37.8" Border.Lines="All" Text="NO." Font="Arial, 10pt"/>
       <TextObject Name="Text2" Left="113.4" Top="37.8" Width="221.13" Height="37.8" Border.Lines="All" Text="NAME :" Font="Arial, 10pt, style=Bold"/>
       <TextObject Name="Text3" Left="28.35" Top="75.6" Width="306.18" Height="18.9" Border.Lines="All" Text="DIV./DEPT. " Font="Arial, 10pt"/>
@@ -1172,7 +1172,7 @@ namespace FastReport
       <TextObject Name="Text42" Left="28.35" Top="661.5" Width="306.18" Height="56.7" Border.Lines="All" Text="I CERTIFY on my honor that the above is true and correct report of the hours of work performed, record of which was made daily at the time of arrival and departure from office&#13;&#10;" Font="Arial, 6pt"/>
       <TextObject Name="Text43" Left="359.1" Top="661.5" Width="306.18" Height="56.7" Border.Lines="All" Text="VERIFIED as to the prescribed office hours.&#13;&#10;" HorzAlign="Center" Font="Arial, 6pt"/>
       <TextObject Name="Text44" Left="179.55" Top="680.4" Width="122.85" Height="18.9" Border.Lines="Bottom" HorzAlign="Center" Font="Arial, 10pt"/>
-      <TextObject Name="Text45" Left="179.55" Top="699.3" Width="122.85" Height="18.9" Anchor="Bottom, Right" Text="EMPLOYEE'S SIGNATURE&#13;&#10;" HorzAlign="Center" Font="Arial, 6pt"/>
+      <TextObject Name="Text45" Left="179.55" Top="719.9" Width="122.85" Height="18.9" Anchor="Bottom, Right" Text="EMPLOYEE'S SIGNATURE&#13;&#10;" HorzAlign="Center" Font="Arial, 6pt"/>
       <TextObject Name="Text46" Left="510.3" Top="680.4" Width="122.85" Height="18.9" Border.Lines="Bottom" HorzAlign="Center" Font="Arial, 10pt"/>
       <TextObject Name="Text47" Left="510.3" Top="699.3" Width="122.85" Height="18.9" Text="In-Charge" HorzAlign="Center" Font="Arial, 6pt"/>
       <TextObject Name="Text85" Left="28.35" Top="179.55" Width="18.9" Height="18.9" Border.Lines="All" HorzAlign="Center" Font="Arial Black, 6pt"/>
