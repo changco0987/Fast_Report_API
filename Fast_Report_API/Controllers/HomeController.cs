@@ -96,6 +96,30 @@ namespace Fast_Report_API.Controllers
             return System.Uri.UnescapeDataString(utf8String);
         }
 
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetDtrAfterScannedQR(string pathOfDtr)
+        {
+            try
+            {
+                if (string.IsNullOrEmpty(pathOfDtr))
+                    return BadRequest();
+                if (!System.IO.File.Exists(pathOfDtr))
+                    return NotFound();
+
+                var provider = new Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider();
+                if (!provider.TryGetContentType(pathOfDtr, out var contentType))
+                {
+                    contentType = "application/ocetet-stream";
+                }
+                var bytes = await System.IO.File.ReadAllBytesAsync(pathOfDtr);
+                return File(bytes, contentType, Path.GetFileName(pathOfDtr));
+
+            }
+            catch(Exception ex)
+            {
+                return StatusCode(500);
+            }
+        }
 
         [HttpGet("[action]")]
         public async Task<IActionResult> Generate(string title, string response, string response2, string response3)
