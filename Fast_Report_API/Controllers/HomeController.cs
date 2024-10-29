@@ -1092,7 +1092,7 @@ namespace Fast_Report_API.Controllers
         }
 
         [HttpGet("[action]")]
-        public async Task<IActionResult>TimeAttendance(string response, string title)
+        public async Task<IActionResult> TimeAttendance(string response, string title)
         {
             FastReport.Utils.Config.WebMode = true;
             WebReport UserWebReport = new WebReport();
@@ -1118,13 +1118,14 @@ namespace Fast_Report_API.Controllers
 
             string FullName = record.FirstOrDefault()?.name;
             string Month = record.FirstOrDefault()?.monthName;
+            string FileName = record.FirstOrDefault()?.pdf_file_name;
             fileName = "/" + title + ".frx";
             string path = Path.Combine(_env.WebRootPath + fileName);
             UserWebReport.Report.Load(path);
             string sanitizedFullName = string.Join("_", FullName.Split(Path.GetInvalidFileNameChars()));
             string sanitizedMonth = string.Join("_", Month.Split(Path.GetInvalidFileNameChars()));
             Time_Record = record;
-            UserWebReport.Report.RegisterData(Time_Record, "TimeAttendance_ref");
+            UserWebReport.Report.RegisterData(record, "TimeAttendance_ref");
 
             // Export FastReport to PDF
             string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
@@ -1132,7 +1133,7 @@ namespace Fast_Report_API.Controllers
             string dtrFolderName = "DTRPdf";
             string pathfolderForImage = Path.Combine(_env.WebRootPath, imageFolderName);
             string pathfolderForPdf = Path.Combine(_env.WebRootPath, dtrFolderName);
-            string pdfpath = Path.Combine(pathfolderForPdf, $"{sanitizedFullName}_{sanitizedMonth}" + ".pdf");
+            string pdfpath = Path.Combine(pathfolderForPdf, $"{FileName}" + ".pdf");
 
             if (!Directory.Exists(pathfolderForImage))
             {
@@ -1159,7 +1160,7 @@ namespace Fast_Report_API.Controllers
             //Save the image as a JPG file
             //string sanitizedFullName = string.Join("_", FullName.Split(Path.GetInvalidFileNameChars()));
             //string sanitizedMonth = string.Join("_", Month.Split(Path.GetInvalidFileNameChars()));
-            string filePathForSavingImg = Path.Combine(pathfolderForImage, $"{sanitizedFullName}_{sanitizedMonth}.jpg");
+            string filePathForSavingImg = Path.Combine(pathfolderForImage, $"{FileName}.jpg");
             image.Save(filePathForSavingImg, ImageFormat.Jpeg);
 
             PdfDocument doc = new PdfDocument();
@@ -1173,7 +1174,7 @@ namespace Fast_Report_API.Controllers
             page.Canvas.DrawImage(pdfImage, 0, 0, pdfImage.Width, pdfImage.Height);
             if (string.IsNullOrEmpty(FullName))
                 return BadRequest();
-            string filePath = Path.Combine(pathfolderForPdf, $"{sanitizedFullName}_{sanitizedMonth}.pdf");
+            string filePath = Path.Combine(pathfolderForPdf, $"{FileName}.pdf");
             if (System.IO.File.Exists(filePath))
             {
                 System.IO.File.Delete(filePath);
@@ -1190,7 +1191,7 @@ namespace Fast_Report_API.Controllers
             return File(bytes, contentType, Path.GetFileName(filePath));
         }
 
-
+    
         public IActionResult saveFile(string title, string response, string response2, string response3)
         {
             FastReport.Utils.Config.WebMode = true;
