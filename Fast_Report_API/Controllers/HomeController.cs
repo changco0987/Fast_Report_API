@@ -99,20 +99,22 @@ namespace Fast_Report_API.Controllers
         [HttpGet("[action]")]
         public async Task<IActionResult> GetDtrAfterScannedQR(string pathOfDtr)
         {
+            var directory = "C:\\inetpub\\wwwroot\\FastReport\\wwwroot\\DTRPdf\\";
+            var officialPath = System.IO.Path.Combine(directory, pathOfDtr);
             try
             {
-                if (string.IsNullOrEmpty(pathOfDtr))
+                if (string.IsNullOrEmpty(officialPath))
                     return BadRequest();
-                if (!System.IO.File.Exists(pathOfDtr))
+                if (!System.IO.File.Exists(officialPath))
                     return NotFound();
 
                 var provider = new Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider();
-                if (!provider.TryGetContentType(pathOfDtr, out var contentType))
+                if (!provider.TryGetContentType(officialPath, out var contentType))
                 {
                     contentType = "application/ocetet-stream";
                 }
-                var bytes = await System.IO.File.ReadAllBytesAsync(pathOfDtr);
-                return File(bytes, contentType, Path.GetFileName(pathOfDtr));
+                var bytes = await System.IO.File.ReadAllBytesAsync(officialPath);
+                return File(bytes, contentType, Path.GetFileName(officialPath));
 
             }
             catch(Exception ex)
@@ -1155,9 +1157,9 @@ namespace Fast_Report_API.Controllers
             string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             string imageFolderName = "DTRImage";
             string dtrFolderName = "DTRPdf";
-            string pathfolderForImage = Path.Combine(_env.WebRootPath, imageFolderName);
-            string pathfolderForPdf = Path.Combine(_env.WebRootPath, dtrFolderName);
-            string pdfpath = Path.Combine(pathfolderForPdf, $"{FileName}" + ".pdf");
+            string pathfolderForImage = Path.Combine(documentsPath, imageFolderName);
+            string pathfolderForPdf = Path.Combine(documentsPath, dtrFolderName);
+            string pdfpath = Path.Combine(pathfolderForPdf, $"{FileName}");
 
             if (!Directory.Exists(pathfolderForImage))
             {
@@ -1184,7 +1186,7 @@ namespace Fast_Report_API.Controllers
             //Save the image as a JPG file
             //string sanitizedFullName = string.Join("_", FullName.Split(Path.GetInvalidFileNameChars()));
             //string sanitizedMonth = string.Join("_", Month.Split(Path.GetInvalidFileNameChars()));
-            string filePathForSavingImg = Path.Combine(pathfolderForImage, $"{FileName}.jpg");
+            string filePathForSavingImg = Path.Combine(pathfolderForImage, $"{sanitizedFullName}.jpg");
             image.Save(filePathForSavingImg, ImageFormat.Jpeg);
 
             PdfDocument doc = new PdfDocument();
@@ -1198,7 +1200,7 @@ namespace Fast_Report_API.Controllers
             page.Canvas.DrawImage(pdfImage, 0, 0, pdfImage.Width, pdfImage.Height);
             if (string.IsNullOrEmpty(FullName))
                 return BadRequest();
-            string filePath = Path.Combine(pathfolderForPdf, $"{FileName}.pdf");
+            string filePath = Path.Combine(pathfolderForPdf, $"{FileName}");
             if (System.IO.File.Exists(filePath))
             {
                 System.IO.File.Delete(filePath);
