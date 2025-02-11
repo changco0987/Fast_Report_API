@@ -26,7 +26,9 @@ using System.Drawing.Imaging;
 using System.IO;
 using Spire.Pdf.Print;
 using Microsoft.AspNetCore.StaticFiles;
-
+using System.Text;
+using System;
+using System.Collections.Generic;
 namespace Fast_Report_API.Controllers
 {
     //[Route("api/[controller]")]
@@ -1140,7 +1142,18 @@ namespace Fast_Report_API.Controllers
             Time_Record = new List<TimeAttendance>();
             string decode = Base64Decode(response); // base64 to string
 
-            List<TimeAttendance> record = System.Text.Json.JsonSerializer.Deserialize<List<TimeAttendance>>(decode);
+            string base64Response = response;
+
+            // Decode the Base64 string
+            byte[] base64EncodedBytes = System.Convert.FromBase64String(base64Response);
+            // Get the decoded string in UTF-8
+            string utf8String = System.Text.Encoding.UTF8.GetString(base64EncodedBytes);
+            // DecodeURIComponent equivalent in C#
+
+
+
+            string decodedString = Uri.UnescapeDataString(utf8String);
+            List<TimeAttendance> record = System.Text.Json.JsonSerializer.Deserialize<List<TimeAttendance>>(decodedString);
 
             string FullName = record.FirstOrDefault()?.name;
             string Month = record.FirstOrDefault()?.monthName;
@@ -1157,8 +1170,8 @@ namespace Fast_Report_API.Controllers
             string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             string imageFolderName = "DTRImage";
             string dtrFolderName = "DTRPdf";
-            string pathfolderForImage = Path.Combine(documentsPath, imageFolderName);
-            string pathfolderForPdf = Path.Combine(documentsPath, dtrFolderName);
+            string pathfolderForImage = Path.Combine(_env.WebRootPath, imageFolderName);
+            string pathfolderForPdf = Path.Combine(_env.WebRootPath, dtrFolderName);
             string pdfpath = Path.Combine(pathfolderForPdf, $"{FileName}");
 
             if (!Directory.Exists(pathfolderForImage))

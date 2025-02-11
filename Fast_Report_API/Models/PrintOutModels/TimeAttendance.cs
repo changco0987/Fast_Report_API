@@ -20,7 +20,7 @@
         public string first_time_out { get; set; }
         public string last_time_out { get; set; }
 
-        public string pdf_file_name { get; set; }
+        public string pdf_file_name { get; set;}
     }
 
     public class Record
